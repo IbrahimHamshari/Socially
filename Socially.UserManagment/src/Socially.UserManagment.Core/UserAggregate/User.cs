@@ -51,7 +51,7 @@ public class User : EntityBase<Guid>, IAggregateRoot
   // Change Password method
   public void ChangePassword(string currentPassword, string newPassword)
   {
-    if (!VerifyPassword(PasswordHash, currentPassword))
+    if (!VerifyPassword(currentPassword))
       throw new UnauthorizedAccessException("Current password is incorrect.");
 
     newPassword = Guard.Against.InvalidPasswordFormat(newPassword, nameof(newPassword));
@@ -87,10 +87,10 @@ public class User : EntityBase<Guid>, IAggregateRoot
   }
 
   // Verifies the provided password against the stored hashed password
-  private bool VerifyPassword(string hashedPasswordWithSalt, string providedPassword)
+  public bool VerifyPassword(string providedPassword)
   {
     // Split the stored value into the salt and the hashed password
-    var parts = hashedPasswordWithSalt.Split('.');
+    var parts = PasswordHash.Split('.');
     if (parts.Length != 2)
     {
       throw new FormatException("Unexpected hashed password format.");

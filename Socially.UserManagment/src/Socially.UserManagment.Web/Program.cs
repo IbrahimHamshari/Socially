@@ -1,7 +1,10 @@
 ﻿using System.Reflection;
+using System.Text;
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Extensions.Logging;
 using Socially.UserManagment.Core.ContributorAggregate;
@@ -9,6 +12,7 @@ using Socially.UserManagment.Core.Interfaces;
 using Socially.UserManagment.Infrastructure;
 using Socially.UserManagment.Infrastructure.Data;
 using Socially.UserManagment.Infrastructure.Email;
+using Socially.UserManagment.Shared.Config.JWT;
 using Socially.UserManagment.UseCases.Contributors.Create;
 
 var logger = Log.Logger = new LoggerConfiguration()
@@ -32,6 +36,25 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
+
+var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JWTSettings>();
+
+builder.Services.AddAuthentication()
+  .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+  {
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+      ValidateIssuer = true,
+      ValidIssuer = jwtOptions!.Issuer,
+      ValidateAudience = true,
+      ValidAudience = jwtOptions.Audience,
+      ValidateIssuerSigningKey = true,
+      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Secret)),
+    };
+
+  });
+builder.Services.AddSingleton<JWTSettings>();
 
 ConfigureMediatR();
 
@@ -71,8 +94,10 @@ app.UseHttpsRedirection();
 
 await SeedDatabase(app);
 
+app.UseAuthorization();
 
 app.MapControllers();
+
 
 
 app.Run();

@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
+using Socially.UserManagement.Core.UserAggregate;
+using Socially.UserManagment.Core.RefreshTokenAggregate;
 using Socially.UserManagment.Core.ContributorAggregate;
 
 namespace Socially.UserManagment.Infrastructure.Data;
@@ -15,8 +17,8 @@ public class AppDbContext : DbContext
     _dispatcher = dispatcher;
   }
 
-  public DbSet<Contributor> Contributors => Set<Contributor>();
-
+  public DbSet<User> Users => Set<User>();
+  public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
     base.OnModelCreating(modelBuilder);

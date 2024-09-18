@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Ardalis.Result;
 using Socially.UserManagement.Core.UserAggregate;
 
-namespace Socially.UserManagment.Core.Interfaces;
-public interface ICreateUserService
+namespace Socially.UserManagment.UseCases.Users.Login;
+public interface ILoginService
 {
-  public Task<Result<Guid>> CreateUser(User user);
+  Task<Result<string[]>> LoginAsync(User user , string password);
+
 }

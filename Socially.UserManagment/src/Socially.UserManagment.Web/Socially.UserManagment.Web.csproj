@@ -6,6 +6,7 @@
     <OutputType>Exe</OutputType>
     <WebProjectMode>true</WebProjectMode>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <UserSecretsId>8d876b3e-4c65-4abe-918c-c0922a33d203</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +14,7 @@
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="Ardalis.Result.AspNetCore" />
     <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Socially.UserManagment.Shared\Socially.UserManagment.Shared.csproj" />
     <ProjectReference Include="..\Socially.UserManagment.Infrastructure\Socially.UserManagment.Infrastructure.csproj" />
     <ProjectReference Include="..\Socially.UserManagment.UseCases\Socially.UserManagment.UseCases.csproj" />
   </ItemGroup>
