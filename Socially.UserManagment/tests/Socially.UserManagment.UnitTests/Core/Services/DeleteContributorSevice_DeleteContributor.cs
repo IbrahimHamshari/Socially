@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
-using Socially.UserManagment.Core.ContributorAggregate;
+
 using Socially.UserManagment.Core.Services;
 using Xunit;
 

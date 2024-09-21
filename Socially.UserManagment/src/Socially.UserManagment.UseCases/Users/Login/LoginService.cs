@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Socially.UserManagement.Core.UserAggregate;
 using Socially.UserManagment.Core.UserAggregate.Specifications;
 using Socially.UserManagment.Shared.Config.JWT;
+using Socially.UserManagment.UseCases.Users.Common;
 using Socially.UserManagment.UseCases.Users.Interfaces;
 
 namespace Socially.UserManagment.UseCases.Users.Login;
@@ -18,7 +19,7 @@ public class LoginService(
   ) : ILoginService
 {
 
-  public async Task<Result<string[]>> LoginAsync(User user, string password)
+  public async Task<Result<Tokens>> LoginAsync(User user, string password)
   {
     bool isEqual = user.VerifyPassword(password);
 
@@ -27,8 +28,13 @@ public class LoginService(
       return Result.Unauthorized();
     }
     Logger.LogInformation("User with ID of {id} has logged In", user.Id);
-    var refershToken = await TokenGenerator.GenerateRefreshToken(user);
-    var accessToken = TokenGenerator.GenerateAccessToken(user);
-    return Result.Success(new string[] { accessToken, refershToken.Token });
+    if (!user.IsActive)
+    {
+      return Result.Unauthorized();
+    }
+    user.RecordLogin();
+    var refershToken = await TokenGenerator.GenerateRefreshToken(user.Id);
+    var accessToken = TokenGenerator.GenerateAccessToken(user.Id);
+    return Result.Success(new Tokens { AccessToken= accessToken, RefreshToken= refershToken.Token });
   }
 }

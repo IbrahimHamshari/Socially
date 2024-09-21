@@ -9,33 +9,37 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Ardalis.Result;
+using Socially.UserManagment.UseCases.Exceptions;
+using Microsoft.Extensions.Options;
 
 
 namespace Socially.UserManagment.Infrastructure.Token;
 public class TokenGenerator : ITokenGenerator
 {
-  private readonly JWTSettings _jwtSettings; // Inject settings for JWT (key, expiry, etc.)
+  private readonly IOptionsMonitor<JWTSettings> _jwtSettings; // Inject settings for JWT (key, expiry, etc.)
   private readonly IRepository<RefreshToken> _repository;
 
-  public TokenGenerator(JWTSettings jwtSettings, IRepository<RefreshToken> repository)
+  public TokenGenerator(IOptionsMonitor<JWTSettings> jwtSettings, IRepository<RefreshToken> repository)
   {
     _jwtSettings = jwtSettings;
     _repository = repository;
   }
 
   // Generate the access token (short-lived, typically a JWT)
-  public string GenerateAccessToken(User user)
+  public string GenerateAccessToken(Guid userId)
   {
     var tokenHandler = new JwtSecurityTokenHandler();
-    var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
+    var key = Encoding.ASCII.GetBytes(_jwtSettings.CurrentValue.Secret);
     var tokenDescriptor = new SecurityTokenDescriptor
     {
+      Issuer = _jwtSettings.CurrentValue.Issuer,
+      Audience = _jwtSettings.CurrentValue.Audience,
       Subject = new ClaimsIdentity(new Claim[]
         {
-                new Claim(ClaimTypes.Name, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, userId.ToString())
         }),
-      Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.AccessTokenExpiryMinutes),
+      Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.CurrentValue.AccessTokenExpiryMinutes),
       SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
     };
 
@@ -45,7 +49,7 @@ public class TokenGenerator : ITokenGenerator
 
   // Generate the refresh token (long-lived)
   // Generate the refresh token (long-lived) with a family
-  public async Task<RefreshToken> GenerateRefreshToken(User user, string? parentToken = null)
+  public async Task<RefreshToken> GenerateRefreshToken(Guid userId, string? parentToken = null)
   {
     // Generate a new refresh token (e.g., 64-byte secure token)
     var refreshTokenString = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
@@ -60,15 +64,12 @@ public class TokenGenerator : ITokenGenerator
         ? (await _repository.FirstOrDefaultAsync(new GetByTokenSpec(parentToken)))
         : null;
     var parentTokenId = parentRefreshToken?.Id;
-    if (parentRefreshToken != null)
-    {
-      parentRefreshToken.Revoke();
-    }
+
     // Create the refresh token entity
     var refreshToken = new RefreshToken(
-        user.Id,
+        userId,
         refreshTokenString,
-        DateTimeOffset.UtcNow.AddDays(_jwtSettings.RefreshTokenExpiryDays),
+        DateTimeOffset.UtcNow.AddDays(_jwtSettings.CurrentValue.RefreshTokenExpiryDays),
         parentTokenId,
         familyId
     );
@@ -87,6 +88,7 @@ public class TokenGenerator : ITokenGenerator
     {
       throw new InvalidOperationException("Invalid or revoked parent token.");
     }
+    parent.Revoke();
     return parent.Family;
   }
 }

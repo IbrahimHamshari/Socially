@@ -9,6 +9,6 @@ using Socially.UserManagment.Core.RefreshTokenAggregate;
 namespace Socially.UserManagment.UseCases.Users.Interfaces;
 public interface ITokenGenerator
 {
-  string GenerateAccessToken(User user);
-  Task<RefreshToken> GenerateRefreshToken(User user, string? parentToken = null);
+  string GenerateAccessToken(Guid userId);
+  Task<RefreshToken> GenerateRefreshToken(Guid userId, string? parentToken = null);
 }

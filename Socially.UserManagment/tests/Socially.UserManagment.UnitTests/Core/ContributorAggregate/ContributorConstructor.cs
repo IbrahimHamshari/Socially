@@ -1,4 +1,4 @@
-﻿using Socially.UserManagment.Core.ContributorAggregate;
+﻿
 using Xunit;
 
 namespace Socially.UserManagment.UnitTests.Core.ContributorAggregate;

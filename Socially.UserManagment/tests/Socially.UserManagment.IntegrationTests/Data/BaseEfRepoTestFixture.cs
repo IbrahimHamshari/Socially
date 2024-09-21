@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
-using Socially.UserManagment.Core.ContributorAggregate;
+
 using Socially.UserManagment.Infrastructure.Data;
 
 namespace Socially.UserManagment.IntegrationTests.Data;

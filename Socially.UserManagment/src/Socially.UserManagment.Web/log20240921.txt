@@ -1,0 +1,1238 @@
+2024-09-21 00:05:40.021 +03:00 [INF] Executed DbCommand (154ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 00:05:40.417 +03:00 [INF] Executed DbCommand (82ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 00:05:40.605 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 00:05:40.846 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 00:05:40.849 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 00:05:40.851 +03:00 [INF] Hosting environment: Development
+2024-09-21 00:05:40.852 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 00:05:41.510 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 00:05:42.330 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 827.1906ms
+2024-09-21 00:05:42.428 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 00:05:42.436 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 8.1463ms
+2024-09-21 00:05:42.620 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 00:05:42.658 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 40.6528ms
+2024-09-21 00:05:42.845 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 00:05:42.919 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 74.1006ms
+2024-09-21 00:05:44.470 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 00:05:44.677 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 208.0297ms
+2024-09-21 00:06:54.839 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/register - application/json 168
+2024-09-21 00:06:54.865 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 00:06:54.905 +03:00 [INF] Route matched with {action = "Register", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Guid]] Register(Socially.UserManagment.UseCases.Users.Common.DTOs.UserRegistrationDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:06:55.001 +03:00 [INF] Handling RegisterUserCommand
+2024-09-21 00:06:55.056 +03:00 [INF] Property User : {"Username":"9KG4","Email":"user@example.com","Password":"xb%LsJSeFEJhgtG@4","FirstName":"nc7SPVBWhrki","LastName":"T2u8SxHCITj","Gender":true,"$type":"UserRegistrationDto"}
+2024-09-21 00:06:55.552 +03:00 [INF] Executed DbCommand (115ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?', @p3='?' (DbType = DateTime), @p4='?' (DbType = DateTime), @p5='?', @p6='?', @p7='?' (DbType = Boolean), @p8='?' (DbType = Boolean), @p9='?' (DbType = DateTime), @p10='?', @p11='?', @p12='?', @p13='?' (DbType = DateTime), @p14='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "Bio", "CoverPhotoURL", "CreatedAt", "DateOfBirth", "Email", "FirstName", "Gender", "IsActive", "LastLoginAt", "LastName", "PasswordHash", "ProfilePictureURL", "UpdatedAt", "Username")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14);
+2024-09-21 00:06:55.576 +03:00 [INF] Handled RegisterUserCommand with Ardalis.Result.Result`1[System.Guid] in 509 ms
+2024-09-21 00:06:55.593 +03:00 [INF] Executing CreatedAtActionResult, writing value of type 'System.Guid'.
+2024-09-21 00:06:55.646 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web) in 730.3433ms
+2024-09-21 00:06:55.717 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 00:06:55.733 +03:00 [INF] Request finished HTTP/2 POST https://localhost:57679/api/User/register - 201 null application/json; charset=utf-8 896.1584ms
+2024-09-21 00:07:15.385 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/login - application/json 59
+2024-09-21 00:07:15.394 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:07:15.401 +03:00 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.String]] Login(Socially.UserManagment.UseCases.Users.Common.DTOs.UserLoginDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:07:15.413 +03:00 [INF] Handling LoginCommand
+2024-09-21 00:07:15.415 +03:00 [INF] Property User : {"UserName":"9KG4","Password":"xb%LsJSeFEJhgtG@4","$type":"UserLoginDto"}
+2024-09-21 00:07:15.699 +03:00 [INF] Executed DbCommand (72ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 1
+2024-09-21 00:07:15.744 +03:00 [INF] User with ID of "f7238a31-f63e-42c1-8483-0fa5a9cf5b2c" has logged In
+2024-09-21 00:07:15.930 +03:00 [INF] Executed DbCommand (102ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Guid), @p9='?' (DbType = Guid), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "RefreshTokens" ("Id", "Expiration", "Family", "IsRevoked", "ParentTokenId", "RevokedAt", "Token", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE "Users" SET "LastLoginAt" = @p8
+WHERE "Id" = @p9;
+2024-09-21 00:07:16.245 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web) in 840.2383ms
+2024-09-21 00:07:16.252 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:07:16.259 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.ArgumentNullException: Value cannot be null. (Parameter 's')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.Text.Encoding.GetBytes(String s)
+   at Socially.UserManagment.Infrastructure.Token.TokenGenerator.GenerateAccessToken(Guid userId) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Infrastructure\Token\TokenGenerator.cs:line 32
+   at Socially.UserManagment.UseCases.Users.Login.LoginService.LoginAsync(User user, String password) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.UseCases\Users\Login\LoginService.cs:line 37
+   at Socially.UserManagment.UseCases.Users.Login.LoginCommandHandler.Handle(LoginCommand request, CancellationToken cancellationToken) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.UseCases\Users\Login\LoginCommandHandler.cs:line 25
+   at Ardalis.SharedKernel.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken)
+   at Socially.UserManagment.Web.Users.UserController.Login(UserLoginDto user) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web\Controllers\UserController.cs:line 39
+   at lambda_method170(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-21 00:07:16.370 +03:00 [INF] Request finished HTTP/2 POST https://localhost:57679/api/User/login - 500 null text/plain; charset=utf-8 984.4468ms
+2024-09-21 00:09:39.370 +03:00 [INF] Executed DbCommand (147ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 00:09:39.771 +03:00 [INF] Executed DbCommand (82ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 00:09:39.948 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 00:09:40.148 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 00:09:40.150 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 00:09:40.152 +03:00 [INF] Hosting environment: Development
+2024-09-21 00:09:40.153 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 00:09:40.764 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 00:09:41.218 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 460.3095ms
+2024-09-21 00:09:41.475 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 00:09:41.485 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 10.481ms
+2024-09-21 00:09:41.828 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 00:09:41.907 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 81.0446ms
+2024-09-21 00:09:42.054 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 00:09:42.207 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 152.9891ms
+2024-09-21 00:09:43.352 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 00:09:43.514 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 163.0882ms
+2024-09-21 00:10:06.577 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/register - application/json 152
+2024-09-21 00:10:06.603 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 00:10:06.653 +03:00 [INF] Route matched with {action = "Register", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Guid]] Register(Socially.UserManagment.UseCases.Users.Common.DTOs.UserRegistrationDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:10:06.771 +03:00 [INF] Handling RegisterUserCommand
+2024-09-21 00:10:06.780 +03:00 [INF] Property User : {"Username":"test","Email":"user@example.com","Password":"Test@123","FirstName":"h5a2g","LastName":"cdp1KQGWhei","Gender":true,"$type":"UserRegistrationDto"}
+2024-09-21 00:10:07.352 +03:00 [INF] Executed DbCommand (103ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?', @p3='?' (DbType = DateTime), @p4='?' (DbType = DateTime), @p5='?', @p6='?', @p7='?' (DbType = Boolean), @p8='?' (DbType = Boolean), @p9='?' (DbType = DateTime), @p10='?', @p11='?', @p12='?', @p13='?' (DbType = DateTime), @p14='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "Bio", "CoverPhotoURL", "CreatedAt", "DateOfBirth", "Email", "FirstName", "Gender", "IsActive", "LastLoginAt", "LastName", "PasswordHash", "ProfilePictureURL", "UpdatedAt", "Username")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14);
+2024-09-21 00:10:07.386 +03:00 [INF] Handled RegisterUserCommand with Ardalis.Result.Result`1[System.Guid] in 579 ms
+2024-09-21 00:10:07.410 +03:00 [INF] Executing CreatedAtActionResult, writing value of type 'System.Guid'.
+2024-09-21 00:10:07.468 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web) in 798.0081ms
+2024-09-21 00:10:07.472 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 00:10:07.491 +03:00 [INF] Request finished HTTP/2 POST https://localhost:57679/api/User/register - 201 null application/json; charset=utf-8 913.8445ms
+2024-09-21 00:10:12.310 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/login - application/json 66
+2024-09-21 00:10:12.318 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:10:12.329 +03:00 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.String]] Login(Socially.UserManagment.UseCases.Users.Common.DTOs.UserLoginDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:10:12.351 +03:00 [INF] Handling LoginCommand
+2024-09-21 00:10:12.354 +03:00 [INF] Property User : {"UserName":"ZljQEK4mcp1LY1N7","Password":"UiBd?go$0xXF","$type":"UserLoginDto"}
+2024-09-21 00:10:12.700 +03:00 [INF] Executed DbCommand (73ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 1
+2024-09-21 00:10:12.728 +03:00 [INF] Handled LoginCommand with Ardalis.Result.Result`1[Socially.UserManagment.UseCases.Users.Common.Tokens] in 363 ms
+2024-09-21 00:10:12.734 +03:00 [INF] Executing BadRequestObjectResult, writing value of type 'System.String[]'.
+2024-09-21 00:10:12.749 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web) in 411.0106ms
+2024-09-21 00:10:12.753 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:10:12.756 +03:00 [INF] Request finished HTTP/2 POST https://localhost:57679/api/User/login - 400 null application/json; charset=utf-8 445.8719ms
+2024-09-21 00:10:16.384 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/login - application/json 66
+2024-09-21 00:10:16.391 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:10:16.394 +03:00 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.String]] Login(Socially.UserManagment.UseCases.Users.Common.DTOs.UserLoginDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:10:16.402 +03:00 [INF] Handling LoginCommand
+2024-09-21 00:10:16.404 +03:00 [INF] Property User : {"UserName":"ZljQEK4mcp1LY1N7","Password":"UiBd?go$0xXF","$type":"UserLoginDto"}
+2024-09-21 00:10:16.508 +03:00 [INF] Executed DbCommand (78ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 1
+2024-09-21 00:10:16.515 +03:00 [INF] Handled LoginCommand with Ardalis.Result.Result`1[Socially.UserManagment.UseCases.Users.Common.Tokens] in 96 ms
+2024-09-21 00:10:16.517 +03:00 [INF] Executing BadRequestObjectResult, writing value of type 'System.String[]'.
+2024-09-21 00:10:16.521 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web) in 120.2284ms
+2024-09-21 00:10:16.526 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:10:16.528 +03:00 [INF] Request finished HTTP/2 POST https://localhost:57679/api/User/login - 400 null application/json; charset=utf-8 144.993ms
+2024-09-21 00:10:26.771 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/login - application/json 50
+2024-09-21 00:10:26.780 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:10:26.782 +03:00 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.String]] Login(Socially.UserManagment.UseCases.Users.Common.DTOs.UserLoginDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:10:26.789 +03:00 [INF] Handling LoginCommand
+2024-09-21 00:10:26.792 +03:00 [INF] Property User : {"UserName":"test","Password":"Test@123","$type":"UserLoginDto"}
+2024-09-21 00:10:26.887 +03:00 [INF] Executed DbCommand (74ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 1
+2024-09-21 00:10:26.934 +03:00 [INF] User with ID of "e31795d1-288d-4c1f-ac62-a205947db6ea" has logged In
+2024-09-21 00:10:27.117 +03:00 [INF] Executed DbCommand (74ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Guid), @p9='?' (DbType = Guid), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "RefreshTokens" ("Id", "Expiration", "Family", "IsRevoked", "ParentTokenId", "RevokedAt", "Token", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE "Users" SET "LastLoginAt" = @p8
+WHERE "Id" = @p9;
+2024-09-21 00:10:27.573 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web) in 787.4995ms
+2024-09-21 00:10:27.577 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:10:27.586 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.ArgumentNullException: Value cannot be null. (Parameter 's')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.Text.Encoding.GetBytes(String s)
+   at Socially.UserManagment.Infrastructure.Token.TokenGenerator.GenerateAccessToken(Guid userId) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Infrastructure\Token\TokenGenerator.cs:line 33
+   at Socially.UserManagment.UseCases.Users.Login.LoginService.LoginAsync(User user, String password) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.UseCases\Users\Login\LoginService.cs:line 37
+   at Socially.UserManagment.UseCases.Users.Login.LoginCommandHandler.Handle(LoginCommand request, CancellationToken cancellationToken) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.UseCases\Users\Login\LoginCommandHandler.cs:line 25
+   at Ardalis.SharedKernel.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken)
+   at Socially.UserManagment.Web.Users.UserController.Login(UserLoginDto user) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web\Controllers\UserController.cs:line 39
+   at lambda_method170(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-21 00:10:27.648 +03:00 [INF] Request finished HTTP/2 POST https://localhost:57679/api/User/login - 500 null text/plain; charset=utf-8 877.9191ms
+2024-09-21 00:11:45.811 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/login - application/json 50
+2024-09-21 00:11:45.826 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:11:45.828 +03:00 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.String]] Login(Socially.UserManagment.UseCases.Users.Common.DTOs.UserLoginDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:11:45.830 +03:00 [INF] Handling LoginCommand
+2024-09-21 00:11:45.832 +03:00 [INF] Property User : {"UserName":"test","Password":"Test@123","$type":"UserLoginDto"}
+2024-09-21 00:11:45.913 +03:00 [INF] Executed DbCommand (72ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 1
+2024-09-21 00:11:45.957 +03:00 [INF] User with ID of "e31795d1-288d-4c1f-ac62-a205947db6ea" has logged In
+2024-09-21 00:11:46.040 +03:00 [INF] Executed DbCommand (75ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Guid), @p9='?' (DbType = Guid), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "RefreshTokens" ("Id", "Expiration", "Family", "IsRevoked", "ParentTokenId", "RevokedAt", "Token", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE "Users" SET "LastLoginAt" = @p8
+WHERE "Id" = @p9;
+2024-09-21 00:12:36.350 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web) in 50520.6995ms
+2024-09-21 00:12:36.355 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:12:36.360 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.ArgumentNullException: Value cannot be null. (Parameter 's')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.Text.Encoding.GetBytes(String s)
+   at Socially.UserManagment.Infrastructure.Token.TokenGenerator.GenerateAccessToken(Guid userId) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Infrastructure\Token\TokenGenerator.cs:line 33
+   at Socially.UserManagment.UseCases.Users.Login.LoginService.LoginAsync(User user, String password) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.UseCases\Users\Login\LoginService.cs:line 37
+   at Socially.UserManagment.UseCases.Users.Login.LoginCommandHandler.Handle(LoginCommand request, CancellationToken cancellationToken) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.UseCases\Users\Login\LoginCommandHandler.cs:line 25
+   at Ardalis.SharedKernel.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken)
+   at Socially.UserManagment.Web.Users.UserController.Login(UserLoginDto user) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web\Controllers\UserController.cs:line 39
+   at lambda_method170(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-21 00:12:36.374 +03:00 [INF] Request finished HTTP/2 POST https://localhost:57679/api/User/login - 500 null text/plain; charset=utf-8 50563.6543ms
+2024-09-21 00:12:38.539 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/login - application/json 50
+2024-09-21 00:12:38.547 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:12:38.551 +03:00 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.String]] Login(Socially.UserManagment.UseCases.Users.Common.DTOs.UserLoginDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:12:38.556 +03:00 [INF] Handling LoginCommand
+2024-09-21 00:12:38.557 +03:00 [INF] Property User : {"UserName":"test","Password":"Test@123","$type":"UserLoginDto"}
+2024-09-21 00:12:38.641 +03:00 [INF] Executed DbCommand (76ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 1
+2024-09-21 00:12:38.676 +03:00 [INF] User with ID of "e31795d1-288d-4c1f-ac62-a205947db6ea" has logged In
+2024-09-21 00:12:38.783 +03:00 [INF] Executed DbCommand (102ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Guid), @p9='?' (DbType = Guid), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "RefreshTokens" ("Id", "Expiration", "Family", "IsRevoked", "ParentTokenId", "RevokedAt", "Token", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE "Users" SET "LastLoginAt" = @p8
+WHERE "Id" = @p9;
+2024-09-21 00:12:39.176 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web) in 620.7393ms
+2024-09-21 00:12:39.182 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:12:39.186 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.ArgumentNullException: Value cannot be null. (Parameter 's')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.Text.Encoding.GetBytes(String s)
+   at Socially.UserManagment.Infrastructure.Token.TokenGenerator.GenerateAccessToken(Guid userId) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Infrastructure\Token\TokenGenerator.cs:line 33
+   at Socially.UserManagment.UseCases.Users.Login.LoginService.LoginAsync(User user, String password) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.UseCases\Users\Login\LoginService.cs:line 37
+   at Socially.UserManagment.UseCases.Users.Login.LoginCommandHandler.Handle(LoginCommand request, CancellationToken cancellationToken) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.UseCases\Users\Login\LoginCommandHandler.cs:line 25
+   at Ardalis.SharedKernel.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken)
+   at Socially.UserManagment.Web.Users.UserController.Login(UserLoginDto user) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web\Controllers\UserController.cs:line 39
+   at lambda_method170(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-21 00:12:39.201 +03:00 [INF] Request finished HTTP/2 POST https://localhost:57679/api/User/login - 500 null text/plain; charset=utf-8 664.3467ms
+2024-09-21 00:12:47.448 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/login - application/json 50
+2024-09-21 00:12:47.454 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:12:47.457 +03:00 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.String]] Login(Socially.UserManagment.UseCases.Users.Common.DTOs.UserLoginDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:12:47.461 +03:00 [INF] Handling LoginCommand
+2024-09-21 00:12:47.463 +03:00 [INF] Property User : {"UserName":"test","Password":"Test@123","$type":"UserLoginDto"}
+2024-09-21 00:12:47.546 +03:00 [INF] Executed DbCommand (73ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 1
+2024-09-21 00:12:47.581 +03:00 [INF] User with ID of "e31795d1-288d-4c1f-ac62-a205947db6ea" has logged In
+2024-09-21 00:12:47.659 +03:00 [INF] Executed DbCommand (73ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Guid), @p9='?' (DbType = Guid), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "RefreshTokens" ("Id", "Expiration", "Family", "IsRevoked", "ParentTokenId", "RevokedAt", "Token", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE "Users" SET "LastLoginAt" = @p8
+WHERE "Id" = @p9;
+2024-09-21 00:12:56.004 +03:00 [INF] Executed DbCommand (153ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 00:12:56.421 +03:00 [INF] Executed DbCommand (85ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 00:12:56.577 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 00:12:56.775 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 00:12:56.779 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 00:12:56.781 +03:00 [INF] Hosting environment: Development
+2024-09-21 00:12:56.788 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 00:12:57.431 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 00:12:58.135 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 709.7575ms
+2024-09-21 00:12:58.339 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 00:12:58.343 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 00:12:58.350 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 00:12:58.375 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 34.231ms
+2024-09-21 00:12:58.387 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 48.8505ms
+2024-09-21 00:12:58.690 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 340.6291ms
+2024-09-21 00:12:59.213 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 00:12:59.572 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 362.1345ms
+2024-09-21 00:13:19.689 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/login - application/json 50
+2024-09-21 00:13:19.717 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:13:19.765 +03:00 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.String]] Login(Socially.UserManagment.UseCases.Users.Common.DTOs.UserLoginDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:13:19.883 +03:00 [INF] Handling LoginCommand
+2024-09-21 00:13:19.891 +03:00 [INF] Property User : {"UserName":"test","Password":"Test@123","$type":"UserLoginDto"}
+2024-09-21 00:13:20.250 +03:00 [INF] Executed DbCommand (96ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 1
+2024-09-21 00:13:20.461 +03:00 [INF] User with ID of "e31795d1-288d-4c1f-ac62-a205947db6ea" has logged In
+2024-09-21 00:13:20.899 +03:00 [INF] Executed DbCommand (79ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Guid), @p9='?' (DbType = Guid), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "RefreshTokens" ("Id", "Expiration", "Family", "IsRevoked", "ParentTokenId", "RevokedAt", "Token", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE "Users" SET "LastLoginAt" = @p8
+WHERE "Id" = @p9;
+2024-09-21 00:18:58.152 +03:00 [INF] Executed DbCommand (160ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 00:18:58.552 +03:00 [INF] Executed DbCommand (79ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 00:18:58.819 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 00:18:59.062 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 00:18:59.066 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 00:18:59.067 +03:00 [INF] Hosting environment: Development
+2024-09-21 00:18:59.069 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 00:18:59.887 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 00:19:00.338 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 460.9445ms
+2024-09-21 00:19:00.532 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 00:19:00.662 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 00:19:00.665 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 00:19:00.996 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 477.316ms
+2024-09-21 00:19:01.105 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 586.141ms
+2024-09-21 00:19:01.264 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 745.7617ms
+2024-09-21 00:19:02.323 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 00:19:02.781 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 594.0062ms
+2024-09-21 00:19:11.877 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/login - application/json 50
+2024-09-21 00:19:11.896 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:19:11.938 +03:00 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.String]] Login(Socially.UserManagment.UseCases.Users.Common.DTOs.UserLoginDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:19:12.038 +03:00 [INF] Handling LoginCommand
+2024-09-21 00:19:12.051 +03:00 [INF] Property User : {"UserName":"test","Password":"Test@123","$type":"UserLoginDto"}
+2024-09-21 00:19:12.347 +03:00 [INF] Executed DbCommand (92ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 1
+2024-09-21 00:19:12.531 +03:00 [INF] User with ID of "e31795d1-288d-4c1f-ac62-a205947db6ea" has logged In
+2024-09-21 00:19:12.985 +03:00 [INF] Executed DbCommand (83ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Guid), @p9='?' (DbType = Guid), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "RefreshTokens" ("Id", "Expiration", "Family", "IsRevoked", "ParentTokenId", "RevokedAt", "Token", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE "Users" SET "LastLoginAt" = @p8
+WHERE "Id" = @p9;
+2024-09-21 00:19:13.183 +03:00 [INF] Handled LoginCommand with Ardalis.Result.Result`1[Socially.UserManagment.UseCases.Users.Common.Tokens] in 1118 ms
+2024-09-21 00:19:13.201 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-09-21 00:19:13.214 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web) in 1261.3401ms
+2024-09-21 00:19:13.222 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:19:13.241 +03:00 [INF] Request finished HTTP/2 POST https://localhost:57679/api/User/login - 200 null text/plain; charset=utf-8 1364.4153ms
+2024-09-21 00:31:18.264 +03:00 [INF] Executed DbCommand (157ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 00:31:18.661 +03:00 [INF] Executed DbCommand (82ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 00:31:18.842 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 00:31:19.058 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 00:31:19.061 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 00:31:19.064 +03:00 [INF] Hosting environment: Development
+2024-09-21 00:31:19.066 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 00:31:19.972 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 00:31:20.730 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 765.4482ms
+2024-09-21 00:31:21.253 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 00:31:21.264 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 12.8603ms
+2024-09-21 00:31:21.318 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 00:31:21.432 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 114.2286ms
+2024-09-21 00:31:21.799 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 00:31:21.986 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 188.3781ms
+2024-09-21 00:31:23.972 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 00:31:24.296 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 324.549ms
+2024-09-21 00:33:13.287 +03:00 [INF] Executed DbCommand (151ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 00:33:13.697 +03:00 [INF] Executed DbCommand (89ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 00:33:13.870 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 00:33:14.076 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 00:33:14.078 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 00:33:14.080 +03:00 [INF] Hosting environment: Development
+2024-09-21 00:33:14.082 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 00:33:14.657 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 00:33:15.220 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 570.1209ms
+2024-09-21 00:33:15.690 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 00:33:15.698 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 11.8042ms
+2024-09-21 00:33:15.890 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 00:33:15.911 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 20.9331ms
+2024-09-21 00:33:16.160 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 00:33:16.224 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 64.662ms
+2024-09-21 00:33:17.418 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 00:33:17.572 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 153.9676ms
+2024-09-21 00:36:47.395 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:57679/api/User - null null
+2024-09-21 00:36:47.421 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-21 00:36:47.430 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-21 00:36:47.449 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:57679/api/User - 401 0 null 54.8686ms
+2024-09-21 00:37:00.747 +03:00 [INF] Request starting HTTP/2 POST https://localhost:57679/api/User/login - application/json 50
+2024-09-21 00:37:00.771 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:37:00.831 +03:00 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.String]] Login(Socially.UserManagment.UseCases.Users.Common.DTOs.UserLoginDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:37:00.951 +03:00 [INF] Handling LoginCommand
+2024-09-21 00:37:00.960 +03:00 [INF] Property User : {"UserName":"test","Password":"Test@123","$type":"UserLoginDto"}
+2024-09-21 00:37:01.328 +03:00 [INF] Executed DbCommand (113ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 1
+2024-09-21 00:37:01.628 +03:00 [INF] User with ID of "e31795d1-288d-4c1f-ac62-a205947db6ea" has logged In
+2024-09-21 00:37:02.825 +03:00 [INF] Executed DbCommand (136ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Guid), @p9='?' (DbType = Guid), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "RefreshTokens" ("Id", "Expiration", "Family", "IsRevoked", "ParentTokenId", "RevokedAt", "Token", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE "Users" SET "LastLoginAt" = @p8
+WHERE "Id" = @p9;
+2024-09-21 00:37:03.051 +03:00 [INF] Handled LoginCommand with Ardalis.Result.Result`1[Socially.UserManagment.UseCases.Users.Common.Tokens] in 2077 ms
+2024-09-21 00:37:03.072 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-09-21 00:37:03.083 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web) in 2239.825ms
+2024-09-21 00:37:03.088 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:37:03.103 +03:00 [INF] Request finished HTTP/2 POST https://localhost:57679/api/User/login - 200 null text/plain; charset=utf-8 2355.5507ms
+2024-09-21 00:40:21.436 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:57679/api/User - null null
+2024-09-21 00:40:21.502 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidAudienceException: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateAudience(IEnumerable`1 audiences, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 00:40:21.532 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+2024-09-21 00:40:21.536 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-21 00:40:21.540 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-21 00:40:21.543 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:57679/api/User - 401 0 null 107.7384ms
+2024-09-21 00:40:23.840 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:57679/api/User - null null
+2024-09-21 00:40:23.850 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidAudienceException: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateAudience(IEnumerable`1 audiences, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 00:40:23.855 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+2024-09-21 00:40:23.862 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-21 00:40:23.873 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-21 00:40:23.877 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:57679/api/User - 401 0 null 36.63ms
+2024-09-21 00:40:34.463 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:57679/api/User - null null
+2024-09-21 00:40:34.471 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidAudienceException: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateAudience(IEnumerable`1 audiences, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 00:40:34.476 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+2024-09-21 00:40:34.479 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-21 00:40:34.481 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-21 00:40:34.487 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:57679/api/User - 401 0 null 23.9619ms
+2024-09-21 00:48:47.010 +03:00 [INF] Executed DbCommand (162ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 00:48:47.419 +03:00 [INF] Executed DbCommand (89ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 00:48:47.603 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 00:48:47.818 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 00:48:47.821 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 00:48:47.822 +03:00 [INF] Hosting environment: Development
+2024-09-21 00:48:47.824 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 00:48:49.036 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 00:48:49.506 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 485.7654ms
+2024-09-21 00:48:50.105 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 00:48:50.105 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 00:48:50.106 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 00:48:50.301 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 195.9572ms
+2024-09-21 00:48:50.313 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 208.3714ms
+2024-09-21 00:48:50.576 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 469.9683ms
+2024-09-21 00:48:50.953 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 00:48:51.452 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 498.956ms
+2024-09-21 00:49:08.642 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:57679/api/User - null null
+2024-09-21 00:49:08.962 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidAudienceException: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateAudience(IEnumerable`1 audiences, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 00:49:09.014 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+2024-09-21 00:49:09.036 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-21 00:49:09.058 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-21 00:49:09.085 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:57679/api/User - 401 0 null 442.7907ms
+2024-09-21 00:50:44.604 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:57679/api/User - null null
+2024-09-21 00:50:44.615 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidAudienceException: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateAudience(IEnumerable`1 audiences, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 00:50:44.619 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+2024-09-21 00:50:44.624 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-21 00:50:44.627 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-21 00:50:44.629 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:57679/api/User - 401 0 null 25.7972ms
+2024-09-21 00:50:45.855 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:57679/api/User - null null
+2024-09-21 00:50:45.862 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidAudienceException: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateAudience(IEnumerable`1 audiences, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 00:50:45.868 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+2024-09-21 00:50:45.872 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-21 00:50:45.874 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-21 00:50:45.875 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:57679/api/User - 401 0 null 20.8779ms
+2024-09-21 00:50:46.884 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:57679/api/User - null null
+2024-09-21 00:50:46.894 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidAudienceException: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateAudience(IEnumerable`1 audiences, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 00:50:46.900 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+2024-09-21 00:50:46.902 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-21 00:50:46.904 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-21 00:50:46.905 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:57679/api/User - 401 0 null 21.8625ms
+2024-09-21 00:55:13.922 +03:00 [INF] Executed DbCommand (154ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 00:55:14.334 +03:00 [INF] Executed DbCommand (91ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 00:55:14.508 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 00:55:14.714 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 00:55:14.716 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 00:55:14.717 +03:00 [INF] Hosting environment: Development
+2024-09-21 00:55:14.719 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 00:55:15.388 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 00:55:15.630 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 249.589ms
+2024-09-21 00:55:15.904 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 00:55:15.915 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 12.6556ms
+2024-09-21 00:55:16.533 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 00:55:16.555 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 21.6206ms
+2024-09-21 00:55:16.611 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 00:55:16.782 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 172.011ms
+2024-09-21 00:55:18.407 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 00:55:18.593 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 186.2619ms
+2024-09-21 00:55:43.265 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:57679/api/User - application/json 55
+2024-09-21 00:55:43.463 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidAudienceException: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateAudience(IEnumerable`1 audiences, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 00:55:43.495 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+2024-09-21 00:55:43.501 +03:00 [INF] Executing endpoint '405 HTTP Method Not Supported'
+2024-09-21 00:55:43.503 +03:00 [INF] Executed endpoint '405 HTTP Method Not Supported'
+2024-09-21 00:55:43.518 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:57679/api/User - 405 0 null 253.267ms
+2024-09-21 00:55:53.112 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:57679/api/User/Login - application/json 55
+2024-09-21 00:55:53.124 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidAudienceException: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateAudience(IEnumerable`1 audiences, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 00:55:53.127 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10206: Unable to validate audience. The 'audiences' parameter is empty.
+2024-09-21 00:55:53.129 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:55:53.167 +03:00 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.String]] Login(Socially.UserManagment.UseCases.Users.Common.DTOs.UserLoginDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:55:53.270 +03:00 [INF] Handling LoginCommand
+2024-09-21 00:55:53.277 +03:00 [INF] Property User : {"UserName":"test","Password":"Test@123","$type":"UserLoginDto"}
+2024-09-21 00:55:53.605 +03:00 [INF] Executed DbCommand (94ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 1
+2024-09-21 00:55:53.804 +03:00 [INF] User with ID of "e31795d1-288d-4c1f-ac62-a205947db6ea" has logged In
+2024-09-21 00:55:54.211 +03:00 [INF] Executed DbCommand (86ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Guid), @p9='?' (DbType = Guid), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "RefreshTokens" ("Id", "Expiration", "Family", "IsRevoked", "ParentTokenId", "RevokedAt", "Token", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE "Users" SET "LastLoginAt" = @p8
+WHERE "Id" = @p9;
+2024-09-21 00:55:54.363 +03:00 [INF] Handled LoginCommand with Ardalis.Result.Result`1[Socially.UserManagment.UseCases.Users.Common.Tokens] in 1072 ms
+2024-09-21 00:55:54.378 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-09-21 00:55:54.389 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web) in 1211.4471ms
+2024-09-21 00:55:54.393 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Login (Socially.UserManagment.Web)'
+2024-09-21 00:55:54.402 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:57679/api/User/Login - 200 null text/plain; charset=utf-8 1290.1708ms
+2024-09-21 00:56:06.901 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:57679/api/User - null null
+2024-09-21 00:56:06.945 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Get (Socially.UserManagment.Web)'
+2024-09-21 00:56:06.961 +03:00 [INF] Route matched with {action = "Get", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Socially.UserManagment.UseCases.Users.Common.DTOs.UserDto]] Get() on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:56:06.974 +03:00 [INF] Handling GetUserQuery
+2024-09-21 00:56:06.980 +03:00 [INF] Property Id : "e31795d1-288d-4c1f-ac62-a205947db6ea"
+2024-09-21 00:56:07.184 +03:00 [INF] Executed DbCommand (77ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Id" = @__id_0
+LIMIT 1
+2024-09-21 00:56:07.195 +03:00 [INF] Handled GetUserQuery with Ardalis.Result.Result`1[Socially.UserManagment.UseCases.Users.Common.DTOs.UserDto] in 211 ms
+2024-09-21 00:56:07.202 +03:00 [INF] Executing OkObjectResult, writing value of type 'Socially.UserManagment.UseCases.Users.Common.DTOs.UserDto'.
+2024-09-21 00:56:07.248 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Get (Socially.UserManagment.Web) in 278.2998ms
+2024-09-21 00:56:07.258 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Get (Socially.UserManagment.Web)'
+2024-09-21 00:56:07.262 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:57679/api/User - 200 null application/json; charset=utf-8 361.6852ms
+2024-09-21 00:57:35.515 +03:00 [INF] Executed DbCommand (153ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 00:57:35.920 +03:00 [INF] Executed DbCommand (80ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 00:57:36.085 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 00:57:36.298 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 00:57:36.302 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 00:57:36.304 +03:00 [INF] Hosting environment: Development
+2024-09-21 00:57:36.306 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 00:57:37.125 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 00:57:37.597 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 479.9732ms
+2024-09-21 00:57:37.652 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 00:57:37.652 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 00:57:37.662 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 13.0287ms
+2024-09-21 00:57:37.670 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 00:57:37.678 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 27.2158ms
+2024-09-21 00:57:37.767 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 97.9418ms
+2024-09-21 00:57:38.476 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 00:57:38.753 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 276.5728ms
+2024-09-21 00:58:22.711 +03:00 [INF] Request starting HTTP/1.1 PATCH https://localhost:57679/api/User - application/json 28
+2024-09-21 00:58:22.907 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.UpdateUser (Socially.UserManagment.Web)'
+2024-09-21 00:58:22.934 +03:00 [INF] Route matched with {action = "UpdateUser", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Socially.UserManagment.UseCases.Users.Common.DTOs.UserUpdateDto]] UpdateUser(Socially.UserManagment.UseCases.Users.Common.DTOs.UserUpdateDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:58:23.029 +03:00 [INF] Handling UpdateUserCommand
+2024-09-21 00:58:23.032 +03:00 [INF] Property Id : "e31795d1-288d-4c1f-ac62-a205947db6ea"
+2024-09-21 00:58:23.037 +03:00 [INF] Property UserDto : {"Id":null,"Email":null,"FirstName":null,"LastName":null,"Bio":null,"ProfilePictureURL":null,"CoverPhotoURL":null,"DateOfBirth":null,"Gender":null,"$type":"UserUpdateDto"}
+2024-09-21 00:58:23.350 +03:00 [INF] Executed DbCommand (86ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Id" = @__get_Item_0
+LIMIT 1
+2024-09-21 00:58:23.543 +03:00 [INF] Handled UpdateUserCommand with Ardalis.Result.Result`1[Socially.UserManagment.UseCases.Users.Common.DTOs.UserUpdateDto] in 493 ms
+2024-09-21 00:58:23.671 +03:00 [INF] Executing OkObjectResult, writing value of type 'Socially.UserManagment.UseCases.Users.Common.DTOs.UserUpdateDto'.
+2024-09-21 00:58:23.711 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.UpdateUser (Socially.UserManagment.Web) in 768.7225ms
+2024-09-21 00:58:23.720 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.UpdateUser (Socially.UserManagment.Web)'
+2024-09-21 00:58:23.733 +03:00 [INF] Request finished HTTP/1.1 PATCH https://localhost:57679/api/User - 200 null application/json; charset=utf-8 1021.4307ms
+2024-09-21 00:58:42.814 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:57679/api/User - null null
+2024-09-21 00:58:42.824 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Get (Socially.UserManagment.Web)'
+2024-09-21 00:58:42.833 +03:00 [INF] Route matched with {action = "Get", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Socially.UserManagment.UseCases.Users.Common.DTOs.UserDto]] Get() on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:58:42.841 +03:00 [INF] Handling GetUserQuery
+2024-09-21 00:58:42.843 +03:00 [INF] Property Id : "e31795d1-288d-4c1f-ac62-a205947db6ea"
+2024-09-21 00:58:43.067 +03:00 [INF] Executed DbCommand (75ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Id" = @__id_0
+LIMIT 1
+2024-09-21 00:58:43.075 +03:00 [INF] Handled GetUserQuery with Ardalis.Result.Result`1[Socially.UserManagment.UseCases.Users.Common.DTOs.UserDto] in 230 ms
+2024-09-21 00:58:43.081 +03:00 [INF] Executing OkObjectResult, writing value of type 'Socially.UserManagment.UseCases.Users.Common.DTOs.UserDto'.
+2024-09-21 00:58:43.102 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Get (Socially.UserManagment.Web) in 263.8239ms
+2024-09-21 00:58:43.109 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Get (Socially.UserManagment.Web)'
+2024-09-21 00:58:43.112 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:57679/api/User - 200 null application/json; charset=utf-8 297.9547ms
+2024-09-21 00:58:44.402 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:57679/api/User - null null
+2024-09-21 00:58:44.415 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Get (Socially.UserManagment.Web)'
+2024-09-21 00:58:44.417 +03:00 [INF] Route matched with {action = "Get", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Socially.UserManagment.UseCases.Users.Common.DTOs.UserDto]] Get() on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 00:58:44.423 +03:00 [INF] Handling GetUserQuery
+2024-09-21 00:58:44.426 +03:00 [INF] Property Id : "e31795d1-288d-4c1f-ac62-a205947db6ea"
+2024-09-21 00:58:44.511 +03:00 [INF] Executed DbCommand (74ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Bio", u."CoverPhotoURL", u."CreatedAt", u."DateOfBirth", u."Email", u."FirstName", u."Gender", u."IsActive", u."LastLoginAt", u."LastName", u."PasswordHash", u."ProfilePictureURL", u."UpdatedAt", u."Username"
+FROM "Users" AS u
+WHERE u."Id" = @__id_0
+LIMIT 1
+2024-09-21 00:58:44.518 +03:00 [INF] Handled GetUserQuery with Ardalis.Result.Result`1[Socially.UserManagment.UseCases.Users.Common.DTOs.UserDto] in 89 ms
+2024-09-21 00:58:44.524 +03:00 [INF] Executing OkObjectResult, writing value of type 'Socially.UserManagment.UseCases.Users.Common.DTOs.UserDto'.
+2024-09-21 00:58:44.527 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Get (Socially.UserManagment.Web) in 104.4816ms
+2024-09-21 00:58:44.530 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Get (Socially.UserManagment.Web)'
+2024-09-21 00:58:44.532 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:57679/api/User - 200 null application/json; charset=utf-8 129.9258ms
+2024-09-21 21:14:57.044 +03:00 [INF] Executed DbCommand (134ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 21:14:57.319 +03:00 [INF] Executed DbCommand (82ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 21:14:57.443 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 21:14:57.617 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 21:14:57.620 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 21:14:57.621 +03:00 [INF] Hosting environment: Development
+2024-09-21 21:14:57.621 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 21:14:58.209 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 21:14:58.374 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 169.5819ms
+2024-09-21 21:14:58.415 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 21:14:58.416 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 21:14:58.426 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 11.3538ms
+2024-09-21 21:14:58.421 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 21:14:58.467 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 51.7553ms
+2024-09-21 21:14:58.514 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 92.8978ms
+2024-09-21 21:14:59.048 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 21:14:59.147 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 100.0136ms
+2024-09-21 21:16:04.690 +03:00 [INF] Executed DbCommand (129ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 21:16:04.962 +03:00 [INF] Executed DbCommand (81ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 21:16:05.069 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 21:16:05.178 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 21:16:05.179 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 21:16:05.180 +03:00 [INF] Hosting environment: Development
+2024-09-21 21:16:05.180 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 21:16:05.480 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 21:16:05.609 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 133.2879ms
+2024-09-21 21:16:05.639 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 21:16:05.639 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 21:16:05.642 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 3.4199ms
+2024-09-21 21:16:05.646 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 21:16:05.654 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 14.5842ms
+2024-09-21 21:16:05.685 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 39.4226ms
+2024-09-21 21:16:06.456 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 21:16:06.530 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 74.4889ms
+2024-09-21 23:46:39.739 +03:00 [INF] Executed DbCommand (176ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 23:46:40.172 +03:00 [INF] Executed DbCommand (87ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 23:46:40.369 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 23:46:40.654 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 23:46:40.656 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 23:46:40.658 +03:00 [INF] Hosting environment: Development
+2024-09-21 23:46:40.661 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 23:46:41.686 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 23:46:42.046 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 370.8076ms
+2024-09-21 23:46:42.191 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 23:46:42.199 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 8.0019ms
+2024-09-21 23:46:42.289 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 23:46:42.306 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 17.2826ms
+2024-09-21 23:46:42.415 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 23:46:42.492 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 77.4844ms
+2024-09-21 23:46:44.420 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 23:46:44.617 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 197.5221ms
+2024-09-21 23:52:42.362 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:57679/api/User/register - application/json 152
+2024-09-21 23:52:42.569 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:52:42'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 23:52:42.596 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:52:42'.
+2024-09-21 23:52:42.603 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:52:42.639 +03:00 [INF] Route matched with {action = "Register", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Guid]] Register(Socially.UserManagment.UseCases.Users.Common.DTOs.UserRegistrationDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 23:52:42.730 +03:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2024-09-21 23:52:42.779 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web) in 127.7365ms
+2024-09-21 23:52:42.782 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:52:42.785 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:57679/api/User/register - 400 null application/problem+json; charset=utf-8 422.4385ms
+2024-09-21 23:53:24.809 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:57679/api/User/register - application/json 175
+2024-09-21 23:53:24.826 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:53:24'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 23:53:24.830 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:53:24'.
+2024-09-21 23:53:24.832 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:53:24.834 +03:00 [INF] Route matched with {action = "Register", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Guid]] Register(Socially.UserManagment.UseCases.Users.Common.DTOs.UserRegistrationDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 23:53:24.846 +03:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2024-09-21 23:53:24.850 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web) in 10.8838ms
+2024-09-21 23:53:24.854 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:53:24.857 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:57679/api/User/register - 400 null application/problem+json; charset=utf-8 48.0728ms
+2024-09-21 23:53:36.582 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:57679/api/User/register - application/json 173
+2024-09-21 23:53:36.590 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:53:36'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 23:53:36.595 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:53:36'.
+2024-09-21 23:53:36.597 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:53:36.601 +03:00 [INF] Route matched with {action = "Register", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Guid]] Register(Socially.UserManagment.UseCases.Users.Common.DTOs.UserRegistrationDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 23:53:36.611 +03:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2024-09-21 23:53:36.617 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web) in 13.7652ms
+2024-09-21 23:53:36.622 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:53:36.626 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:57679/api/User/register - 400 null application/problem+json; charset=utf-8 43.7445ms
+2024-09-21 23:53:41.898 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:57679/api/User/register - application/json 174
+2024-09-21 23:53:41.904 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:53:41'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 23:53:41.908 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:53:41'.
+2024-09-21 23:53:41.911 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:53:41.913 +03:00 [INF] Route matched with {action = "Register", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Guid]] Register(Socially.UserManagment.UseCases.Users.Common.DTOs.UserRegistrationDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 23:53:41.917 +03:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2024-09-21 23:53:41.920 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web) in 4.0824ms
+2024-09-21 23:53:41.922 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:53:41.924 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:57679/api/User/register - 400 null application/problem+json; charset=utf-8 26.0433ms
+2024-09-21 23:53:48.273 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:57679/api/User/register - application/json 174
+2024-09-21 23:53:48.279 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:53:48'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 23:53:48.283 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:53:48'.
+2024-09-21 23:53:48.285 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:53:48.287 +03:00 [INF] Route matched with {action = "Register", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Guid]] Register(Socially.UserManagment.UseCases.Users.Common.DTOs.UserRegistrationDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 23:53:48.299 +03:00 [INF] Handling RegisterUserCommand
+2024-09-21 23:53:48.304 +03:00 [INF] Property User : {"Username":"testing123","Email":"lomesethdev@gmail.com","Password":"Testing@123","FirstName":"test1","LastName":"test2","Gender":false,"$type":"UserRegistrationDto"}
+2024-09-21 23:53:49.270 +03:00 [ERR] Failed executing DbCommand (116ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?', @p3='?' (DbType = DateTime), @p4='?' (DbType = DateTime), @p5='?', @p6='?', @p7='?' (DbType = Boolean), @p8='?' (DbType = Boolean), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime), @p11='?', @p12='?', @p13='?', @p14='?', @p15='?' (DbType = DateTime), @p16='?' (DbType = DateTime), @p17='?' (DbType = DateTime), @p18='?', @p19='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "Bio", "CoverPhotoURL", "CreatedAt", "DateOfBirth", "Email", "FirstName", "Gender", "IsActive", "IsEmailVerified", "LastLoginAt", "LastName", "PasswordHash", "ProfilePictureURL", "ResetPasswordToken", "ResetTokenGeneratedAt", "TokenGeneratedAt", "UpdatedAt", "Username", "VerificationToken")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19);
+2024-09-21 23:53:49.298 +03:00 [ERR] An exception occurred in the database while saving changes for context type 'Socially.UserManagment.Infrastructure.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Npgsql.PostgresException (0x80004005): 42703: column "IsEmailVerified" of relation "Users" does not exist
+
+POSITION: 124
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column "IsEmailVerified" of relation "Users" does not exist
+    Position: 124
+    File: parse_target.c
+    Line: 1061
+    Routine: checkInsertTargets
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Npgsql.PostgresException (0x80004005): 42703: column "IsEmailVerified" of relation "Users" does not exist
+
+POSITION: 124
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column "IsEmailVerified" of relation "Users" does not exist
+    Position: 124
+    File: parse_target.c
+    Line: 1061
+    Routine: checkInsertTargets
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2024-09-21 23:53:49.650 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web) in 1360.0879ms
+2024-09-21 23:53:49.654 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:53:49.661 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Npgsql.PostgresException (0x80004005): 42703: column "IsEmailVerified" of relation "Users" does not exist
+
+POSITION: 124
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column "IsEmailVerified" of relation "Users" does not exist
+    Position: 124
+    File: parse_target.c
+    Line: 1061
+    Routine: checkInsertTargets
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Socially.UserManagment.Infrastructure.Data.AppDbContext.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Infrastructure\Data\AppDbContext.cs:line 30
+   at Ardalis.Specification.EntityFrameworkCore.RepositoryBase`1.SaveChangesAsync(CancellationToken cancellationToken)
+   at Ardalis.Specification.EntityFrameworkCore.RepositoryBase`1.AddAsync(T entity, CancellationToken cancellationToken)
+   at Socially.UserManagment.UseCases.Users.Register.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.UseCases\Users\Register\RegisterUserCommandHandler.cs:line 17
+   at Ardalis.SharedKernel.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken)
+   at Socially.UserManagment.Web.Users.UserController.Register(UserRegistrationDto newUser) in C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web\Controllers\UserController.cs:line 40
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-21 23:53:49.741 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:57679/api/User/register - 500 null text/plain; charset=utf-8 1468.8516ms
+2024-09-21 23:56:26.340 +03:00 [INF] Executed DbCommand (125ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-09-21 23:56:26.466 +03:00 [INF] Executed DbCommand (76ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-09-21 23:56:27.000 +03:00 [INF] Executed DbCommand (75ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-09-21 23:56:27.525 +03:00 [INF] Executed DbCommand (74ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-09-21 23:56:27.599 +03:00 [INF] Executed DbCommand (74ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-09-21 23:56:27.613 +03:00 [INF] Applying migration '20240921205553_AddingVerificationAndResetTokens'.
+2024-09-21 23:56:27.743 +03:00 [INF] Executed DbCommand (85ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Users" ADD "IsEmailVerified" boolean NOT NULL DEFAULT FALSE;
+2024-09-21 23:56:27.826 +03:00 [INF] Executed DbCommand (83ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Users" ADD "ResetPasswordToken" text;
+2024-09-21 23:56:27.907 +03:00 [INF] Executed DbCommand (80ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Users" ADD "ResetTokenGeneratedAt" timestamp with time zone;
+2024-09-21 23:56:27.981 +03:00 [INF] Executed DbCommand (74ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Users" ADD "TokenGeneratedAt" timestamp with time zone;
+2024-09-21 23:56:28.055 +03:00 [INF] Executed DbCommand (74ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Users" ADD "VerificationToken" text;
+2024-09-21 23:56:28.140 +03:00 [INF] Executed DbCommand (84ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_VerificationToken" ON "Users" ("VerificationToken");
+2024-09-21 23:56:28.214 +03:00 [INF] Executed DbCommand (74ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20240921205553_AddingVerificationAndResetTokens', '8.0.8');
+2024-09-21 23:57:09.146 +03:00 [INF] Executed DbCommand (153ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2024-09-21 23:57:09.547 +03:00 [INF] Executed DbCommand (82ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2024-09-21 23:57:09.720 +03:00 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-21 23:57:09.966 +03:00 [INF] Now listening on: https://localhost:57679
+2024-09-21 23:57:09.969 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-21 23:57:09.971 +03:00 [INF] Hosting environment: Development
+2024-09-21 23:57:09.975 +03:00 [INF] Content root path: C:\Users\acer\source\repos\test\Socially.UserManagment\src\Socially.UserManagment.Web
+2024-09-21 23:57:10.965 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.html - null null
+2024-09-21 23:57:11.252 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.html - 200 null text/html;charset=utf-8 294.7796ms
+2024-09-21 23:57:11.551 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/index.js - null null
+2024-09-21 23:57:11.560 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/index.js - 200 null application/javascript;charset=utf-8 9.552ms
+2024-09-21 23:57:11.804 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-21 23:57:11.874 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 70.0081ms
+2024-09-21 23:57:12.041 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/_vs/browserLink - null null
+2024-09-21 23:57:12.101 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/_vs/browserLink - 200 null text/javascript; charset=UTF-8 59.6914ms
+2024-09-21 23:57:13.485 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - null null
+2024-09-21 23:57:13.685 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57679/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 200.0344ms
+2024-09-21 23:57:39.248 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:57679/api/User/register - application/json 174
+2024-09-21 23:57:39.459 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:57:39'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-21 23:57:39.489 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '20/09/2024 22:55:54', Current time (UTC): '21/09/2024 20:57:39'.
+2024-09-21 23:57:39.496 +03:00 [INF] Executing endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:57:39.532 +03:00 [INF] Route matched with {action = "Register", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Guid]] Register(Socially.UserManagment.UseCases.Users.Common.DTOs.UserRegistrationDto) on controller Socially.UserManagment.Web.Users.UserController (Socially.UserManagment.Web).
+2024-09-21 23:57:39.660 +03:00 [INF] Handling RegisterUserCommand
+2024-09-21 23:57:39.671 +03:00 [INF] Property User : {"Username":"testing123","Email":"lomesethdev@gmail.com","Password":"Testing@123","FirstName":"test1","LastName":"test2","Gender":false,"$type":"UserRegistrationDto"}
+2024-09-21 23:57:40.300 +03:00 [INF] Executed DbCommand (100ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?', @p3='?' (DbType = DateTime), @p4='?' (DbType = DateTime), @p5='?', @p6='?', @p7='?' (DbType = Boolean), @p8='?' (DbType = Boolean), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime), @p11='?', @p12='?', @p13='?', @p14='?', @p15='?' (DbType = DateTime), @p16='?' (DbType = DateTime), @p17='?' (DbType = DateTime), @p18='?', @p19='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "Bio", "CoverPhotoURL", "CreatedAt", "DateOfBirth", "Email", "FirstName", "Gender", "IsActive", "IsEmailVerified", "LastLoginAt", "LastName", "PasswordHash", "ProfilePictureURL", "ResetPasswordToken", "ResetTokenGeneratedAt", "TokenGeneratedAt", "UpdatedAt", "Username", "VerificationToken")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19);
+2024-09-21 23:57:40.329 +03:00 [INF] Handled RegisterUserCommand with Ardalis.Result.Result`1[System.Guid] in 584 ms
+2024-09-21 23:57:40.347 +03:00 [INF] Executing CreatedAtActionResult, writing value of type 'System.Guid'.
+2024-09-21 23:57:40.392 +03:00 [INF] Executed action Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web) in 851.7909ms
+2024-09-21 23:57:40.396 +03:00 [INF] Executed endpoint 'Socially.UserManagment.Web.Users.UserController.Register (Socially.UserManagment.Web)'
+2024-09-21 23:57:40.405 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:57679/api/User/register - 201 null application/json; charset=utf-8 1157.6652ms

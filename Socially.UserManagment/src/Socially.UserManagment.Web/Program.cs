@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Extensions.Logging;
-using Socially.UserManagment.Core.ContributorAggregate;
+using Socially.UserManagement.Core.UserAggregate;
 using Socially.UserManagment.Core.Interfaces;
 using Socially.UserManagment.Infrastructure;
 using Socially.UserManagment.Infrastructure.Data;
 using Socially.UserManagment.Infrastructure.Email;
 using Socially.UserManagment.Shared.Config.JWT;
-using Socially.UserManagment.UseCases.Contributors.Create;
-
+using Socially.UserManagment.UseCases.Users.Register;
+using Socially.UserManagment.UseCases;
+using Socially.UserManagment.Infrastructure.CookieManagment;
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
   .WriteTo.Console()
@@ -28,6 +29,7 @@ builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Con
 var microsoftLogger = new SerilogLoggerFactory(logger)
     .CreateLogger<Program>();
 
+builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 // Configure Web Behavior
 builder.Services.Configure<CookiePolicyOptions>(options =>
@@ -54,12 +56,17 @@ builder.Services.AddAuthentication()
     };
 
   });
-builder.Services.AddSingleton<JWTSettings>();
+builder.Services.Configure<JWTSettings>(
+  builder.Configuration.GetSection("Jwt")
+);
+builder.Services.AddSingleton<ICookieService,CookieService>();
+
+builder.Services.AddHttpContextAccessor();
 
 ConfigureMediatR();
 
 builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogger);
-
+builder.Services.AddApplicationServices(microsoftLogger);
 if (builder.Environment.IsDevelopment())
 {
   // Use a local test email server
@@ -81,6 +88,8 @@ if (app.Environment.IsDevelopment())
 {
   app.UseDeveloperExceptionPage();
   app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
+
+
   app.UseSwagger();
   app.UseSwaggerUI();
 }
@@ -94,6 +103,7 @@ app.UseHttpsRedirection();
 
 await SeedDatabase(app);
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -125,8 +135,8 @@ void ConfigureMediatR()
 {
   var mediatRAssemblies = new[]
 {
-  Assembly.GetAssembly(typeof(Contributor)), // Core
-  Assembly.GetAssembly(typeof(CreateContributorCommand)) // UseCases
+  Assembly.GetAssembly(typeof(User)), // Core
+  Assembly.GetAssembly(typeof(RegisterUserCommand)) // UseCases
 };
   builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
   builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));

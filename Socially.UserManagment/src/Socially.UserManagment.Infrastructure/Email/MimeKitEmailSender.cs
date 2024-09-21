@@ -18,15 +18,17 @@ public class MimeKitEmailSender : IEmailSender
   }
 
 
-  public async Task SendEmailAsync(string to, string from, string subject, string body)
+  public async Task SendEmailAsync(string to, string subject, string body)
   {
-    _logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, this.ToString());
 
     using var client = new SmtpClient();
-    client.Connect(_mailserverConfiguration.Hostname,
-      _mailserverConfiguration.Port, false);
+    await client.ConnectAsync(_mailserverConfiguration.Hostname,
+      _mailserverConfiguration.Port, 
+      MailKit.Security.SecureSocketOptions.StartTls);
+    await client.AuthenticateAsync(_mailserverConfiguration.Username, _mailserverConfiguration.Password);
+
     var message = new MimeMessage();
-    message.From.Add(new MailboxAddress(from, from));
+    message.From.Add(new MailboxAddress(_mailserverConfiguration.Username, _mailserverConfiguration.Username));
     message.To.Add(new MailboxAddress(to, to));
     message.Subject = subject;
     message.Body = new TextPart("plain") { Text = body };
@@ -35,5 +37,8 @@ public class MimeKitEmailSender : IEmailSender
 
     await client.DisconnectAsync(true,
       new CancellationToken(canceled: true));
+
+    _logger.LogWarning("Sent email to {to} with subject {subject} using {type}.", to, subject, this.ToString());
+
   }
 }

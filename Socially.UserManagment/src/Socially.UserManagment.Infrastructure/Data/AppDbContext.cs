@@ -3,7 +3,7 @@ using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Socially.UserManagement.Core.UserAggregate;
 using Socially.UserManagment.Core.RefreshTokenAggregate;
-using Socially.UserManagment.Core.ContributorAggregate;
+
 
 namespace Socially.UserManagment.Infrastructure.Data;
 public class AppDbContext : DbContext
@@ -33,7 +33,7 @@ public class AppDbContext : DbContext
     if (_dispatcher == null) return result;
 
     // dispatch events only if save was successful
-    var entitiesWithEvents = ChangeTracker.Entries<EntityBase>()
+    var entitiesWithEvents = ChangeTracker.Entries<EntityBase<Guid>>()
         .Select(e => e.Entity)
         .Where(e => e.DomainEvents.Any())
         .ToArray();

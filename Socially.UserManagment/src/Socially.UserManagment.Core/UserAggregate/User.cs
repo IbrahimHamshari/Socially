@@ -1,38 +1,49 @@
-﻿using System.Security.Cryptography;
+﻿using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Socially.UserManagment.Core.UserAggregate.Events;
 
 namespace Socially.UserManagement.Core.UserAggregate;
 
 public class User : EntityBase<Guid>, IAggregateRoot
 {
-  public string Username { get; private set; }
-  public string Email { get; private set; }
-  public string PasswordHash { get; private set; }
+  public string Username { get; private set; } = string.Empty;
+  public string Email { get; private set; } = string.Empty;
+  public string PasswordHash { get; private set; } = string.Empty;
   public DateTimeOffset CreatedAt { get; private set; } = DateTimeOffset.UtcNow;
   public DateTimeOffset? LastLoginAt { get; private set; }
   public bool IsActive { get; private set; } = true;
   public string Bio { get; private set; } = string.Empty;
-  public string FirstName { get; private set; }
-  public string LastName { get; private set; }
+  public string FirstName { get; private set; } = string.Empty;
+  public string LastName { get; private set; } = string.Empty;
   public string? ProfilePictureURL { get; private set; }
   public string? CoverPhotoURL { get; private set; }
   public DateTimeOffset? DateOfBirth { get; private set; }
-  public bool Gender { get; private set; }
+  public bool Gender { get; private set; } = false;
   public DateTimeOffset UpdatedAt { get; private set; } = DateTimeOffset.UtcNow;
 
-  // Constructor
-  public User(string username, string email, string password, string firstName, string lastName)
+  public string? VerificationToken { get; private set; }
+  public bool IsEmailVerified { get; private set; } = false;
+  public DateTimeOffset? TokenGeneratedAt { get; private set; }
+
+  public string? ResetPasswordToken { get; private set; }
+
+  public DateTimeOffset? ResetTokenGeneratedAt { get; private set; }
+
+  public User(string username, string email, string passwordHash, string firstName, string lastName, bool gender)
   {
     Username = Guard.Against.InvalidUserNameFormat(username, nameof(username));
     Email = Guard.Against.InvalidEmailFormat(email, nameof(email));
-    string pass = Guard.Against.InvalidPasswordFormat(password, nameof(password));
-    PasswordHash = HashPassword(pass);
+    PasswordHash = passwordHash.Length >24? passwordHash: HashPassword(Guard.Against.InvalidPasswordFormat(passwordHash, nameof(passwordHash)));
     FirstName = Guard.Against.InvalidNameFormat(firstName, nameof(firstName));
     LastName = Guard.Against.InvalidNameFormat(lastName, nameof(lastName));
+    Gender = gender;
+
   }
 
+  private User() { }
   // Activate and Deactivate methods
   public void ActivateLogin()
   {
@@ -59,10 +70,12 @@ public class User : EntityBase<Guid>, IAggregateRoot
     PasswordHash = HashPassword(newPassword);
     UpdatedAt = DateTime.UtcNow;
 
+    var userChangedPasswordEvent = new UserChangedPasswordEvent(this);
+    RegisterDomainEvent(userChangedPasswordEvent);
 
   }
 
-  private string HashPassword(string password)
+  private static string HashPassword(string password)
   {
     // Generate a 128-bit salt using a secure PRNG
     byte[] salt = new byte[16];
@@ -140,15 +153,27 @@ public class User : EntityBase<Guid>, IAggregateRoot
     if (!IsValidRecoveryToken(recoveryToken))
       throw new ArgumentException("Invalid recovery token.");
 
-    
+    UpdatePassword(newPassword);
+
+    var recoverAccountEvent = new AccountRecoveredEvent(this);
+    ResetPasswordToken = null;
   }
 
   private bool IsValidRecoveryToken(string token)
   {
-    // Implement token validation logic
-    return true; // Placeholder for actual token validation
+    if(this.ResetPasswordToken != token)
+    {
+      return false;
+    }
+    return true;
+    
   }
 
+
+  private void UpdatePassword(string newPassowrd)
+  {
+    PasswordHash = HashPassword(Guard.Against.InvalidPasswordFormat(newPassowrd, nameof(newPassowrd)));
+  }
   // Update methods for each property
 
   public void UpdateUsername(string newUsername)
@@ -200,5 +225,31 @@ public class User : EntityBase<Guid>, IAggregateRoot
   {
     Gender = newGender;
     UpdatedAt = DateTimeOffset.UtcNow;
+  }
+  public void GenerateEmailVerificationToken()
+  {
+    VerificationToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)); 
+    TokenGeneratedAt = DateTimeOffset.UtcNow;
+    var userRegisteredEvent = new UserCreatedEvent(this);
+    RegisterDomainEvent(userRegisteredEvent);
+  }
+  public void VerifyEmail(string token)
+  {
+    if (VerificationToken != token || TokenGeneratedAt == null || DateTimeOffset.UtcNow > TokenGeneratedAt.Value.AddHours(3))
+    {
+      throw new UnauthorizedAccessException("Invalid or expired token.");
+    }
+
+    IsEmailVerified = true;
+    VerificationToken = null;
+    var userVerifiedEvent = new UserVerifiedEvent(this);
+    RegisterDomainEvent(userVerifiedEvent);
+  }
+  public void GenerateResetToken()
+  {
+    ResetPasswordToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+    ResetTokenGeneratedAt = DateTimeOffset.UtcNow;
+
+
   }
 }

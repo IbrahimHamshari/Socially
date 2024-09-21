@@ -1,7 +1,7 @@
 ﻿using Ardalis.SharedKernel;
 using FluentAssertions;
 using NSubstitute;
-using Socially.UserManagment.Core.ContributorAggregate;
+
 using Socially.UserManagment.UseCases.Contributors.Create;
 using Xunit;
 

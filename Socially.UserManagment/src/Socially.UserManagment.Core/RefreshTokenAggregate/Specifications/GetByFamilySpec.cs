@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ardalis.Specification;
-using Socially.UserManagment.Infrastructure.Data.Entites;
 
 namespace Socially.UserManagment.Core.RefreshTokenAggregate.Specifications;
 public class GetByFamilySpec : Specification<RefreshToken>

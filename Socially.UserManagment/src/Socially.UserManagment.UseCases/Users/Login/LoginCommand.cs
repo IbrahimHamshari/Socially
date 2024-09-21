@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Ardalis.Result;
 using Ardalis.SharedKernel;
+using Socially.UserManagment.UseCases.Users.Common;
+using Socially.UserManagment.UseCases.Users.Common.DTOs;
 
 namespace Socially.UserManagment.UseCases.Users.Login;
 
-public record LoginCommand(string Username, string Password) : ICommand<Result<string[]>>;
+public record LoginCommand(UserLoginDto User) : ICommand<Result<Tokens>>;

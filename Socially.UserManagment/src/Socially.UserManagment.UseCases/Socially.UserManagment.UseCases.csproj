@@ -11,4 +11,8 @@
     <ProjectReference Include="..\Socially.UserManagment.Core\Socially.UserManagment.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Users\Handlers\" />
+  </ItemGroup>
+
 </Project>

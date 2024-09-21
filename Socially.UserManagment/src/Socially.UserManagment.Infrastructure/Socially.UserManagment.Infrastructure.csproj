@@ -14,15 +14,20 @@
     <PackageReference Include="Microsoft.Extensions.Logging" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Socially.UserManagment.Shared\Socially.UserManagment.Shared.csproj" />
     <ProjectReference Include="..\Socially.UserManagment.Core\Socially.UserManagment.Core.csproj" />
+    <ProjectReference Include="..\Socially.UserManagment.UseCases\Socially.UserManagment.UseCases.csproj" />
   </ItemGroup>
   
   <ItemGroup>
     <Folder Include="Data\Entites\" />
     <Folder Include="Data\Migrations\" />
+    <Folder Include="Data\Queries\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 </Project>

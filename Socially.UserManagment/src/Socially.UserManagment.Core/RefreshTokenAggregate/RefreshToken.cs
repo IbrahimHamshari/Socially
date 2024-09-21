@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ardalis.SharedKernel;
+using Socially.UserManagement.Core.UserAggregate;
 
 namespace Socially.UserManagment.Core.RefreshTokenAggregate;
 public class RefreshToken(Guid userId, string token, DateTimeOffset expiration, Guid? parentTokenId, string family) : EntityBase<Guid>, IAggregateRoot
@@ -19,6 +20,7 @@ public class RefreshToken(Guid userId, string token, DateTimeOffset expiration, 
 
   public DateTimeOffset? RevokedAt { get; private set; }
 
+  public User? User { get; private set; } 
   public void Revoke()
   {
     IsRevoked = true;
