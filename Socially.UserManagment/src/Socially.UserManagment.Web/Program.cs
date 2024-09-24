@@ -18,6 +18,8 @@ using Socially.UserManagment.UseCases;
 using Socially.UserManagment.Infrastructure.CookieManagment;
 using Socially.UserManagment.Web.Extensions;
 using Socially.UserManagment.Web.Infrastructure;
+using Socially.UserManagment.UseCases.Validation;
+using FluentValidation;
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
   .WriteTo.Console()
@@ -147,6 +149,8 @@ void ConfigureMediatR()
   Assembly.GetAssembly(typeof(RegisterUserCommand)) // UseCases
 };
   builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
+  builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+  builder.Services.AddValidatorsFromAssembly(Assembly.GetAssembly(typeof(RegisterUserCommandValidator)));
   builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
   builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
 }

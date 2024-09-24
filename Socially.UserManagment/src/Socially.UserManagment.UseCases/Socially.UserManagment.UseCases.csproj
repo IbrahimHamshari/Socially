@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.Result" />
+    <PackageReference Include="FluentValidation" />
     <PackageReference Include="MediatR" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
   </ItemGroup>

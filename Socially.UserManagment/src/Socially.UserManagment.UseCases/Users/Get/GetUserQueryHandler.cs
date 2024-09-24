@@ -11,7 +11,7 @@ using Socially.UserManagment.Core.UserAggregate.Specifications;
 using Socially.UserManagment.UseCases.Users.Common.DTOs;
 
 namespace Socially.UserManagment.UseCases.Users.Get;
-public class GetUserHandler(IReadRepository<User> _repository) : IQueryHandler<GetUserQuery, Result<UserDto>>
+public class GetUserQueryHandler(IReadRepository<User> _repository) : IQueryHandler<GetUserQuery, Result<UserDto>>
 {
   public async Task<Result<UserDto>> Handle(GetUserQuery request, CancellationToken cancellationToken)
   {

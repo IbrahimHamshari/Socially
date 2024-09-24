@@ -9,8 +9,6 @@ using Socially.UserManagment.Core.Constants;
 namespace Socially.UserManagment.UseCases.Users.Common.DTOs;
 public class UserLoginDto
 {
-  [Required, RegularExpression(RegexConstants.USERNAME_REGEX)]
-  public required string UserName { get; set; }
-  [Required, RegularExpression(RegexConstants.PASSWORD_REGEX)]
+  public required string Username { get; set; }
   public required string Password { get; set; }
 }

@@ -11,7 +11,7 @@ using Socially.UserManagment.Core.UserAggregate.Errors;
 using Socially.UserManagment.UseCases.Users.Common.DTOs;
 
 namespace Socially.UserManagment.UseCases.Users.Update;
-public class UpdateUserHandler(IRepository<User> _repository) : ICommandHandler<UpdateUserCommand, Result<UserUpdateDto>>
+public class UpdateUserCommandHandler(IRepository<User> _repository) : ICommandHandler<UpdateUserCommand, Result<UserUpdateDto>>
 {
   public async Task<Result<UserUpdateDto>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
   {
@@ -23,44 +23,44 @@ public class UpdateUserHandler(IRepository<User> _repository) : ICommandHandler<
     }
 
     // Update the user's properties using domain methods
-    if (!string.IsNullOrWhiteSpace(request.UserDto.Email))
+    if (!string.IsNullOrWhiteSpace(request.User.Email))
     {
-      user.UpdateEmail(request.UserDto.Email);
+      user.UpdateEmail(request.User.Email);
     }
 
-    if (!string.IsNullOrWhiteSpace(request.UserDto.FirstName))
+    if (!string.IsNullOrWhiteSpace(request.User.FirstName))
     {
-      user.UpdateFirstName(request.UserDto.FirstName);
+      user.UpdateFirstName(request.User.FirstName);
     }
 
-    if (!string.IsNullOrWhiteSpace(request.UserDto.LastName))
+    if (!string.IsNullOrWhiteSpace(request.User.LastName))
     {
-      user.UpdateLastName(request.UserDto.LastName);
+      user.UpdateLastName(request.User.LastName);
     }
 
-    if (!string.IsNullOrWhiteSpace(request.UserDto.Bio))
+    if (!string.IsNullOrWhiteSpace(request.User.Bio))
     {
-      user.UpdateBio(request.UserDto.Bio);
+      user.UpdateBio(request.User.Bio);
     }
 
-    if (!string.IsNullOrWhiteSpace(request.UserDto.ProfilePictureURL))
+    if (!string.IsNullOrWhiteSpace(request.User.ProfilePictureURL))
     {
-      user.UpdateProfilePictureURL(request.UserDto.ProfilePictureURL);
+      user.UpdateProfilePictureURL(request.User.ProfilePictureURL);
     }
 
-    if (!string.IsNullOrWhiteSpace(request.UserDto.CoverPhotoURL))
+    if (!string.IsNullOrWhiteSpace(request.User.CoverPhotoURL))
     {
-      user.UpdateCoverPhotoURL(request.UserDto.CoverPhotoURL);
+      user.UpdateCoverPhotoURL(request.User.CoverPhotoURL);
     }
 
-    if (request.UserDto.DateOfBirth.HasValue)
+    if (request.User.DateOfBirth.HasValue)
     {
-      user.UpdateDateOfBirth(request.UserDto.DateOfBirth.Value);
+      user.UpdateDateOfBirth(request.User.DateOfBirth.Value);
     }
 
-    if (request.UserDto.Gender.HasValue)
+    if (request.User.Gender.HasValue)
     {
-      user.UpdateGender(request.UserDto.Gender.Value);
+      user.UpdateGender(request.User.Gender.Value);
     }
 
     // Save the updated user to the repository

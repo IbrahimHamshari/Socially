@@ -8,5 +8,5 @@ using Ardalis.GuardClauses;
 namespace Socially.UserManagment.UseCases.Users.Common.DTOs;
 public class ChangeForgetPasswordRequest(string password)
 {
-  public string Password { get; set; } = Guard.Against.InvalidPasswordFormat(password, nameof(password));
+  public string Password { get; set; } = password;
 }
