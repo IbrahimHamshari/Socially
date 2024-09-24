@@ -10,7 +10,6 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Ardalis.Result;
-using Socially.UserManagment.UseCases.Exceptions;
 using Microsoft.Extensions.Options;
 
 

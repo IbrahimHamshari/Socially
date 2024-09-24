@@ -16,6 +16,8 @@ using Socially.UserManagment.Shared.Config.JWT;
 using Socially.UserManagment.UseCases.Users.Register;
 using Socially.UserManagment.UseCases;
 using Socially.UserManagment.Infrastructure.CookieManagment;
+using Socially.UserManagment.Web.Extensions;
+using Socially.UserManagment.Web.Infrastructure;
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
   .WriteTo.Console()
@@ -40,6 +42,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 
 var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JWTSettings>();
+
 
 builder.Services.AddAuthentication()
   .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
@@ -82,6 +85,10 @@ else
   builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
 }
 
+builder.Services.AddExceptionHandler<InternalExceptionHandler>();
+builder.Services.AddExceptionHandler<ArgumentExceptionHandler>();
+
+builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -98,13 +105,14 @@ else
   app.UseHsts();
 }
 
-
 app.UseHttpsRedirection();
 
 await SeedDatabase(app);
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseExceptionHandler();
 
 app.MapControllers();
 

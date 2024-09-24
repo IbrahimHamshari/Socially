@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using Ardalis.Result;
 using Ardalis.SharedKernel;
+using Microsoft.Extensions.Logging;
 using Socially.UserManagement.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Errors;
 using Socially.UserManagment.Core.UserAggregate.Specifications;
 
 namespace Socially.UserManagment.UseCases.Users.Verify;
@@ -12,13 +14,14 @@ public class VerifyCommandHandler(IRepository<User> _repository) : ICommandHandl
 {
   public async Task<Result> Handle(VerifyCommand request, CancellationToken cancellationToken)
   {
-    var spec = new UserByVerificationTokenSpec(request.token);
+    var token = request.Token;
+    var spec = new UserByVerificationTokenSpec(request.Token);
     var user = await _repository.SingleOrDefaultAsync(spec, cancellationToken);
     if (user == null)
     {
-      return Result.Invalid(new ValidationError("No Such User Exist!"));
+      return UserErrors.NotFoundByVerificationToken(request.Token);
     }
-    user.VerifyEmail(request.token);
+    user.VerifyEmail(request.Token);
     await _repository.SaveChangesAsync(cancellationToken);
     return Result.Success();
   }

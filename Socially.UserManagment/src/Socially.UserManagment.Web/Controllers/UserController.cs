@@ -15,8 +15,10 @@ using Socially.UserManagment.UseCases.Users.ForgetPassword;
 using Socially.UserManagment.UseCases.Users.Get;
 using Socially.UserManagment.UseCases.Users.Login;
 using Socially.UserManagment.UseCases.Users.Register;
+using Socially.UserManagment.UseCases.Users.RequestVerification;
 using Socially.UserManagment.UseCases.Users.Update;
 using Socially.UserManagment.UseCases.Users.Verify;
+using Socially.UserManagment.Web.Extensions;
 
 namespace Socially.UserManagment.Web.Users;
 [Route("api/[controller]")]
@@ -42,7 +44,8 @@ public class UserController : ControllerBase
     {
       return CreatedAtAction(nameof(Register), new {id = result.Value}, result.Value);
     }
-    return BadRequest(result.Errors);
+
+    return BadRequest(result.ToProblemDetails());
   }
 
 
@@ -56,7 +59,7 @@ public class UserController : ControllerBase
       _cookieService.SetCookie("RefreshToken", result.Value.RefreshToken, _jwtSettings.CurrentValue.RefreshTokenExpiryDays);
       return Ok(result.Value.AccessToken);
     }
-    return BadRequest(result.Errors);
+    return BadRequest(result.ToProblemDetails());
   }
 
   [HttpPatch("")]
@@ -70,7 +73,7 @@ public class UserController : ControllerBase
     {
       return Ok(result.Value);
     }
-    return BadRequest(result.Errors);
+    return BadRequest(result.ToProblemDetails());
   }
 
   [HttpGet("")]
@@ -84,7 +87,7 @@ public class UserController : ControllerBase
     {
       return Ok(result.Value);
     }
-    return BadRequest(result.Errors);
+    return BadRequest(result.ToProblemDetails());
   }
 
   [HttpGet("verify/{token}")]
@@ -98,10 +101,10 @@ public class UserController : ControllerBase
       return Ok();
     }
 
-    return BadRequest("Token is Invalid");
+    return BadRequest(result.ToProblemDetails());
   }
 
-  [HttpGet("changepassword")]
+  [HttpPost("changepassword")]
   [Authorize]
   public async Task<IActionResult> ChangePassowrd(ChangePasswordDto passwords)
   {
@@ -112,31 +115,44 @@ public class UserController : ControllerBase
     {
       return Ok();
     }
-    return BadRequest("Current Password is Wrong!");
+    return BadRequest(result.ToProblemDetails());
   }
 
-  [HttpGet("forgetpassword")]
-  public async Task<IActionResult> ForgetPassword([FromBody]string Email)
+  [HttpPost("forgetpassword")]
+  public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordRequest request)
   {
-    var command = new ForgetPasswordCommand(Email);
+    var command = new ForgetPasswordCommand(request.Email);
     var result = await _mediator.Send(command);
     if (result.IsSuccess)
     {
       return Ok();
     }
-    return BadRequest("This Email Doesn't Belong to a User");
+    return BadRequest(result.ToProblemDetails());
   }
 
   [HttpPost("forgetpassword/{token}")]
-  public async Task<IActionResult> ChangeForgetPassword([FromRoute]string token,  [FromBody]string password)
+  public async Task<IActionResult> ChangeForgetPassword([FromRoute]string token,  [FromBody]ChangeForgetPasswordRequest request)
   {
-    var command = new ChangeForgetPasswordCommand(token, password);
+    var command = new ChangeForgetPasswordCommand(token, request.Password);
     var result = await _mediator.Send(command);
     if (result.IsSuccess)
     {
       _cookieService.SetCookie("RefreshToken", result.Value.RefreshToken, _jwtSettings.CurrentValue.RefreshTokenExpiryDays);
       return Ok(result.Value.AccessToken);
     }
-    return BadRequest(result.Errors);
+    return BadRequest(result.ToProblemDetails());
+  }
+  [HttpGet("verify")]
+  [Authorize]
+  public async Task<IActionResult> RequestEmailVerification()
+  {
+    var id = Guid.Parse(User.Identity!.Name!);
+    var command = new RequestVerificationCommand(id);
+    var result = await _mediator.Send(command);
+    if (result.IsSuccess)
+    {
+      return Ok();
+    }
+    return BadRequest(result.ToProblemDetails());
   }
   }

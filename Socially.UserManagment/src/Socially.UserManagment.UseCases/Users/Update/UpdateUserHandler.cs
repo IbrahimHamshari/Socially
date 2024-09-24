@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Ardalis.Result;
 using Ardalis.SharedKernel;
+using Microsoft.Extensions.Logging;
 using Socially.UserManagement.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Errors;
 using Socially.UserManagment.UseCases.Users.Common.DTOs;
 
 namespace Socially.UserManagment.UseCases.Users.Update;
@@ -13,10 +15,11 @@ public class UpdateUserHandler(IRepository<User> _repository) : ICommandHandler<
 {
   public async Task<Result<UserUpdateDto>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
   {
-    var user = await _repository.GetByIdAsync(request.Id, cancellationToken);
+    var id = request.Id;
+    var user = await _repository.GetByIdAsync(id, cancellationToken);
     if (user == null)
     {
-      return Result.NotFound("User not found.");
+      return UserErrors.NotFound(id);
     }
 
     // Update the user's properties using domain methods
@@ -55,7 +58,7 @@ public class UpdateUserHandler(IRepository<User> _repository) : ICommandHandler<
       user.UpdateDateOfBirth(request.UserDto.DateOfBirth.Value);
     }
 
-    if(request.UserDto.Gender.HasValue)
+    if (request.UserDto.Gender.HasValue)
     {
       user.UpdateGender(request.UserDto.Gender.Value);
     }

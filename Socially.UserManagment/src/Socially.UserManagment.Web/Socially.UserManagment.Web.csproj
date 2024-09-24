@@ -34,4 +34,8 @@
     <ProjectReference Include="..\Socially.UserManagment.UseCases\Socially.UserManagment.UseCases.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Middlewares\" />
+  </ItemGroup>
+
 </Project>

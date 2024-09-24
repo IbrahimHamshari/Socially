@@ -42,6 +42,8 @@ public class PasswordForgotEventHandler(IEmailSender _emailSender,
 
     If you did not request a password reset, please ignore this email. For additional help, feel free to contact our support team.
 
+    Please note that the link is only available for 3 hours.
+
     Best regards,
     The Socially Team
     ";

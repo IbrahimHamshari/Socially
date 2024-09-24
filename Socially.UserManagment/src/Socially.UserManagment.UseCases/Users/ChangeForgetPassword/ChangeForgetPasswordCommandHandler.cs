@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ardalis.Result;
 using Ardalis.SharedKernel;
+using Microsoft.Extensions.Logging;
 using Socially.UserManagement.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Errors;
 using Socially.UserManagment.Core.UserAggregate.Specifications;
 using Socially.UserManagment.UseCases.Users.ChangePasswordForget;
 using Socially.UserManagment.UseCases.Users.Common;
@@ -21,15 +24,17 @@ public class ChangeForgetPasswordCommandHandler(IRepository<User> _repository,
     var token = request.Token;
     var password  = request.NewPassword;
     var spec = new UserByResetTokenSpec(token);
-    var user = await _repository.SingleOrDefaultAsync(spec, cancellationToken);
-    if(user == null)
-    {
-      return Result.NotFound();
-    }
-    user.RecoverAccount(token, password);
-    await _repository.SaveChangesAsync(cancellationToken);
+      var user = await _repository.SingleOrDefaultAsync(spec, cancellationToken);
+      if (user == null)
+      {
+        return UserErrors.NotFoundByResetToken(token);
+      }
+      user.RecoverAccount(token, password);
+      await _repository.SaveChangesAsync(cancellationToken);
 
-    var loginResult = await _loginService.LoginAsync(user, request.NewPassword);
-    return Result.Success(loginResult);
+      var loginResult = await _loginService.LoginAsync(user, request.NewPassword);
+      return Result.Success(loginResult);
+
+    }
   }
-}
+

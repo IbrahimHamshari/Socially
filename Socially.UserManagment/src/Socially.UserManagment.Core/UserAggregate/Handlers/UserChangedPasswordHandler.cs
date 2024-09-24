@@ -17,10 +17,11 @@ public class UserChangedPasswordHandler(IEmailSender _emailSender,
     var user= notification.User;
     var email = user.Email;
     var id = user.Id;
+    var changeTime = DateTimeOffset.UtcNow;
     var body = $@"
     Hi {user.Username},
 
-    Your password was successfully changed on {{changeTime:MMMM dd, yyyy}} at {{changeTime:HH:mm}} (UTC).
+    Your password was successfully changed on {changeTime:MMMM dd, yyyy} at {changeTime:HH:mm} (UTC).
 
     If you did not make this change, please contact our support team immediately to secure your account.
 

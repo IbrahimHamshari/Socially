@@ -11,30 +11,29 @@ using Socially.UserManagment.Core.RefreshTokenAggregate.Specifications;
 using Socially.UserManagment.UseCases.Users.Interfaces;
 
 namespace Socially.UserManagment.UseCases.Users.Refresh;
-public class RefreshCommandHandler(IRepository<RefreshToken> Repository,
-  ITokenGenerator tokenGenerator,
-  ILogger<RefreshCommandHandler> Logger) : ICommandHandler<RefreshCommand, Result<string[]>>
+public class RefreshCommandHandler(IRepository<RefreshToken> _repository,
+  ITokenGenerator _tokenGenerator,
+  ILogger<RefreshCommandHandler> _logger) : ICommandHandler<RefreshCommand, Result<string[]>>
 {
   public async Task<Result<string[]>> Handle(RefreshCommand request, CancellationToken cancellationToken)
   {
     var token = request.refreshToken;
-    var refreshToken = await Repository.FirstOrDefaultAsync(new GetByTokenSpec(token), cancellationToken);
-    if (refreshToken == null || refreshToken.IsExpired)
-    {
-      return Result.Unauthorized();
+      var refreshToken = await _repository.FirstOrDefaultAsync(new GetByTokenSpec(token), cancellationToken);
+      if (refreshToken == null || refreshToken.IsExpired)
+      {
+        return Result.Unauthorized();
+      }
+
+      if (refreshToken.IsRevoked)
+      {
+        _logger.LogCritical("Someone Tried to use an Old Refresh Token {refreshToken} for the user of {user}", refreshToken.Id, refreshToken.UserId);
+        var spec = new GetByFamilySpec(refreshToken.Family);
+        await _repository.UpdateRangeAsync(await _repository.ListAsync(spec, cancellationToken));
+        return Result.Unauthorized();
+      }
+
+      var newRefreshToken = await _tokenGenerator.GenerateRefreshToken(refreshToken.UserId, refreshToken.Token);
+      var accessToken = _tokenGenerator.GenerateAccessToken(refreshToken.UserId);
+      return Result.Success(new string[] { accessToken, newRefreshToken.Token });
     }
-
-    if(refreshToken.IsRevoked)
-    {
-
-      Logger.LogCritical("Someone Tried to use an Old Refresh Token {refreshToken} for the user of {user}", refreshToken.Id, refreshToken.UserId);
-      var spec = new GetByFamilySpec(refreshToken.Family);
-      await Repository.UpdateRangeAsync(await Repository.ListAsync(spec, cancellationToken));
-      return Result.Unauthorized();
-    }
-
-    var newRefreshToken = await tokenGenerator.GenerateRefreshToken(refreshToken.UserId, refreshToken.Token);
-    var accessToken = tokenGenerator.GenerateAccessToken(refreshToken.UserId);
-    return Result.Success(new string[] { accessToken, newRefreshToken.Token });
-  }
 }

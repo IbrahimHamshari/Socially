@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Ardalis.Result;
 using Ardalis.SharedKernel;
+using Microsoft.Extensions.Logging;
 using Socially.UserManagement.Core.UserAggregate;
 
 namespace Socially.UserManagment.UseCases.Users.Register;
-public class RegisterUserCommandHandler(IRepository<User> _repository
-  ) : ICommandHandler<RegisterUserCommand, Result<Guid>>
+public class RegisterUserCommandHandler(IRepository<User> _repository  ) : ICommandHandler<RegisterUserCommand, Result<Guid>>
 {
   public async Task<Result<Guid>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
   {
@@ -18,4 +18,5 @@ public class RegisterUserCommandHandler(IRepository<User> _repository
     var User = await _repository.AddAsync(newUser);
     return Result.Created(newUser.Id);
   }
+
 }

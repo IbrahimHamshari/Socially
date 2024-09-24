@@ -4,6 +4,7 @@ using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Socially.UserManagment.Core.UserAggregate.Events;
+using Socially.UserManagment.UseCases.Users.ForgetPassword;
 
 namespace Socially.UserManagement.Core.UserAggregate;
 
@@ -150,7 +151,7 @@ public class User : EntityBase<Guid>, IAggregateRoot
   // Recover Account
   public void RecoverAccount(string recoveryToken, string newPassword)
   {
-    if (!IsValidRecoveryToken(recoveryToken))
+    if (!IsValidRecoveryToken(recoveryToken) ||ResetTokenGeneratedAt == null ||DateTimeOffset.UtcNow > ResetTokenGeneratedAt.Value.AddHours(3))
       throw new ArgumentException("Invalid recovery token.");
 
     UpdatePassword(newPassword);
@@ -228,7 +229,7 @@ public class User : EntityBase<Guid>, IAggregateRoot
   }
   public void GenerateEmailVerificationToken()
   {
-    VerificationToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)); 
+    VerificationToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)).Replace("/",""); 
     TokenGeneratedAt = DateTimeOffset.UtcNow;
     var userRegisteredEvent = new UserCreatedEvent(this);
     RegisterDomainEvent(userRegisteredEvent);
@@ -247,9 +248,10 @@ public class User : EntityBase<Guid>, IAggregateRoot
   }
   public void GenerateResetToken()
   {
-    ResetPasswordToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+    ResetPasswordToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)).Replace("/","");
     ResetTokenGeneratedAt = DateTimeOffset.UtcNow;
 
-
+    var userForgotEvent = new PasswordForgotEvent(this);
+    RegisterDomainEvent(userForgotEvent);
   }
 }
