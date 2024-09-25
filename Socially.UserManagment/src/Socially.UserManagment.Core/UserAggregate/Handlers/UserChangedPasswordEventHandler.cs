@@ -9,8 +9,8 @@ using Socially.UserManagment.Core.Interfaces;
 using Socially.UserManagment.Core.UserAggregate.Events;
 
 namespace Socially.UserManagment.UseCases.Users.Handlers;
-public class UserChangedPasswordHandler(IEmailSender _emailSender,
-  ILogger<UserChangedPasswordHandler> _logger) : INotificationHandler<UserChangedPasswordEvent>
+public class UserChangedPasswordEventHandler(IEmailSender _emailSender,
+  ILogger<UserChangedPasswordEventHandler> _logger) : INotificationHandler<UserChangedPasswordEvent>
 {
   public async Task Handle(UserChangedPasswordEvent notification, CancellationToken cancellationToken)
   {

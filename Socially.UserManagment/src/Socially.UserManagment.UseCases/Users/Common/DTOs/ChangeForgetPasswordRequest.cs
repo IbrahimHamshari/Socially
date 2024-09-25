@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 
 namespace Socially.UserManagment.UseCases.Users.Common.DTOs;
-public class ChangeForgetPasswordRequest(string password)
+public class ChangeForgetPasswordRequest
 {
-  public string Password { get; set; } = password;
+  public required string Password { get; set; }
 }

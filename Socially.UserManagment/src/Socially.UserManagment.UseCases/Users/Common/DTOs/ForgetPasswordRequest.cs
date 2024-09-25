@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 
 namespace Socially.UserManagment.UseCases.Users.Common.DTOs;
-public class ForgetPasswordRequest(string email)
+public class ForgetPasswordRequest
 {
-  public string Email { get; init; } = email;
+  public required string Email { get; init; }
 }

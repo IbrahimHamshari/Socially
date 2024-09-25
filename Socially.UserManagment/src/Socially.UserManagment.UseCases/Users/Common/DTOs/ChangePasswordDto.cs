@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 
 namespace Socially.UserManagment.UseCases.Users.Common.DTOs;
-public class ChangePasswordDto(string currentPassword, string password)
+public class ChangePasswordDto
 {
-  public string currentPassword { get; init; } = currentPassword;
-  public string password { get; init; } = password;
+  public required string currentPassword { get; init; }
+  public required string password { get; init; }
 }

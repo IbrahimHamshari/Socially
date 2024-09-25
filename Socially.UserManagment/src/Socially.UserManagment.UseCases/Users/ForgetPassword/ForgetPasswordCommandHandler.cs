@@ -12,7 +12,7 @@ using Socially.UserManagment.Core.UserAggregate.Errors;
 using Socially.UserManagment.Core.UserAggregate.Specifications;
 
 namespace Socially.UserManagment.UseCases.Users.ForgetPassword;
-public class ForgetPasswordCommandHnadler(
+public class ForgetPasswordCommandHandler(
   IRepository<User> _repository) : ICommandHandler<ForgetPasswordCommand, Result>
 {
   public async Task<Result> Handle(ForgetPasswordCommand request, CancellationToken cancellationToken)
