@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Socially.UserManagment.Core.Constants;
+﻿namespace Socially.UserManagment.UseCases.Users.Common.DTOs;
 
-namespace Socially.UserManagment.UseCases.Users.Common.DTOs;
 public class UserRegistrationDto
 {
   public required string Username { get; set; }
@@ -19,5 +12,5 @@ public class UserRegistrationDto
 
   public required string LastName { get; set; }
 
-  public required bool Gender { get; set; }
+  public  required bool Gender { get; set; }
 }

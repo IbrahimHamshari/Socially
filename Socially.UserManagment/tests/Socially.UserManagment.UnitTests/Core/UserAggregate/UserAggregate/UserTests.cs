@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Socially.UserManagement.Core.UserAggregate;
+﻿using FluentAssertions;
+using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.Core.UserAggregate.Events;
 using Xunit;
 
 namespace Socially.UserManagment.UnitTests.Core.Users.UserAggregate;
+
 public class UserTests
 {
   // Test 1: Valid user creation
@@ -84,8 +80,6 @@ public class UserTests
 
     // Act & Assert
     Assert.Throws<ArgumentException>(() => new User(username, email, invalidPassword, firstName, lastName, gender));
-
-
   }
 
   // Test 5: Password change success
@@ -262,5 +256,3 @@ public class UserTests
 
   // Additional tests for recover account and further edge cases can be added similarly.
 }
-
-

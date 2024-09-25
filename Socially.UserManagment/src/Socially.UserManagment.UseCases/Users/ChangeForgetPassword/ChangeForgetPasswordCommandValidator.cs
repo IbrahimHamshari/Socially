@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Identity.Data;
+﻿using FluentValidation;
 using Socially.UserManagment.Core.Constants;
 using Socially.UserManagment.UseCases.Users.ChangePasswordForget;
 
 namespace Socially.UserManagment.UseCases.Users.ChangeForgetPassword;
+
 public class ChangeForgetPasswordCommandValidator : AbstractValidator<ChangeForgetPasswordCommand>
 {
   public ChangeForgetPasswordCommandValidator()

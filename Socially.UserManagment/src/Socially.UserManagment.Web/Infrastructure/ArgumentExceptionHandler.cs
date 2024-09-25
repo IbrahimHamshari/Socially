@@ -10,7 +10,6 @@ public class ArgumentExceptionHandler : IExceptionHandler
     if (exception is not ArgumentException)
       return false;
 
-
     var problemDetails = new ProblemDetails
     {
       Status = StatusCodes.Status400BadRequest,
@@ -26,8 +25,5 @@ public class ArgumentExceptionHandler : IExceptionHandler
     await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
 
     return true;
-
-
-
   }
 }

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Socially.UserManagment.Infrastructure.CookieManagment;
+
 public class CookieService : ICookieService
 {
   private readonly IHttpContextAccessor _httpContextAccessor;
+
   public CookieService(IHttpContextAccessor httpContextAccessor)
   {
     _httpContextAccessor = httpContextAccessor;
@@ -43,5 +40,4 @@ public class CookieService : ICookieService
   {
     _httpContextAccessor.HttpContext?.Response.Cookies.Delete(key);
   }
-
 }

@@ -1,15 +1,11 @@
-﻿using Xunit;
+﻿using Ardalis.Result;
+using Ardalis.SharedKernel;
+using FluentAssertions;
 using NSubstitute;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Ardalis.Result;
-using Socially.UserManagement.Core.UserAggregate;
-using Socially.UserManagment.Core.UserAggregate.Errors;
+using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.UseCases.Users.Common.DTOs;
 using Socially.UserManagment.UseCases.Users.Update;
-using FluentAssertions;
-using Ardalis.SharedKernel;
+using Xunit;
 
 namespace Socially.UserManagment.UnitTests.UseCases.Users;
 

@@ -1,16 +1,13 @@
-﻿using Xunit;
-using NSubstitute;
-using System;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using MediatR;
-using Ardalis.Result;
-using Socially.UserManagement.Core.UserAggregate;
-using Socially.UserManagment.Core.Interfaces;
-using Socially.UserManagment.Core.Services;
-using Socially.UserManagment.Core.UserAggregate.Events;
+﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
 using FluentAssertions;
+using MediatR;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
+using Socially.UserManagment.Core.Services;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Events;
+using Xunit;
 
 namespace Socially.UserManagment.UnitTests.Core.Services;
 
@@ -28,6 +25,7 @@ public class DeleteUserServiceTests
     _logger = Substitute.For<ILogger<DeleteUserService>>();
     _deleteUserService = new DeleteUserService(_repository, _mediator, _logger);
   }
+
   [Fact]
   public async Task DeleteUser_WithValidUserId_ShouldDeleteUserAndPublishEvent()
   {
@@ -85,7 +83,6 @@ public class DeleteUserServiceTests
         null,
         Arg.Any<Func<object, Exception?, string>>());
   }
-
 
   // Test 3: Ensure that the logger logs the correct information
   [Fact]

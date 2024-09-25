@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Microsoft.Extensions.Logging;
-using Socially.UserManagement.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.Core.UserAggregate.Errors;
 using Socially.UserManagment.Core.UserAggregate.Specifications;
 
 namespace Socially.UserManagment.UseCases.Users.Verify;
+
 public class VerifyCommandHandler(IRepository<User> _repository) : ICommandHandler<VerifyCommand, Result>
 {
   public async Task<Result> Handle(VerifyCommand request, CancellationToken cancellationToken)

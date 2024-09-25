@@ -8,10 +8,11 @@ using Socially.UserManagment.Core.Interfaces;
 using Socially.UserManagment.Core.Services;
 using Socially.UserManagment.Infrastructure.Data;
 using Socially.UserManagment.Infrastructure.Email;
-using Socially.UserManagment.UseCases.Users.Interfaces;
 using Socially.UserManagment.Infrastructure.Token;
+using Socially.UserManagment.UseCases.Users.Interfaces;
 
 namespace Socially.UserManagment.Infrastructure;
+
 public static class InfrastructureServiceExtensions
 {
   public static IServiceCollection AddInfrastructureServices(

@@ -1,16 +1,13 @@
-﻿using Xunit;
+﻿using Ardalis.Result;
+using Ardalis.SharedKernel;
+using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Ardalis.Result;
 using Socially.UserManagment.Core.RefreshTokenAggregate;
 using Socially.UserManagment.Core.RefreshTokenAggregate.Specifications;
 using Socially.UserManagment.UseCases.Users.Interfaces;
-using Microsoft.Extensions.Logging;
-using FluentAssertions;
 using Socially.UserManagment.UseCases.Users.Refresh;
-using Ardalis.SharedKernel;
+using Xunit;
 
 namespace Socially.UserManagment.UnitTests.UseCases.Users;
 
@@ -77,6 +74,7 @@ public class RefreshCommandHandlerTests
     _tokenGenerator.DidNotReceive().GenerateAccessToken(Arg.Any<Guid>());
     await _tokenGenerator.DidNotReceive().GenerateRefreshToken(Arg.Any<Guid>(), Arg.Any<string>());
   }
+
   // Test 3: Ensure revoked refresh token logs a critical message and returns unauthorized
   [Fact]
   public async Task Handle_WithRevokedRefreshToken_ShouldLogCriticalAndReturnUnauthorized()
@@ -111,5 +109,4 @@ public class RefreshCommandHandlerTests
         null,
         Arg.Any<Func<object, Exception?, string>>());
   }
-
 }

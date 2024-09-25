@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Socially.UserManagement.Core.UserAggregate;
 using Socially.UserManagment.Core.Interfaces;
+using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.Core.UserAggregate.Events;
 
 namespace Socially.UserManagment.Core.Services;
+
 public class DeleteUserService(IRepository<User> _repository,
   IMediator _mediator,
   ILogger<DeleteUserService> _logger) : IDeleteUserService

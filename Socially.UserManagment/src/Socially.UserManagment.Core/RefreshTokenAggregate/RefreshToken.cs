@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ardalis.SharedKernel;
-using Socially.UserManagement.Core.UserAggregate;
+﻿using Ardalis.SharedKernel;
+using Socially.UserManagment.Core.UserAggregate;
 
 namespace Socially.UserManagment.Core.RefreshTokenAggregate;
+
 public class RefreshToken(Guid userId, string token, DateTimeOffset expiration, Guid? parentTokenId, string family) : EntityBase<Guid>, IAggregateRoot
 {
   public Guid UserId { get; private set; } = userId;
-  public  string Token { get; private set; } = token;
+  public string Token { get; private set; } = token;
   public DateTimeOffset Expiration { get; private set; } = expiration;
   public bool IsRevoked { get; private set; }
 
@@ -20,7 +16,8 @@ public class RefreshToken(Guid userId, string token, DateTimeOffset expiration, 
 
   public DateTimeOffset? RevokedAt { get; private set; }
 
-  public User? User { get; private set; } 
+  public User? User { get; private set; }
+
   public void Revoke()
   {
     IsRevoked = true;
@@ -28,8 +25,4 @@ public class RefreshToken(Guid userId, string token, DateTimeOffset expiration, 
   }
 
   public bool IsExpired => DateTimeOffset.UtcNow >= Expiration;
-
-
-
 }
-

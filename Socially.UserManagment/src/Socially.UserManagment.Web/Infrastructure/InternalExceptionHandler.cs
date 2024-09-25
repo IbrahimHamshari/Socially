@@ -14,7 +14,6 @@ public class InternalExceptionHandler : IExceptionHandler
 
   public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
   {
-
     if (exception is ArgumentException)
       return false;
 

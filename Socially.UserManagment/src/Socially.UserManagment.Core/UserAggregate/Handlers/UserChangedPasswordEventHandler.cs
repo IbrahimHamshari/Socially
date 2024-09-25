@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Socially.UserManagment.Core.Interfaces;
 using Socially.UserManagment.Core.UserAggregate.Events;
 
 namespace Socially.UserManagment.UseCases.Users.Handlers;
+
 public class UserChangedPasswordEventHandler(IEmailSender _emailSender,
   ILogger<UserChangedPasswordEventHandler> _logger) : INotificationHandler<UserChangedPasswordEvent>
 {
   public async Task Handle(UserChangedPasswordEvent notification, CancellationToken cancellationToken)
   {
-    var user= notification.User;
+    var user = notification.User;
     var email = user.Email;
     var id = user.Id;
     var changeTime = DateTimeOffset.UtcNow;
@@ -29,7 +25,7 @@ public class UserChangedPasswordEventHandler(IEmailSender _emailSender,
     The Socially Team
     ";
     var subject = "Password Changed";
-    await _emailSender.SendEmailAsync(email,subject,body);
+    await _emailSender.SendEmailAsync(email, subject, body);
     _logger.LogInformation("Sucessfully Changed Password to the user with id of {id}", id);
   }
 }

@@ -1,19 +1,17 @@
-﻿using Ardalis.SharedKernel;
-using Microsoft.IdentityModel.Tokens;
-using Socially.UserManagement.Core.UserAggregate;
-using Socially.UserManagment.Core.RefreshTokenAggregate.Specifications;
-using Socially.UserManagment.Core.RefreshTokenAggregate;
-using Socially.UserManagment.Shared.Config.JWT;
-using Socially.UserManagment.UseCases.Users.Interfaces;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Ardalis.Result;
+using Ardalis.SharedKernel;
 using Microsoft.Extensions.Options;
-
+using Microsoft.IdentityModel.Tokens;
+using Socially.UserManagment.Core.RefreshTokenAggregate;
+using Socially.UserManagment.Core.RefreshTokenAggregate.Specifications;
+using Socially.UserManagment.Shared.Config.JWT;
+using Socially.UserManagment.UseCases.Users.Interfaces;
 
 namespace Socially.UserManagment.Infrastructure.Token;
+
 public class TokenGenerator : ITokenGenerator
 {
   private readonly IOptionsMonitor<JWTSettings> _jwtSettings; // Inject settings for JWT (key, expiry, etc.)
@@ -78,7 +76,6 @@ public class TokenGenerator : ITokenGenerator
 
     return refreshToken;
   }
-
 
   private async Task<string> GetFamilyFromParentToken(string parentToken)
   {

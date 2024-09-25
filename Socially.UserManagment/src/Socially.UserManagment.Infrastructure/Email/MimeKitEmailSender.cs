@@ -5,6 +5,7 @@ using MimeKit;
 using Socially.UserManagment.Core.Interfaces;
 
 namespace Socially.UserManagment.Infrastructure.Email;
+
 public class MimeKitEmailSender : IEmailSender
 {
   private readonly ILogger<MimeKitEmailSender> _logger;
@@ -17,13 +18,11 @@ public class MimeKitEmailSender : IEmailSender
     _mailserverConfiguration = mailserverOptions.Value!;
   }
 
-
   public async Task SendEmailAsync(string to, string subject, string body)
   {
-
     using var client = new SmtpClient();
     await client.ConnectAsync(_mailserverConfiguration.Hostname,
-      _mailserverConfiguration.Port, 
+      _mailserverConfiguration.Port,
       MailKit.Security.SecureSocketOptions.StartTls);
     await client.AuthenticateAsync(_mailserverConfiguration.Username, _mailserverConfiguration.Password);
 
@@ -39,6 +38,5 @@ public class MimeKitEmailSender : IEmailSender
       new CancellationToken(canceled: true));
 
     _logger.LogWarning("Sent email to {to} with subject {subject} using {type}.", to, subject, this.ToString());
-
   }
 }

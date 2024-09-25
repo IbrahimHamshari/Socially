@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Microsoft.Extensions.Logging;
-using Socially.UserManagement.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.Core.UserAggregate.Errors;
 using Socially.UserManagment.UseCases.Users.Common.DTOs;
 
 namespace Socially.UserManagment.UseCases.Users.Update;
+
 public class UpdateUserCommandHandler(IRepository<User> _repository) : ICommandHandler<UpdateUserCommand, Result<UserUpdateDto>>
 {
   public async Task<Result<UserUpdateDto>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)

@@ -1,7 +1,6 @@
-﻿using System;
-using Xunit;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Socially.UserManagment.Core.RefreshTokenAggregate;
+using Xunit;
 
 namespace Socially.UserManagment.UnitTests.Core.RefreshTokenAggregate;
 

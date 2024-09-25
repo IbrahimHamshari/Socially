@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Socially.UserManagment.Core.Interfaces;
 using Socially.UserManagment.Core.UserAggregate.Events;
@@ -32,5 +26,4 @@ public record UserVerifiedEventHandler(IEmailSender _emailService,
     await _emailService.SendEmailAsync(user.Email, subject, body);
     _logger.LogInformation("a Register Email has been sent to the user with Id of {id}", user.Id);
   }
-  
 }

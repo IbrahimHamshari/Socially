@@ -1,17 +1,12 @@
-﻿using Xunit;
-using NSubstitute;
-using System;
-using System.Threading.Tasks;
-using Ardalis.Result;
-using Socially.UserManagement.Core.UserAggregate;
-using Socially.UserManagment.Shared.Config.JWT;
-using Socially.UserManagment.UseCases.Users.Common;
-using Socially.UserManagment.UseCases.Users.Interfaces;
-using Microsoft.Extensions.Logging;
+﻿using Ardalis.Result;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 using Socially.UserManagment.Core.RefreshTokenAggregate;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.UseCases.Users.Interfaces;
 using Socially.UserManagment.UseCases.Users.Login;
-using NSubstitute.Core.Arguments;
+using Xunit;
 
 namespace Socially.UserManagment.UnitTests.UseCases.Users;
 
@@ -78,7 +73,6 @@ public class LoginServiceTests
     // Ensure no login is logged - no need to use argument matchers for `DidNotReceive`
     _logger.DidNotReceive().LogInformation(default(string?), Array.Empty<object>());
   }
-
 
   // Test 3: Ensure that if the user is inactive, login fails with unauthorized result
   [Fact]

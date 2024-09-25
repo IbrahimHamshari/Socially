@@ -1,14 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-using Ardalis.Result;
-using Ardalis.SharedKernel;
+﻿using Ardalis.SharedKernel;
 using FluentAssertions;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
-using NSubstitute.ExceptionExtensions;
-using Socially.UserManagement.Core.UserAggregate;
 using Socially.UserManagment.Core.Services;
+using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.Core.UserAggregate.Events;
 using Xunit;
 
@@ -61,7 +57,6 @@ public class CreateUserServiceTests
         null,
         Arg.Any<Func<object, Exception?, string>>());
   }
-
 
   // Test 2: Ensure that the mediator is called to publish the event
   [Fact]

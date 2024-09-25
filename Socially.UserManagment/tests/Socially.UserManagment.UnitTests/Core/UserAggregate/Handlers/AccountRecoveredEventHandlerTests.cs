@@ -1,13 +1,10 @@
-﻿using Xunit;
+﻿using Microsoft.Extensions.Logging;
 using NSubstitute;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using Socially.UserManagment.Core.Interfaces;
+using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.Core.UserAggregate.Events;
 using Socially.UserManagment.UseCases.Users.Handlers;
-using Socially.UserManagement.Core.UserAggregate;
+using Xunit;
 
 namespace Socially.UserManagment.UnitTests.Core.Users.Handlers;
 

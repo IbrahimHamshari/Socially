@@ -2,24 +2,24 @@
 using System.Text;
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Extensions.Logging;
-using Socially.UserManagement.Core.UserAggregate;
 using Socially.UserManagment.Core.Interfaces;
+using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.Infrastructure;
+using Socially.UserManagment.Infrastructure.CookieManagment;
 using Socially.UserManagment.Infrastructure.Data;
 using Socially.UserManagment.Infrastructure.Email;
 using Socially.UserManagment.Shared.Config.JWT;
-using Socially.UserManagment.UseCases.Users.Register;
 using Socially.UserManagment.UseCases;
-using Socially.UserManagment.Infrastructure.CookieManagment;
-using Socially.UserManagment.Web.Extensions;
-using Socially.UserManagment.Web.Infrastructure;
+using Socially.UserManagment.UseCases.Users.Register;
 using Socially.UserManagment.UseCases.Validation;
-using FluentValidation;
+using Socially.UserManagment.Web.Infrastructure;
+
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
   .WriteTo.Console()
@@ -42,9 +42,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-
 var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JWTSettings>();
-
 
 builder.Services.AddAuthentication()
   .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
@@ -59,12 +57,11 @@ builder.Services.AddAuthentication()
       ValidateIssuerSigningKey = true,
       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Secret)),
     };
-
   });
 builder.Services.Configure<JWTSettings>(
   builder.Configuration.GetSection("Jwt")
 );
-builder.Services.AddSingleton<ICookieService,CookieService>();
+builder.Services.AddSingleton<ICookieService, CookieService>();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -98,7 +95,6 @@ if (app.Environment.IsDevelopment())
   app.UseDeveloperExceptionPage();
   app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
 
-
   app.UseSwagger();
   app.UseSwaggerUI();
 }
@@ -117,8 +113,6 @@ app.UseAuthorization();
 app.UseExceptionHandler();
 
 app.MapControllers();
-
-
 
 app.Run();
 

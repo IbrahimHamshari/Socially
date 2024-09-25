@@ -1,15 +1,11 @@
-﻿using Xunit;
-using NSubstitute;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Socially.UserManagement.Core.UserAggregate;
+using NSubstitute;
 using Socially.UserManagment.Core.Interfaces;
-using Socially.UserManagment.Core.UserAggregate.Events;
-using Socially.UserManagment.UseCases.Users.Handlers;
+using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.UseCases.Users.ForgetPassword;
+using Socially.UserManagment.UseCases.Users.Handlers;
+using Xunit;
 
 namespace Socially.UserManagment.UnitTests.Core.Users.Handlers;
 

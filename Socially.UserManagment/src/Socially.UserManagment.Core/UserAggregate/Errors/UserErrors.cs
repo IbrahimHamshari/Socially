@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 
 namespace Socially.UserManagment.Core.UserAggregate.Errors;
+
 public static class UserErrors
 {
   public static Result NotFound(Guid userId) => Result.NotFound("Users.NotFound", $"The user with the Id = '{userId}' was not found");

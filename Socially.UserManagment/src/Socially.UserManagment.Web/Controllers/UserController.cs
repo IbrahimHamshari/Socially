@@ -1,11 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Socially.UserManagment.Core.RefreshTokenAggregate;
-using Socially.UserManagment.Core.UserAggregate.Specifications;
 using Socially.UserManagment.Infrastructure.CookieManagment;
 using Socially.UserManagment.Shared.Config.JWT;
 using Socially.UserManagment.UseCases.Users.ChangePassword;
@@ -21,6 +18,7 @@ using Socially.UserManagment.UseCases.Users.Verify;
 using Socially.UserManagment.Web.Extensions;
 
 namespace Socially.UserManagment.Web.Users;
+
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
@@ -35,19 +33,19 @@ public class UserController : ControllerBase
     _jwtSettings = jwtSettings;
     _cookieService = cookieService;
   }
+
   [HttpPost("register")]
   public async Task<ActionResult<Guid>> Register(UserRegistrationDto newUser)
   {
     var command = new RegisterUserCommand(newUser);
     var result = await _mediator.Send(command);
-    if(result.IsSuccess)
+    if (result.IsSuccess)
     {
-      return CreatedAtAction(nameof(Register), new {id = result.Value}, result.Value);
+      return CreatedAtAction(nameof(Register), new { id = result.Value }, result.Value);
     }
 
     return BadRequest(result.ToProblemDetails());
   }
-
 
   [HttpPost("login")]
   public async Task<ActionResult<string>> Login(UserLoginDto user)
@@ -91,7 +89,7 @@ public class UserController : ControllerBase
   }
 
   [HttpGet("verify/{token}")]
-  public async Task<IActionResult> VerifyEmail([FromRoute,Required] string token)
+  public async Task<IActionResult> VerifyEmail([FromRoute, Required] string token)
   {
     var command = new VerifyCommand(token);
     var result = await _mediator.Send(command);
@@ -131,7 +129,7 @@ public class UserController : ControllerBase
   }
 
   [HttpPost("forgetpassword/{token}")]
-  public async Task<IActionResult> ChangeForgetPassword([FromRoute]string token,  [FromBody]ChangeForgetPasswordRequest request)
+  public async Task<IActionResult> ChangeForgetPassword([FromRoute] string token, [FromBody] ChangeForgetPasswordRequest request)
   {
     var command = new ChangeForgetPasswordCommand(token, request.Password);
     var result = await _mediator.Send(command);
@@ -142,6 +140,7 @@ public class UserController : ControllerBase
     }
     return BadRequest(result.ToProblemDetails());
   }
+
   [HttpGet("verify")]
   [Authorize]
   public async Task<IActionResult> RequestEmailVerification()
@@ -155,4 +154,4 @@ public class UserController : ControllerBase
     }
     return BadRequest(result.ToProblemDetails());
   }
-  }
+}

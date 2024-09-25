@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Socially.UserManagment.Core.Interfaces;
 using Socially.UserManagment.Core.UserAggregate.Events;
 
 namespace Socially.UserManagment.UseCases.Users.Handlers;
+
 public class UserCreatedEventHandler(IEmailSender _emailService,
   IHttpContextAccessor _httpContextAccessor,
   ILogger<UserCreatedEventHandler> _logger) : INotificationHandler<UserCreatedEvent>
 {
   public async Task Handle(UserCreatedEvent domainEvent, CancellationToken cancellationToken)
   {
-
-    
     var user = domainEvent.User;
     var body = $@"
     Hi {user.Username},
@@ -37,7 +31,6 @@ public class UserCreatedEventHandler(IEmailSender _emailService,
     ";
     var subject = "Account Registeration";
     await _emailService.SendEmailAsync(user.Email, subject, body);
-    _logger.LogInformation("a Register Email has been sent to the user with Id of {id}",user.Id);
-    
+    _logger.LogInformation("a Register Email has been sent to the user with Id of {id}", user.Id);
   }
 }

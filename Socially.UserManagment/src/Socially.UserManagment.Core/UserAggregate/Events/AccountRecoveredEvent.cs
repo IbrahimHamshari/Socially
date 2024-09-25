@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ardalis.SharedKernel;
-using Socially.UserManagement.Core.UserAggregate;
+﻿using Ardalis.SharedKernel;
 
 namespace Socially.UserManagment.Core.UserAggregate.Events;
+
 public class AccountRecoveredEvent(User _user) : DomainEventBase
 {
-  public User User { get; private set; } = _user; 
+  public User User { get; private set; } = _user;
 }

@@ -1,12 +1,11 @@
-﻿using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Socially.UserManagment.Core.UserAggregate.Events;
 using Socially.UserManagment.UseCases.Users.ForgetPassword;
 
-namespace Socially.UserManagement.Core.UserAggregate;
+namespace Socially.UserManagment.Core.UserAggregate;
 
 public class User : EntityBase<Guid>, IAggregateRoot
 {
@@ -37,11 +36,10 @@ public class User : EntityBase<Guid>, IAggregateRoot
   {
     Username = Guard.Against.InvalidUserNameFormat(username, nameof(username));
     Email = Guard.Against.InvalidEmailFormat(email, nameof(email));
-    PasswordHash = passwordHash.Length >24? passwordHash: HashPassword(Guard.Against.InvalidPasswordFormat(passwordHash, nameof(passwordHash)));
+    PasswordHash = passwordHash.Length > 24 ? passwordHash : HashPassword(Guard.Against.InvalidPasswordFormat(passwordHash, nameof(passwordHash)));
     FirstName = Guard.Against.InvalidNameFormat(firstName, nameof(firstName));
     LastName = Guard.Against.InvalidNameFormat(lastName, nameof(lastName));
     Gender = gender;
-
   }
 
   private User() { }
@@ -73,7 +71,6 @@ public class User : EntityBase<Guid>, IAggregateRoot
 
     var userChangedPasswordEvent = new UserChangedPasswordEvent(this);
     RegisterDomainEvent(userChangedPasswordEvent);
-
   }
 
   private static string HashPassword(string password)
@@ -127,9 +124,6 @@ public class User : EntityBase<Guid>, IAggregateRoot
     return CryptographicOperations.FixedTimeEquals(providedHash, storedHash);
   }
 
-
-
-
   // Update Email with format validation
   public void UpdateEmail(string newEmail)
   {
@@ -141,7 +135,6 @@ public class User : EntityBase<Guid>, IAggregateRoot
     UpdatedAt = DateTimeOffset.UtcNow;
   }
 
-
   // Record Login
   public void RecordLogin()
   {
@@ -151,7 +144,7 @@ public class User : EntityBase<Guid>, IAggregateRoot
   // Recover Account
   public void RecoverAccount(string recoveryToken, string newPassword)
   {
-    if (!IsValidRecoveryToken(recoveryToken) ||ResetTokenGeneratedAt == null ||DateTimeOffset.UtcNow > ResetTokenGeneratedAt.Value.AddHours(3))
+    if (!IsValidRecoveryToken(recoveryToken) || ResetTokenGeneratedAt == null || DateTimeOffset.UtcNow > ResetTokenGeneratedAt.Value.AddHours(3))
       throw new ArgumentException("Invalid recovery token.");
 
     UpdatePassword(newPassword);
@@ -162,14 +155,12 @@ public class User : EntityBase<Guid>, IAggregateRoot
 
   private bool IsValidRecoveryToken(string token)
   {
-    if(this.ResetPasswordToken != token)
+    if (this.ResetPasswordToken != token)
     {
       return false;
     }
     return true;
-    
   }
-
 
   private void UpdatePassword(string newPassowrd)
   {
@@ -215,7 +206,7 @@ public class User : EntityBase<Guid>, IAggregateRoot
 
   public void UpdateDateOfBirth(DateTimeOffset newDateOfBirth)
   {
-    if ( newDateOfBirth > DateTimeOffset.UtcNow)
+    if (newDateOfBirth > DateTimeOffset.UtcNow)
       throw new ArgumentException("Date of birth cannot be in the future.");
 
     DateOfBirth = newDateOfBirth;
@@ -229,7 +220,7 @@ public class User : EntityBase<Guid>, IAggregateRoot
   }
   public void GenerateEmailVerificationToken()
   {
-    VerificationToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)).Replace("/",""); 
+    VerificationToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)).Replace("/", "");
     TokenGeneratedAt = DateTimeOffset.UtcNow;
     var userRegisteredEvent = new UserCreatedEvent(this);
     RegisterDomainEvent(userRegisteredEvent);
@@ -248,7 +239,7 @@ public class User : EntityBase<Guid>, IAggregateRoot
   }
   public void GenerateResetToken()
   {
-    ResetPasswordToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)).Replace("/","");
+    ResetPasswordToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)).Replace("/", "");
     ResetTokenGeneratedAt = DateTimeOffset.UtcNow;
 
     var userForgotEvent = new PasswordForgotEvent(this);

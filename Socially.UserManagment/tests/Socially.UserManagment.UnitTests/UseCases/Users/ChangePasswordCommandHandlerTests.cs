@@ -1,17 +1,14 @@
-﻿using Xunit;
-using NSubstitute;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Ardalis.Result;
-using Socially.UserManagement.Core.UserAggregate;
-using Socially.UserManagment.Core.UserAggregate.Errors;
-using Socially.UserManagment.Core.UserAggregate.Specifications;
-using Socially.UserManagment.UseCases.Users.ChangePassword;
+﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Specifications;
+using Socially.UserManagment.UseCases.Users.ChangePassword;
 using Socially.UserManagment.UseCases.Users.Common.DTOs;
+using Xunit;
+
 namespace Socially.UserManagment.UnitTests.UseCases.Users;
 
 public class ChangePasswordCommandHandlerTests
@@ -39,8 +36,8 @@ public class ChangePasswordCommandHandlerTests
        userId,
        new ChangePasswordDto
        {
-         currentPassword = "OldPassword@123",
-         password = "NewPassword@123"
+         CurrentPassword = "OldPassword@123",
+         Password = "NewPassword@123"
        }
     );
 
@@ -75,8 +72,8 @@ public class ChangePasswordCommandHandlerTests
      userId,
      new ChangePasswordDto
      {
-       currentPassword = "OldPassword@123",
-       password = "NewPassword@123"
+       CurrentPassword = "OldPassword@123",
+       Password = "NewPassword@123"
      }
     );
 
@@ -103,8 +100,8 @@ public class ChangePasswordCommandHandlerTests
       userId,
       new ChangePasswordDto
       {
-        currentPassword = "WrongPassword@123",
-        password = "NewPassword@123"
+        CurrentPassword = "WrongPassword@123",
+        Password = "NewPassword@123"
       }
     );
 

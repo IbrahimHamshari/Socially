@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Socially.UserManagement.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.Core.UserAggregate.Errors;
 using Socially.UserManagment.Core.UserAggregate.Specifications;
 using Socially.UserManagment.UseCases.Users.Common.DTOs;
 
 namespace Socially.UserManagment.UseCases.Users.Get;
+
 public class GetUserQueryHandler(IReadRepository<User> _repository) : IQueryHandler<GetUserQuery, Result<UserDto>>
 {
   public async Task<Result<UserDto>> Handle(GetUserQuery request, CancellationToken cancellationToken)

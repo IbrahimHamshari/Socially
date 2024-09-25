@@ -1,7 +1,4 @@
 ﻿using Ardalis.Result;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Socially.UserManagment.Web.Extensions;
 
@@ -23,5 +20,4 @@ public static class ResultExtensions
       }
       );
   }
-
 }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 
 namespace Socially.UserManagment.Core.RefreshTokenAggregate.Errors;
+
 public static class RefreshTokenErrors
 {
   public static Result NotFoundByUserId(string userId) => Result.NotFound("RefreshTokens.NotFoundByUserId", $"The Token with the User Id = '{userId}' was not found");

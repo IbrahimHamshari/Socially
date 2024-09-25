@@ -1,21 +1,15 @@
-﻿using Xunit;
-using NSubstitute;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Ardalis.Result;
-using Socially.UserManagement.Core.UserAggregate;
-using Socially.UserManagment.Core.UserAggregate.Errors;
-using Socially.UserManagment.Core.UserAggregate.Specifications;
-using Socially.UserManagment.UseCases.Users.ChangePassword;
+﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
 using FluentAssertions;
-using Socially.UserManagment.UseCases.Users.Common.DTOs;
-using Socially.UserManagment.UseCases.Users.Login;
+using NSubstitute;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Specifications;
 using Socially.UserManagment.UseCases.Users.ChangeForgetPassword;
 using Socially.UserManagment.UseCases.Users.ChangePasswordForget;
 using Socially.UserManagment.UseCases.Users.Common;
+using Socially.UserManagment.UseCases.Users.Login;
+using Xunit;
+
 namespace Socially.UserManagment.UnitTests.UseCases.Users;
 
 public class ChangeForgetPasswordCommandHandlerTests
@@ -36,7 +30,7 @@ public class ChangeForgetPasswordCommandHandlerTests
   public async Task Handle_WithInvalidToken_ShouldReturnNotFoundError()
   {
     // Arrange
-    var command = new ChangeForgetPasswordCommand ("invalid-token","NewPassword123" );
+    var command = new ChangeForgetPasswordCommand("invalid-token", "NewPassword123");
     _repository.SingleOrDefaultAsync(Arg.Any<UserByResetTokenSpec>(), Arg.Any<CancellationToken>())
         .Returns((User?)null);
 
@@ -55,7 +49,7 @@ public class ChangeForgetPasswordCommandHandlerTests
     // Arrange
     var user = new User("validUser", "user@example.com", "OldPassword@123", "John", "Doe", true);
     user.GenerateResetToken(); // Simulating token generation
-    var command = new ChangeForgetPasswordCommand (user.ResetPasswordToken!, "NewPassword@123" );
+    var command = new ChangeForgetPasswordCommand(user.ResetPasswordToken!, "NewPassword@123");
 
     // Mock repository to return the user for the valid token
     _repository.SingleOrDefaultAsync(Arg.Any<UserByResetTokenSpec>(), Arg.Any<CancellationToken>())
