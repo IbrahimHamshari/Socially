@@ -10,7 +10,7 @@ public class ArgumentValidationExceptionHandler : IExceptionHandler
 {
   public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
   {
-    if (exception is not ArgumentException && exception is not ValidationException && exception is not ValidationException && (exception is DbUpdateException && exception.InnerException is not PostgresException))
+    if (exception is not ArgumentException && exception is not ValidationException && exception is not ValidationException && (exception is DbUpdateException && exception.InnerException is not PostgresException) && exception is not NotSupportedException)
       return false;
     var message = "";
     if((exception is DbUpdateException && exception.InnerException is PostgresException))

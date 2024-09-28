@@ -17,7 +17,7 @@ public class InternalExceptionHandler : IExceptionHandler
 
   public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
   {
-    if (exception is ArgumentException || exception is ValidationException || exception is ValidationException || (exception is DbUpdateException && exception.InnerException is PostgresException))
+    if (exception is ArgumentException || exception is ValidationException || exception is ValidationException || (exception is DbUpdateException && exception.InnerException is PostgresException) || exception is NotSupportedException)
       return false;
 
     _logger.LogError(exception, "Exception Occured: {Message}", exception.Message);

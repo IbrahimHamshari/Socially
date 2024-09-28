@@ -14,6 +14,8 @@ using Socially.UserManagment.UseCases.Users.Login;
 using Socially.UserManagment.UseCases.Users.Register;
 using Socially.UserManagment.UseCases.Users.RequestVerification;
 using Socially.UserManagment.UseCases.Users.Update;
+using Socially.UserManagment.UseCases.Users.UploadCoverImage;
+using Socially.UserManagment.UseCases.Users.UploadProfilePicture;
 using Socially.UserManagment.UseCases.Users.Verify;
 using Socially.UserManagment.Web.Extensions;
 
@@ -151,6 +153,35 @@ public class UserController : ControllerBase
     if (result.IsSuccess)
     {
       return Ok();
+    }
+    return BadRequest(result.ToProblemDetails());
+  }
+
+  [HttpPatch("coverimage")]
+  [Authorize]
+  public async Task<IActionResult> UploadCoverImage(IFormFile file)
+  {
+    var id = Guid.Parse(User.Identity!.Name!);
+    var command = new UploadCoverImageCommand(file, id);
+    var result = await _mediator.Send(command);
+    if (result.IsSuccess)
+    {
+      return Ok(result.Value);
+    }
+    return BadRequest(result.ToProblemDetails());
+  }
+
+
+  [HttpPatch("profilepicture")]
+  [Authorize]
+  public async Task<IActionResult> UploadProfilePicture(IFormFile file)
+  {
+    var id = Guid.Parse(User.Identity!.Name!);
+    var command = new UploadProfilePictureCommand(file, id);
+    var result = await _mediator.Send(command);
+    if (result.IsSuccess)
+    {
+      return Ok(result.Value);
     }
     return BadRequest(result.ToProblemDetails());
   }
