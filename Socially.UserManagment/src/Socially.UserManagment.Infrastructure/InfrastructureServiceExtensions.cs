@@ -9,7 +9,9 @@ using Socially.UserManagment.Core.Services;
 using Socially.UserManagment.Infrastructure.Data;
 using Socially.UserManagment.Infrastructure.Email;
 using Socially.UserManagment.Infrastructure.Messaging;
+using Socially.UserManagment.Infrastructure.Storage;
 using Socially.UserManagment.Infrastructure.Token;
+using Socially.UserManagment.UseCases.Interfaces;
 using Socially.UserManagment.UseCases.Users.Interfaces;
 using Supabase;
 
@@ -46,6 +48,7 @@ public static class InfrastructureServiceExtensions
         AutoRefreshToken = true,
         AutoConnectRealtime = true
       }));
+    services.AddScoped<IFileStorageService, SupabaseStorageService>();
     return services;
   }
 }
