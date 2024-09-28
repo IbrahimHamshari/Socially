@@ -11,7 +11,6 @@ public static class ApplicationServiceExtensions
     ILogger logger)
   {
     services.AddScoped<ILoginService, LoginService>();
-
     logger.LogInformation("{Project} services registered", nameof(Socially.UserManagment.UseCases));
     return services;
   }

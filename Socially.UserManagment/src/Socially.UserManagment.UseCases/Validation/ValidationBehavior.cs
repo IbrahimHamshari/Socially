@@ -6,9 +6,9 @@ namespace Socially.UserManagment.UseCases.Validation;
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
-  private readonly IValidator<TRequest>[] _validators;
+  private readonly IEnumerable<IValidator<TRequest>> _validators;
 
-  public ValidationBehavior(IValidator<TRequest>[] validators)
+  public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
   {
     _validators = validators;
   }

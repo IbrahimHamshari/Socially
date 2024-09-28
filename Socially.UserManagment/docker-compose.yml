@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  socially.usermanagment.web:
-    image: ${DOCKER_REGISTRY-}sociallyusermanagmentweb
-    build:
-      context: ..
-      dockerfile: Socially.UserManagment/src/Socially.UserManagment.Web/Dockerfile

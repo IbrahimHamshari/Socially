@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace Socially.UserManagment.Web.Infrastructure;
 
@@ -14,7 +17,7 @@ public class InternalExceptionHandler : IExceptionHandler
 
   public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
   {
-    if (exception is ArgumentException)
+    if (exception is ArgumentException || exception is ValidationException || exception is ValidationException || (exception is DbUpdateException && exception.InnerException is PostgresException))
       return false;
 
     _logger.LogError(exception, "Exception Occured: {Message}", exception.Message);
