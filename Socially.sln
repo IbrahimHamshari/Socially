@@ -67,7 +67,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Socially.Messaging.Integrat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Socially.Messaging.UnitTests", "Socially.Messaging\tests\Socially.Messaging.UnitTests\Socially.Messaging.UnitTests.csproj", "{A9C3F7AC-BCA2-4B49-8377-76F7E6D19D07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Socially.UserManagment.Shared", "Socially.UserManagment.Shared\Socially.UserManagment.Shared.csproj", "{0AFFBD07-E20F-4048-A3DD-892DFAD5C738}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel", "SharedKernel\SharedKernel.csproj", "{0D1284FC-2932-4C24-AC98-632AF6A38B2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E396C6C7-DE57-4076-BEEB-83479D6D104E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Socially.UserManagment.Shared", "Socially.UserManagment\src\Socially.UserManagment.Shared\Socially.UserManagment.Shared.csproj", "{CC0E4569-BB99-4250-AB18-A87B9B46A246}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8644CBFB-FE8C-40D7-AD32-A17522999840}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -187,10 +193,18 @@ Global
 		{A9C3F7AC-BCA2-4B49-8377-76F7E6D19D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9C3F7AC-BCA2-4B49-8377-76F7E6D19D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9C3F7AC-BCA2-4B49-8377-76F7E6D19D07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0AFFBD07-E20F-4048-A3DD-892DFAD5C738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AFFBD07-E20F-4048-A3DD-892DFAD5C738}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AFFBD07-E20F-4048-A3DD-892DFAD5C738}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AFFBD07-E20F-4048-A3DD-892DFAD5C738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D1284FC-2932-4C24-AC98-632AF6A38B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D1284FC-2932-4C24-AC98-632AF6A38B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D1284FC-2932-4C24-AC98-632AF6A38B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D1284FC-2932-4C24-AC98-632AF6A38B2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC0E4569-BB99-4250-AB18-A87B9B46A246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC0E4569-BB99-4250-AB18-A87B9B46A246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC0E4569-BB99-4250-AB18-A87B9B46A246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC0E4569-BB99-4250-AB18-A87B9B46A246}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8644CBFB-FE8C-40D7-AD32-A17522999840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8644CBFB-FE8C-40D7-AD32-A17522999840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8644CBFB-FE8C-40D7-AD32-A17522999840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8644CBFB-FE8C-40D7-AD32-A17522999840}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -224,7 +238,7 @@ Global
 		{9B448A6E-5940-4708-BBA5-8A096C862165} = {ED58FC4E-8CB2-432D-973E-F6FB6CD8AC60}
 		{EB476314-3ACB-4670-860D-6AA17147F19C} = {ED58FC4E-8CB2-432D-973E-F6FB6CD8AC60}
 		{A9C3F7AC-BCA2-4B49-8377-76F7E6D19D07} = {ED58FC4E-8CB2-432D-973E-F6FB6CD8AC60}
-		{0AFFBD07-E20F-4048-A3DD-892DFAD5C738} = {331BDA9C-CFD6-4ECA-97AB-AFA6462A7716}
+		{CC0E4569-BB99-4250-AB18-A87B9B46A246} = {331BDA9C-CFD6-4ECA-97AB-AFA6462A7716}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87301493-D269-42D9-BE43-C87CF9EBBFCE}

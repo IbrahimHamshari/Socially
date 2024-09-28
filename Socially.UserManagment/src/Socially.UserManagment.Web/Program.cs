@@ -6,11 +6,13 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Quartz;
 using Serilog;
 using Serilog.Extensions.Logging;
 using Socially.UserManagment.Core.Interfaces;
 using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.Infrastructure;
+using Socially.UserManagment.Infrastructure.BackgroundJobs;
 using Socially.UserManagment.Infrastructure.CookieManagment;
 using Socially.UserManagment.Infrastructure.Data;
 using Socially.UserManagment.Infrastructure.Email;
@@ -19,7 +21,7 @@ using Socially.UserManagment.UseCases;
 using Socially.UserManagment.UseCases.Users.Register;
 using Socially.UserManagment.UseCases.Validation;
 using Socially.UserManagment.Web.Infrastructure;
-
+using Newtonsoft.Json;
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
   .WriteTo.Console()
@@ -33,7 +35,28 @@ builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Con
 var microsoftLogger = new SerilogLoggerFactory(logger)
     .CreateLogger<Program>();
 
-builder.Services.AddControllers();
+
+builder.Services.AddQuartz(configure =>
+{
+  var jobKey = new JobKey(nameof(ProcessOutboxMessagesJob));
+
+  configure
+    .AddJob<ProcessOutboxMessagesJob>(jobKey)
+    .AddTrigger(
+      trigger =>
+        trigger.ForJob(jobKey)
+          .WithSimpleSchedule(
+            schedule =>
+              schedule.WithIntervalInSeconds(10)
+                .RepeatForever()));
+
+});
+
+builder.Services.AddQuartzHostedService();
+builder.Services.AddControllers().AddNewtonsoftJson(options=>
+{
+  options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+});
 builder.Services.AddSwaggerGen();
 // Configure Web Behavior
 builder.Services.Configure<CookiePolicyOptions>(options =>
@@ -83,9 +106,8 @@ else
 {
   builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
 }
-
 builder.Services.AddExceptionHandler<InternalExceptionHandler>();
-builder.Services.AddExceptionHandler<ArgumentExceptionHandler>();
+builder.Services.AddExceptionHandler<ArgumentValidationExceptionHandler>();
 
 builder.Services.AddProblemDetails();
 var app = builder.Build();
@@ -142,9 +164,14 @@ void ConfigureMediatR()
   Assembly.GetAssembly(typeof(User)), // Core
   Assembly.GetAssembly(typeof(RegisterUserCommand)) // UseCases
 };
-  builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
-  builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-  builder.Services.AddValidatorsFromAssembly(Assembly.GetAssembly(typeof(RegisterUserCommandValidator)));
+  builder.Services.AddMediatR(cfg =>
+  {
+    cfg.RegisterServicesFromAssemblies(mediatRAssemblies!);
+    cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+  }
+  );
+  builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserCommandValidator>();
+
   builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
   builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
 }

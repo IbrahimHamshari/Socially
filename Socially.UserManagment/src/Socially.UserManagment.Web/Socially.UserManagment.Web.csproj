@@ -1,7 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
 
+  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == ''">
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+  
   <PropertyGroup>
+    
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <OutputType>Exe</OutputType>
     <WebProjectMode>true</WebProjectMode>
@@ -10,6 +15,8 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
     <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
+    <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
+    <EnableSdkContainerDebugging>True</EnableSdkContainerDebugging>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,18 +32,25 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" />
+    <PackageReference Include="Quartz.Extensions.Hosting" />
     <PackageReference Include="Serilog.AspNetCore" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Socially.UserManagment.Shared\Socially.UserManagment.Shared.csproj" />
+    <ProjectReference Include="..\Socially.UserManagment.Shared\Socially.UserManagment.Shared.csproj" />
     <ProjectReference Include="..\Socially.UserManagment.Infrastructure\Socially.UserManagment.Infrastructure.csproj" />
     <ProjectReference Include="..\Socially.UserManagment.UseCases\Socially.UserManagment.UseCases.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Middlewares\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ContainerEnvironmentVariable Include="ASPNETCORE_HTTPS_PORTS">
+      <Value>8081</Value>
+    </ContainerEnvironmentVariable>
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  
   <ItemGroup>
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="FluentValidation" />
@@ -8,7 +8,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Socially.UserManagment.Shared\Socially.UserManagment.Shared.csproj" />
+    <ProjectReference Include="..\Socially.UserManagment.Shared\Socially.UserManagment.Shared.csproj" />
     <ProjectReference Include="..\Socially.UserManagment.Core\Socially.UserManagment.Core.csproj" />
   </ItemGroup>
 
