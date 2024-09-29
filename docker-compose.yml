@@ -6,7 +6,11 @@ services:
     build:
       context: .
       dockerfile: Socially.UserManagment/src/Socially.UserManagment.Web/Dockerfile
-
+    ports:
+     - "5050:8080"
+     - "5051:8081" 
+    environment:
+    - ASPNETCORE_ENVIRONMENT=Development
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq
@@ -15,8 +19,4 @@ services:
       - "15672:15672" # RabbitMQ management UI port
     networks:
       - shared_network
-    restart: always   # Ensure RabbitMQ restarts if it fails
-
-networks:
-  shared_network:
-    driver: bridge
+    restart: always   # Ensure RabbitMQ restarts if it fails  

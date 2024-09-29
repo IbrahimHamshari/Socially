@@ -1,12 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
 
-
-  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == ''">
-    <TargetFrameworkIdentifier>.NETCoreApp</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>8.0</TargetFrameworkVersion>
-  </PropertyGroup>
-  
   
   <ItemGroup>
     <PackageReference Include="Ardalis.Result" />
@@ -19,4 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\SharedKernel\SharedKernel.csproj" />
   </ItemGroup>
+
+
 </Project>

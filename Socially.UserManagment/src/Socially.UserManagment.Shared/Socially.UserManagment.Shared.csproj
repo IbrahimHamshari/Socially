@@ -1,8 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == ''">
-    <TargetFrameworkIdentifier>.NETCoreApp</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>8.0</TargetFrameworkVersion>
-  </PropertyGroup>
+
   
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>

@@ -1,0 +1,27 @@
+name: Unit Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        run: |
+          docker-compose --version
+          docker --version
+
+      - name: Build and run tests using Docker Compose
+        run: |
+          docker-compose up --build --abort-on-container-exit
+          docker-compose down
