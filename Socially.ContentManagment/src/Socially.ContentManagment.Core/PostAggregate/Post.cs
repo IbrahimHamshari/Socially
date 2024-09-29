@@ -7,17 +7,14 @@ using System.Xml.Linq;
 using Ardalis.SharedKernel;
 
 namespace Socially.ContentManagment.Core.PostAggregate;
-public class Post: EntityBase<Guid>, IAggregateRoot
+public class Post : EntityBase<Guid>, IAggregateRoot
 {
-  public Guid PostID { get; private set; }
   public Guid UserID { get; private set; }
   public string Content { get; private set; }
   public string MediaURL { get; private set; }
   public DateTime CreatedAt { get; private set; }
   public DateTime UpdatedAt { get; private set; }
-  public Privacy Privacy { get; private set; }  // Enum: Public, Friends, Private
-  public bool IsShared { get; private set; }
-  public Guid? OriginalPostID { get; private set; }
+  public Privacy Privacy { get; private set; }
 
   private List<Comment> _comments;
   private List<Like> _likes;
@@ -30,13 +27,12 @@ public class Post: EntityBase<Guid>, IAggregateRoot
   // Constructor for creating a post
   public Post(Guid userId, string content, string mediaURL, Privacy privacy)
   {
-    PostID = Guid.NewGuid();
+    Id = Guid.NewGuid();
     UserID = userId;
     Content = content;
     MediaURL = mediaURL;
     CreatedAt = DateTime.UtcNow;
     Privacy = privacy;
-    IsShared = false;
 
     _comments = new List<Comment>();
     _likes = new List<Like>();
@@ -46,7 +42,7 @@ public class Post: EntityBase<Guid>, IAggregateRoot
   // Add a comment
   public void AddComment(Guid userId, string content)
   {
-    _comments.Add(new Comment(PostID, userId, content));
+    _comments.Add(new Comment(Guid.NewGuid(), Id, userId, content));
   }
 
   // Like a post
@@ -54,15 +50,14 @@ public class Post: EntityBase<Guid>, IAggregateRoot
   {
     if (!_likes.Any(l => l.UserID == userId))
     {
-      _likes.Add(new Like(PostID, userId));
+      _likes.Add(new Like(userId, Id));
     }
   }
 
   // Share a post
   public void SharePost(Guid userId, string message)
   {
-    _shares.Add(new Share(PostID, userId, message));
-    IsShared = true;
+    _shares.Add(new Share(Id, userId, message));
   }
 
 }
