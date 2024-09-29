@@ -1,4 +1,4 @@
-name: Unit Tests
+name: UserManagment Unit Tests
 
 on:
   push:
@@ -13,15 +13,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Docker
-        run: |
-          docker --version
-          docker compose version
+      # Set up .NET SDK
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.x' # Specify the version of .NET you are using
 
-      - name: Build and run tests using Docker Compose
-        run: |
-          docker compose up --build --abort-on-container-exit
-          docker compose down
+      # Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore Socially.UserManagment/tests/Socially.UserManagment.UnitTests/Socially.UserManagment.UnitTests.csproj
+
+      # Build the solution
+      - name: Build solution
+        run: dotnet build --no-restore Socially.UserManagment/tests/Socially.UserManagment.UnitTests/Socially.UserManagment.UnitTests.csproj
+
+      # Run unit tests
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal Socially.UserManagment/tests/Socially.UserManagment.UnitTests/Socially.UserManagment.UnitTests.csproj

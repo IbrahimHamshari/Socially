@@ -73,13 +73,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Socially.UserManagment.Shared", "Socially.UserManagment\src\Socially.UserManagment.Shared\Socially.UserManagment.Shared.csproj", "{CC0E4569-BB99-4250-AB18-A87B9B46A246}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{A770D0E8-B3D4-4C1A-839A-C178CFA7C82F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{0E920A54-729A-4341-8183-25AAD4E59FE6}"
-	ProjectSection(SolutionItems) = preProject
-		unit-tests.yml = unit-tests.yml
-	EndProjectSection
-EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5B5CB018-58AC-4024-84E4-A804E32BFB41}"
 EndProject
 Global
@@ -246,7 +239,6 @@ Global
 		{EB476314-3ACB-4670-860D-6AA17147F19C} = {ED58FC4E-8CB2-432D-973E-F6FB6CD8AC60}
 		{A9C3F7AC-BCA2-4B49-8377-76F7E6D19D07} = {ED58FC4E-8CB2-432D-973E-F6FB6CD8AC60}
 		{CC0E4569-BB99-4250-AB18-A87B9B46A246} = {331BDA9C-CFD6-4ECA-97AB-AFA6462A7716}
-		{0E920A54-729A-4341-8183-25AAD4E59FE6} = {A770D0E8-B3D4-4C1A-839A-C178CFA7C82F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87301493-D269-42D9-BE43-C87CF9EBBFCE}
