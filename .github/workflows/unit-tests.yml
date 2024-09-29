@@ -18,10 +18,10 @@ jobs:
 
       - name: Set up Docker
         run: |
-          docker-compose --version
           docker --version
+          docker compose version
 
       - name: Build and run tests using Docker Compose
         run: |
-          docker-compose up --build --abort-on-container-exit
-          docker-compose down
+          docker compose up --build --abort-on-container-exit
+          docker compose down
