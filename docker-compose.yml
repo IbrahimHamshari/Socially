@@ -17,6 +17,4 @@ services:
     ports:
       - "5672:5672"   # RabbitMQ port for communication
       - "15672:15672" # RabbitMQ management UI port
-    networks:
-      - shared_network
     restart: always   # Ensure RabbitMQ restarts if it fails  
