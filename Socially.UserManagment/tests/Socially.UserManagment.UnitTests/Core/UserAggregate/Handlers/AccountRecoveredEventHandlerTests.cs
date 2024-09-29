@@ -26,7 +26,7 @@ public class RecoverAccountEventHandlerTests
   public async Task Handle_WhenAccountRecovered_ShouldSendEmail()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(),"validUser", "user@example.com", "Password@123", "John", "Doe", true);
     var notification = new AccountRecoveredEvent(user);
     var cancellationToken = new CancellationToken();
 
@@ -46,7 +46,7 @@ public class RecoverAccountEventHandlerTests
   public async Task Handle_WhenAccountRecovered_ShouldLogInformation()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(),"validUser", "user@example.com", "Password@123", "John", "Doe", true);
     var notification = new AccountRecoveredEvent(user);
     var cancellationToken = new CancellationToken();
 

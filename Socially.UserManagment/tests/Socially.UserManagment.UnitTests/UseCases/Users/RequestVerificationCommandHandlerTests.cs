@@ -28,7 +28,7 @@ public class RequestVerificationCommandHandlerTests
     var userId = Guid.NewGuid();
     var command = new RequestVerificationCommand(userId);
 
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(userId, "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     _repository.SingleOrDefaultAsync(Arg.Any<UserByIdSpec>()).Returns(Task.FromResult<User?>(user));
 
     // Act

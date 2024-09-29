@@ -29,7 +29,7 @@ public class LoginCommandHandlerTests
   public async Task Handle_WithValidUsername_ShouldLoginAndReturnTokens()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     var command = new LoginCommand(new UserLoginDto { Username = "validUser", Password = "Password@123" });
 
     // Mock repository to return the user for the valid username

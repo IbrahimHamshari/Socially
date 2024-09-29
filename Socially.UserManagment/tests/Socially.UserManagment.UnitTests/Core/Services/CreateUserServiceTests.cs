@@ -33,7 +33,7 @@ public class CreateUserServiceTests
   public async Task CreateUser_WithValidUser_ShouldReturnSuccessAndPublishEvent()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     _repository.AddAsync(user).Returns(user);
 
     // Act
@@ -63,7 +63,7 @@ public class CreateUserServiceTests
   public async Task CreateUser_ShouldPublishDomainEvent()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     _repository.AddAsync(user).Returns(user);
 
     // Act
@@ -78,7 +78,7 @@ public class CreateUserServiceTests
   public async Task CreateUser_ShouldLogInformation()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     _repository.AddAsync(user).Returns(user);
 
     // Act

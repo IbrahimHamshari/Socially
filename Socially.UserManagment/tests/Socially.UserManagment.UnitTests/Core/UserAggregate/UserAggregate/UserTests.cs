@@ -20,7 +20,7 @@ public class UserTests
     var gender = true;
 
     // Act
-    var user = new User(username, email, password, firstName, lastName, gender);
+    var user = new User(Guid.NewGuid(),username, email, password, firstName, lastName, gender);
 
     // Assert
     user.Username.Should().Be(username);
@@ -45,7 +45,7 @@ public class UserTests
     var gender = true;
 
     // Act & Assert
-    Assert.Throws<ArgumentException>(() => new User(invalidUsername, email, password, firstName, lastName, gender))
+    Assert.Throws<ArgumentException>(() => new User(Guid.NewGuid(), invalidUsername, email, password, firstName, lastName, gender))
         .Message.Should().Contain("Input username was not in required format");
   }
 
@@ -62,7 +62,7 @@ public class UserTests
     var gender = true;
 
     // Act & Assert
-    Assert.Throws<ArgumentException>(() => new User(username, invalidEmail, password, firstName, lastName, gender))
+    Assert.Throws<ArgumentException>(() => new User(Guid.NewGuid(), username, invalidEmail, password, firstName, lastName, gender))
         .Message.Should().Contain("Input email was not in required format");
   }
 
@@ -79,7 +79,7 @@ public class UserTests
     var gender = true;
 
     // Act & Assert
-    Assert.Throws<ArgumentException>(() => new User(username, email, invalidPassword, firstName, lastName, gender));
+    Assert.Throws<ArgumentException>(() => new User(Guid.NewGuid(), username, email, invalidPassword, firstName, lastName, gender));
   }
 
   // Test 5: Password change success
@@ -87,7 +87,7 @@ public class UserTests
   public void ChangePassword_WithValidCurrentPassword_ShouldUpdatePassword()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "OldPassword@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "OldPassword@123", "John", "Doe", true);
     var newPassword = "NewPassword@123";
 
     // Act
@@ -103,7 +103,7 @@ public class UserTests
   public void ChangePassword_WithInvalidCurrentPassword_ShouldThrowUnauthorizedAccessException()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "OldPassword@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "OldPassword@123", "John", "Doe", true);
 
     // Act & Assert
     Assert.Throws<UnauthorizedAccessException>(() => user.ChangePassword("WrongPassword", "NewPassword@123"))
@@ -115,7 +115,7 @@ public class UserTests
   public void ActivateLogin_WhenUserIsInactive_ShouldActivateUser()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "Password@123", "John", "Doe", true);
     user.DeactivateAccount(); // Initially deactivate
 
     // Act
@@ -130,7 +130,7 @@ public class UserTests
   public void ActivateLogin_WhenUserIsAlreadyActive_ShouldThrowInvalidOperationException()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "Password@123", "John", "Doe", true);
 
     // Act & Assert
     Assert.Throws<InvalidOperationException>(() => user.ActivateLogin())
@@ -142,7 +142,7 @@ public class UserTests
   public void DeactivateAccount_WhenUserIsActive_ShouldDeactivateUser()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "Password@123", "John", "Doe", true);
 
     // Act
     user.DeactivateAccount();
@@ -156,7 +156,7 @@ public class UserTests
   public void DeactivateAccount_WhenUserIsAlreadyInactive_ShouldThrowInvalidOperationException()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "Password@123", "John", "Doe", true);
     user.DeactivateAccount(); // Initially deactivate
 
     // Act & Assert
@@ -169,7 +169,7 @@ public class UserTests
   public void UpdateEmail_WithValidEmail_ShouldUpdateEmailProperty()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "Password@123", "John", "Doe", true);
     var newEmail = "new@example.com";
 
     // Act
@@ -184,7 +184,7 @@ public class UserTests
   public void GenerateEmailVerificationToken_ShouldSetVerificationTokenAndTime()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "Password@123", "John", "Doe", true);
 
     // Act
     user.GenerateEmailVerificationToken();
@@ -199,7 +199,7 @@ public class UserTests
   public void VerifyEmail_WithValidToken_ShouldVerifyEmailAndClearToken()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "Password@123", "John", "Doe", true);
     user.GenerateEmailVerificationToken();
     var token = user.VerificationToken;
 
@@ -216,7 +216,7 @@ public class UserTests
   public void VerifyEmail_WithInvalidToken_ShouldThrowUnauthorizedAccessException()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "Password@123", "John", "Doe", true);
     user.GenerateEmailVerificationToken();
 
     // Act & Assert
@@ -229,7 +229,7 @@ public class UserTests
   public void GenerateResetToken_ShouldSetResetPasswordTokenAndTime()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "Password@123", "John", "Doe", true);
 
     // Act
     user.GenerateResetToken();
@@ -244,7 +244,7 @@ public class UserTests
   public void ChangePassword_ShouldRaiseUserChangedPasswordEvent()
   {
     // Arrange
-    var user = new User("validUser", "valid@example.com", "OldPassword@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "valid@example.com", "OldPassword@123", "John", "Doe", true);
     var newPassword = "NewPassword@123";
 
     // Act

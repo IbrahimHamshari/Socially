@@ -47,7 +47,7 @@ public class ChangeForgetPasswordCommandHandlerTests
   public async Task Handle_WithValidToken_ShouldChangePasswordAndReturnTokens()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "OldPassword@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "OldPassword@123", "John", "Doe", true);
     user.GenerateResetToken(); // Simulating token generation
     var command = new ChangeForgetPasswordCommand(user.ResetPasswordToken!, "NewPassword@123");
 

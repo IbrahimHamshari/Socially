@@ -25,7 +25,7 @@ public class GetUserQueryHandlerTests
   public async Task Handle_WithValidUserId_ShouldReturnUserDto()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     user.UpdateBio("This is a bio");
     user.UpdateCoverPhotoURL("cover-photo-url");
     user.UpdateDateOfBirth(DateTimeOffset.UtcNow.AddYears(-30));

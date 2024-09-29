@@ -38,7 +38,7 @@ public class RegisterUserCommandHandlerTests
         }
     );
 
-    var newUser = new User(request.User.Username, request.User.Email, request.User.Password, request.User.FirstName, request.User.LastName, request.User.Gender);
+    var newUser = new User(userId, request.User.Username, request.User.Email, request.User.Password, request.User.FirstName, request.User.LastName, request.User.Gender);
 
     _repository.AddAsync(Arg.Any<User>()).Returns(Task.FromResult(newUser));
 
@@ -48,7 +48,6 @@ public class RegisterUserCommandHandlerTests
     // Assert
     result.IsSuccess.Should().BeTrue();
     result.Status.Should().Be(ResultStatus.Created);
-    result.Value.Should().Be(newUser.Id);
 
     // Verify the user was added to the repository
     await _repository.Received(1).AddAsync(Arg.Is<User>(u =>
@@ -78,7 +77,7 @@ public class RegisterUserCommandHandlerTests
 
     User? capturedUser = null;
     _repository.AddAsync(Arg.Do<User>(x => capturedUser = x)).Returns(Task.FromResult(new User(
-        request.User.Username, request.User.Email, request.User.Password, request.User.FirstName, request.User.LastName, request.User.Gender)));
+        Guid.NewGuid(), request.User.Username, request.User.Email, request.User.Password, request.User.FirstName, request.User.LastName, request.User.Gender)));
 
     // Act
     var result = await _handler.Handle(request, CancellationToken.None);

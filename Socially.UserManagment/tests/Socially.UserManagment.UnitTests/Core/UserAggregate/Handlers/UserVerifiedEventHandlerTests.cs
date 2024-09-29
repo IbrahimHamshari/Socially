@@ -26,7 +26,7 @@ public class UserVerifiedEventHandlerTests
   public async Task Handle_WhenUserVerified_ShouldSendVerificationEmail()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     var notification = new UserVerifiedEvent(user);
     var cancellationToken = new CancellationToken();
 
@@ -48,7 +48,7 @@ public class UserVerifiedEventHandlerTests
   public async Task Handle_WhenUserVerified_ShouldLogInformation()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     var notification = new UserVerifiedEvent(user);
     var cancellationToken = new CancellationToken();
 

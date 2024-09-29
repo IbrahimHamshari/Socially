@@ -43,7 +43,7 @@ public class UpdateUserCommandHandlerTests
       )
     ;
 
-    var user = Substitute.For<User>("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = Substitute.For<User>(userId, "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     _repository.GetByIdAsync(userId, Arg.Any<CancellationToken>()).Returns(Task.FromResult<User?>(user));
 
     // Act

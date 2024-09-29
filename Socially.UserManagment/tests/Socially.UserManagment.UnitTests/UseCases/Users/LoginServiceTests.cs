@@ -28,7 +28,7 @@ public class LoginServiceTests
   public async Task LoginAsync_WithValidPassword_ShouldGenerateTokensAndLogLogin()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     var password = "Password@123";
 
     // Mock token generation
@@ -57,7 +57,7 @@ public class LoginServiceTests
   public async Task LoginAsync_WithInvalidPassword_ShouldReturnUnauthorized()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     var password = "WrongPassword@123";
 
     // Act
@@ -79,7 +79,7 @@ public class LoginServiceTests
   public async Task LoginAsync_WithInactiveUser_ShouldReturnUnauthorized()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     var password = "Password@123";
     user.DeactivateAccount();
 

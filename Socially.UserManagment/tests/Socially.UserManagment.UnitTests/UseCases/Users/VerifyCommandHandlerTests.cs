@@ -25,7 +25,7 @@ public class VerifyCommandHandlerTests
   public async Task Handle_WithValidVerificationToken_ShouldVerifyEmailAndReturnSuccess()
   {
     // Arrange
-    var user = Substitute.For<User>("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = Substitute.For<User>(Guid.NewGuid(),"validUser", "user@example.com", "Password@123", "John", "Doe", true);
     user.GenerateEmailVerificationToken();
     var token = user.VerificationToken;
     var command = new VerifyCommand(token!);

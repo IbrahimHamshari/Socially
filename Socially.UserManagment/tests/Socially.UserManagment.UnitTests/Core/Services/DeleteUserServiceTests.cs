@@ -31,7 +31,7 @@ public class DeleteUserServiceTests
   {
     // Arrange
     var userId = Guid.NewGuid();
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(userId, "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     _repository.GetByIdAsync(userId).Returns(user);
 
     // Act
@@ -90,7 +90,7 @@ public class DeleteUserServiceTests
   {
     // Arrange
     var userId = Guid.NewGuid();
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(userId, "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     _repository.GetByIdAsync(userId).Returns(user);
 
     // Act

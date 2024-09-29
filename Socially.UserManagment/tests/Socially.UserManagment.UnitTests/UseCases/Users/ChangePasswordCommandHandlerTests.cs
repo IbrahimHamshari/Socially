@@ -30,7 +30,7 @@ public class ChangePasswordCommandHandlerTests
   {
     // Arrange
     var userId = Guid.NewGuid();
-    var user = new User("validUser", "user@example.com", "OldPassword@123", "John", "Doe", true);
+    var user = new User(userId, "validUser", "user@example.com", "OldPassword@123", "John", "Doe", true);
     var command = new ChangePasswordCommand
     (
        userId,
@@ -94,7 +94,7 @@ public class ChangePasswordCommandHandlerTests
   {
     // Arrange
     var userId = Guid.NewGuid();
-    var user = new User("validUser", "user@example.com", "OldPassword@123", "John", "Doe", true);
+    var user = new User(userId,"validUser", "user@example.com", "OldPassword@123", "John", "Doe", true);
     var command = new ChangePasswordCommand
     (
       userId,

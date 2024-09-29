@@ -26,7 +26,7 @@ public class UserChangedPasswordEventHandlerTests
   public async Task Handle_WhenPasswordChanged_ShouldSendEmail()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     var notification = new UserChangedPasswordEvent(user);
     var cancellationToken = new CancellationToken();
     var changeTime = DateTimeOffset.UtcNow;
@@ -49,7 +49,7 @@ public class UserChangedPasswordEventHandlerTests
   public async Task Handle_WhenPasswordChanged_ShouldLogInformation()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     var notification = new UserChangedPasswordEvent(user);
     var cancellationToken = new CancellationToken();
 

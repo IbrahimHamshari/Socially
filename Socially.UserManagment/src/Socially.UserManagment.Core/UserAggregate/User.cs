@@ -32,8 +32,9 @@ public class User : EntityBase<Guid>, IAggregateRoot
 
   public DateTimeOffset? ResetTokenGeneratedAt { get; private set; }
 
-  public User(string username, string email, string passwordHash, string firstName, string lastName, bool gender)
+  public User(Guid id, string username, string email, string passwordHash, string firstName, string lastName, bool gender)
   {
+    Id = Guard.Against.Default(id, nameof(id));
     Username = Guard.Against.InvalidUserNameFormat(username, nameof(username));
     Email = Guard.Against.InvalidEmailFormat(email, nameof(email));
     PasswordHash = passwordHash.Length > 24 ? passwordHash : HashPassword(Guard.Against.InvalidPasswordFormat(passwordHash, nameof(passwordHash)));

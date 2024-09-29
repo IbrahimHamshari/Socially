@@ -29,7 +29,7 @@ public class PasswordForgotEventHandlerTests
   public async Task Handle_WhenPasswordForgot_ShouldSendEmailWithResetLink()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     user.GenerateResetToken(); // Assuming this sets ResetPasswordToken
     var notification = new PasswordForgotEvent(user);
     var cancellationToken = new CancellationToken();
@@ -57,7 +57,7 @@ public class PasswordForgotEventHandlerTests
   public async Task Handle_WhenPasswordForgot_ShouldLogInformation()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     user.GenerateResetToken();
     var notification = new PasswordForgotEvent(user);
     var cancellationToken = new CancellationToken();

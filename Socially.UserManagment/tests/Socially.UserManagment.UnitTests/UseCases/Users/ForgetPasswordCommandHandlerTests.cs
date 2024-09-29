@@ -25,7 +25,7 @@ public class ForgetPasswordCommandHandlerTests
   public async Task Handle_WithValidEmail_ShouldGenerateResetTokenAndSave()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     var command = new ForgetPasswordCommand("user@example.com");
 
     // Mock repository to return the user for the valid email

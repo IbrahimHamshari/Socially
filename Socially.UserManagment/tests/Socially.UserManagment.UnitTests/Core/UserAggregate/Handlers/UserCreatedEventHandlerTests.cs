@@ -29,7 +29,7 @@ public class UserCreatedEventHandlerTests
   public async Task Handle_WhenUserCreated_ShouldSendWelcomeEmailWithVerificationLink()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     user.GenerateEmailVerificationToken(); // Assuming this sets VerificationToken
     var notification = new UserCreatedEvent(user);
     var cancellationToken = new CancellationToken();
@@ -57,7 +57,7 @@ public class UserCreatedEventHandlerTests
   public async Task Handle_WhenUserCreated_ShouldLogInformation()
   {
     // Arrange
-    var user = new User("validUser", "user@example.com", "Password@123", "John", "Doe", true);
+    var user = new User(Guid.NewGuid(), "validUser", "user@example.com", "Password@123", "John", "Doe", true);
     user.GenerateEmailVerificationToken(); // Assuming this sets VerificationToken
     var notification = new UserCreatedEvent(user);
     var cancellationToken = new CancellationToken();
