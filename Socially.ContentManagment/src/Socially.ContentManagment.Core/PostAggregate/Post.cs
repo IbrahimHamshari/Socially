@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using Ardalis.SharedKernel;
 
 namespace Socially.ContentManagment.Core.PostAggregate;
+
 public class Post : EntityBase<Guid>, IAggregateRoot
 {
   public Guid UserID { get; private set; }
@@ -43,6 +41,7 @@ public class Post : EntityBase<Guid>, IAggregateRoot
   public void AddComment(Guid userId, string content)
   {
     _comments.Add(new Comment(Guid.NewGuid(), Id, userId, content));
+    UpdatedAt = DateTime.UtcNow; // Update timestamp when a comment is added
   }
 
   // Like a post
@@ -51,6 +50,7 @@ public class Post : EntityBase<Guid>, IAggregateRoot
     if (!_likes.Any(l => l.UserID == userId))
     {
       _likes.Add(new Like(userId, Id));
+      UpdatedAt = DateTime.UtcNow; // Update timestamp when the post is liked
     }
   }
 
@@ -58,6 +58,34 @@ public class Post : EntityBase<Guid>, IAggregateRoot
   public void SharePost(Guid userId, string message)
   {
     _shares.Add(new Share(Id, userId, message));
+    UpdatedAt = DateTime.UtcNow; // Update timestamp when the post is shared
   }
 
+  // Update content
+  public void UpdateContent(string newContent)
+  {
+    Content = newContent;
+    UpdatedAt = DateTime.UtcNow; // Update timestamp when content is modified
+  }
+
+  // Update media URL
+  public void UpdateMediaURL(string newMediaURL)
+  {
+    MediaURL = newMediaURL;
+    UpdatedAt = DateTime.UtcNow; // Update timestamp when media URL is modified
+  }
+
+  // Update privacy
+  public void UpdatePrivacy(Privacy newPrivacy)
+  {
+    Privacy = newPrivacy;
+    UpdatedAt = DateTime.UtcNow; // Update timestamp when privacy setting is modified
+  }
+
+  // Update post's user
+  public void UpdateUserID(Guid newUserId)
+  {
+    UserID = newUserId;
+    UpdatedAt = DateTime.UtcNow; // Update timestamp when user is modified
+  }
 }
