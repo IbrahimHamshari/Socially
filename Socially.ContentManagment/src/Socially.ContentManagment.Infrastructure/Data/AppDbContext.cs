@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
-using Socially.ContentManagment.Core.ContributorAggregate;
+using Socially.ContentManagment.Core.PostAggregate;
 
 namespace Socially.ContentManagment.Infrastructure.Data;
 public class AppDbContext : DbContext
@@ -15,10 +15,14 @@ public class AppDbContext : DbContext
     _dispatcher = dispatcher;
   }
 
-  public DbSet<Contributor> Contributors => Set<Contributor>();
+  public DbSet<Post> Posts => Set<Post>();
+  public DbSet<Comment> Comments => Set<Comment>();
+  public DbSet<Like> Likes => Set<Like>();
+  public DbSet<Share> Shares => Set<Share>();
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
+    modelBuilder.HasDefaultSchema("cm");
     base.OnModelCreating(modelBuilder);
     modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
   }

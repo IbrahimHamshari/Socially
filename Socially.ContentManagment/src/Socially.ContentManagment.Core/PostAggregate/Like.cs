@@ -31,21 +31,4 @@ public class Like : EntityBase<int>
   // Parameterless constructor for ORM use
   private Like() { }
 
-  // Update the user who liked the post/comment
-  public void UpdateUserID(Guid newUserId)
-  {
-    UserID = Guard.Against.Default(newUserId);
-    UpdatedAt = DateTime.UtcNow; // Update the timestamp when user is changed
-  }
-
-  // Update the associated post ID
-  public void UpdateContentId(Guid newId)
-  {
-    if (PostID == null)
-      PostID = newId;
-    else
-      CommentID = newId;
-    UpdatedAt = DateTime.UtcNow; // Update the timestamp when post is changed
-  }
-
 }

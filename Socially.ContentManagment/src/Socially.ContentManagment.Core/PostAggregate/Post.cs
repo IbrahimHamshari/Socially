@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Ardalis.SharedKernel;
-
-namespace Socially.ContentManagment.Core.PostAggregate;
+﻿using Ardalis.SharedKernel;
+using Socially.ContentManagment.Core.PostAggregate;
 
 public class Post : EntityBase<Guid>, IAggregateRoot
 {
@@ -22,7 +18,7 @@ public class Post : EntityBase<Guid>, IAggregateRoot
   public IReadOnlyCollection<Like> Likes => _likes.AsReadOnly();
   public IReadOnlyCollection<Share> Shares => _shares.AsReadOnly();
 
-  // Constructor for creating a post
+  // Constructor and business logic here
   public Post(Guid userId, string content, string mediaURL, Privacy privacy)
   {
     Id = Guid.NewGuid();
@@ -31,61 +27,68 @@ public class Post : EntityBase<Guid>, IAggregateRoot
     MediaURL = mediaURL;
     CreatedAt = DateTime.UtcNow;
     Privacy = privacy;
-
     _comments = new List<Comment>();
     _likes = new List<Like>();
     _shares = new List<Share>();
   }
 
-  // Add a comment
+  // Business rules for managing Comments, Likes, and Shares should be here
   public void AddComment(Guid userId, string content)
   {
     _comments.Add(new Comment(Guid.NewGuid(), Id, userId, content));
-    UpdatedAt = DateTime.UtcNow; // Update timestamp when a comment is added
+    UpdatedAt = DateTime.UtcNow;
   }
 
-  // Like a post
   public void LikePost(Guid userId)
   {
     if (!_likes.Any(l => l.UserID == userId))
     {
       _likes.Add(new Like(userId, Id));
-      UpdatedAt = DateTime.UtcNow; // Update timestamp when the post is liked
+      UpdatedAt = DateTime.UtcNow;
     }
   }
 
-  // Share a post
   public void SharePost(Guid userId, string message)
   {
     _shares.Add(new Share(Id, userId, message));
-    UpdatedAt = DateTime.UtcNow; // Update timestamp when the post is shared
+    UpdatedAt = DateTime.UtcNow;
   }
 
-  // Update content
-  public void UpdateContent(string newContent)
+  public void UpdateComment(Guid commentId, string newContent)
   {
-    Content = newContent;
-    UpdatedAt = DateTime.UtcNow; // Update timestamp when content is modified
+    var comment = _comments.FirstOrDefault(c => c.Id == commentId);
+    if (comment == null)
+    {
+      throw new ArgumentException("Comment not found");
+    }
+    comment.UpdateContent(newContent);
+    UpdatedAt = DateTime.UtcNow;
   }
 
-  // Update media URL
-  public void UpdateMediaURL(string newMediaURL)
+  public void LikeComment(Guid commentId, Guid userId)
   {
-    MediaURL = newMediaURL;
-    UpdatedAt = DateTime.UtcNow; // Update timestamp when media URL is modified
+    var comment = _comments.FirstOrDefault(c => c.Id == commentId);
+    if (comment == null)
+    {
+      throw new ArgumentException("Comment not found");
+    }
+    if (!comment.Likes.Any(l => l.UserID == userId))
+    {
+      comment.LikeComment(userId);
+    }
   }
 
-  // Update privacy
-  public void UpdatePrivacy(Privacy newPrivacy)
+  public void UpdateShareMessage(Guid userId, string message)
   {
-    Privacy = newPrivacy;
-    UpdatedAt = DateTime.UtcNow; // Update timestamp when privacy setting is modified
+    var share = _shares.FirstOrDefault(s => (s.UserID== userId && s.PostID == Id));
+    if (share == null)
+    {
+      throw new ArgumentException("Share Not Fonud");
+    }
+    share.UpdateMessage(message);
   }
 
-  // Update post's user
-  public void UpdateUserID(Guid newUserId)
-  {
-    UserID = newUserId;
-    UpdatedAt = DateTime.UtcNow; // Update timestamp when user is modified
-  }
+
+
+
 }
