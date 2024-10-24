@@ -1,6 +1,7 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Socially.ContentManagment.Infrastructure.Messaging;
 
@@ -34,28 +35,24 @@ public class RabbitMqConsumerService : IRabbitMqConsumerService
                           arguments: null);
   }
 
-  public void StartListening()
+  public async Task<string> ConsumeMessageAsync()
   {
+    var tcs = new TaskCompletionSource<string>();
+
     var consumer = new EventingBasicConsumer(_channel);
     consumer.Received += (model, ea) =>
     {
       var body = ea.Body.ToArray();
       var message = Encoding.UTF8.GetString(body);
-      HandleMessage(message);
+      tcs.SetResult(message);
     };
 
     _channel.BasicConsume(queue: _config.QueueName,
                           autoAck: true,
                           consumer: consumer);
 
-    Console.WriteLine($"Listening for messages on {_config.QueueName}...");
-  }
-
-  private void HandleMessage(string message)
-  {
-    // Process the received message
-    Console.WriteLine($"Received message: {message}");
-    // Add your custom logic here to handle the message
+    // Wait for a message to be consumed
+    return await tcs.Task;
   }
 
   public void Dispose()

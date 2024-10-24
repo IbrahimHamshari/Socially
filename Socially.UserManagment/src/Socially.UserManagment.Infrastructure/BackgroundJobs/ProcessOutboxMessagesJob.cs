@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
 using Socially.ContentManagment.Infrastructure.Data;
-using Socially.ContentManagment.Infrastructure.Data.Entites;
 using Socially.ContentManagment.Infrastructure.Messaging;
 using System;
 using System.Collections.Generic;

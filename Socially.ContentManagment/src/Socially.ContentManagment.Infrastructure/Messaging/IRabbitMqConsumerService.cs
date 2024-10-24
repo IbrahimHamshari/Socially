@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace Socially.ContentManagment.Infrastructure.Messaging;
 public interface IRabbitMqConsumerService : IDisposable
 {
-  void StartListening();
+  public Task<string> ConsumeMessageAsync();
 
 }
