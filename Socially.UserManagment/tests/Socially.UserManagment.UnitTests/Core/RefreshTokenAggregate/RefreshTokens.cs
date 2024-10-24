@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
-using Socially.UserManagment.Core.RefreshTokenAggregate;
+using Socially.ContentManagment.Core.RefreshTokenAggregate;
 using Xunit;
 
-namespace Socially.UserManagment.UnitTests.Core.RefreshTokenAggregate;
+namespace Socially.ContentManagment.UnitTests.Core.RefreshTokenAggregate;
 
 public class RefreshTokenTests
 {

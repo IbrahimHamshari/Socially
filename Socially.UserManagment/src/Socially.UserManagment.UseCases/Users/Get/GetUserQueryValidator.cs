@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Socially.UserManagment.UseCases.Users.Get;
+namespace Socially.ContentManagment.UseCases.Users.Get;
 
 public class GetUserQueryValidator : AbstractValidator<GetUserQuery>
 {

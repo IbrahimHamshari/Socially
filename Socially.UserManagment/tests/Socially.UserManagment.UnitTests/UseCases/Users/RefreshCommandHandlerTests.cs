@@ -3,13 +3,13 @@ using Ardalis.SharedKernel;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
-using Socially.UserManagment.Core.RefreshTokenAggregate;
-using Socially.UserManagment.Core.RefreshTokenAggregate.Specifications;
-using Socially.UserManagment.UseCases.Users.Interfaces;
-using Socially.UserManagment.UseCases.Users.Refresh;
+using Socially.ContentManagment.Core.RefreshTokenAggregate;
+using Socially.ContentManagment.Core.RefreshTokenAggregate.Specifications;
+using Socially.ContentManagment.UseCases.Users.Interfaces;
+using Socially.ContentManagment.UseCases.Users.Refresh;
 using Xunit;
 
-namespace Socially.UserManagment.UnitTests.UseCases.Users;
+namespace Socially.ContentManagment.UnitTests.UseCases.Users;
 
 public class RefreshCommandHandlerTests
 {

@@ -3,23 +3,23 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Socially.UserManagment.Infrastructure.CookieManagment;
-using Socially.UserManagment.Shared.Config.JWT;
-using Socially.UserManagment.UseCases.Users.ChangePassword;
-using Socially.UserManagment.UseCases.Users.ChangePasswordForget;
-using Socially.UserManagment.UseCases.Users.Common.DTOs;
-using Socially.UserManagment.UseCases.Users.ForgetPassword;
-using Socially.UserManagment.UseCases.Users.Get;
-using Socially.UserManagment.UseCases.Users.Login;
-using Socially.UserManagment.UseCases.Users.Register;
-using Socially.UserManagment.UseCases.Users.RequestVerification;
-using Socially.UserManagment.UseCases.Users.Update;
-using Socially.UserManagment.UseCases.Users.UploadCoverImage;
-using Socially.UserManagment.UseCases.Users.UploadProfilePicture;
-using Socially.UserManagment.UseCases.Users.Verify;
-using Socially.UserManagment.Web.Extensions;
+using Socially.ContentManagment.Infrastructure.CookieManagment;
+using Socially.ContentManagment.Shared.Config.JWT;
+using Socially.ContentManagment.UseCases.Users.ChangePassword;
+using Socially.ContentManagment.UseCases.Users.ChangePasswordForget;
+using Socially.ContentManagment.UseCases.Users.Common.DTOs;
+using Socially.ContentManagment.UseCases.Users.ForgetPassword;
+using Socially.ContentManagment.UseCases.Users.Get;
+using Socially.ContentManagment.UseCases.Users.Login;
+using Socially.ContentManagment.UseCases.Users.Register;
+using Socially.ContentManagment.UseCases.Users.RequestVerification;
+using Socially.ContentManagment.UseCases.Users.Update;
+using Socially.ContentManagment.UseCases.Users.UploadCoverImage;
+using Socially.ContentManagment.UseCases.Users.UploadProfilePicture;
+using Socially.ContentManagment.UseCases.Users.Verify;
+using Socially.ContentManagment.Web.Extensions;
 
-namespace Socially.UserManagment.Web.Users;
+namespace Socially.ContentManagment.Web.Users;
 
 [Route("api/[controller]")]
 [ApiController]

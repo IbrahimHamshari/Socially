@@ -1,4 +1,4 @@
-﻿namespace Socially.UserManagment.Core.Interfaces;
+﻿namespace Socially.ContentManagment.Core.Interfaces;
 
 public interface IEmailSender
 {

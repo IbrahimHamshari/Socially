@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Socially.UserManagment.Infrastructure.Data.Migrations;
+namespace Socially.ContentManagment.Infrastructure.Data.Migrations;
 
 /// <inheritdoc />
 public partial class InitialSetupMigration : Migration

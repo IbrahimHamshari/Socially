@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Socially.UserManagment.Core.RefreshTokenAggregate;
+using Socially.ContentManagment.Core.RefreshTokenAggregate;
 
-namespace Socially.UserManagment.Infrastructure.Data.Config;
+namespace Socially.ContentManagment.Infrastructure.Data.Config;
 
 public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
 {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 
-namespace Socially.UserManagment.UseCases.Users.UploadProfilePicture;
+namespace Socially.ContentManagment.UseCases.Users.UploadProfilePicture;
 public class UploadProfilePictureCommandValidator : AbstractValidator<UploadProfilePictureCommand>
 {
   private const long MaxAllowedInitialSize = 5 * 1024 * 1024;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Socially.UserManagment.Infrastructure.Data.Entites;
+namespace Socially.ContentManagment.Infrastructure.Data.Entites;
 public class OutboxMessage
 {
   public Guid Id { get; set; }

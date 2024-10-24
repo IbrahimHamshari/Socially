@@ -1,10 +1,10 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Socially.UserManagment.Core.UserAggregate;
-using Socially.UserManagment.Core.UserAggregate.Errors;
-using Socially.UserManagment.Core.UserAggregate.Specifications;
+using Socially.ContentManagment.Core.UserAggregate;
+using Socially.ContentManagment.Core.UserAggregate.Errors;
+using Socially.ContentManagment.Core.UserAggregate.Specifications;
 
-namespace Socially.UserManagment.UseCases.Users.RequestVerification;
+namespace Socially.ContentManagment.UseCases.Users.RequestVerification;
 
 public class RequestVerificationCommandHandler(IRepository<User> _repository) : ICommandHandler<RequestVerificationCommand, Result>
 {

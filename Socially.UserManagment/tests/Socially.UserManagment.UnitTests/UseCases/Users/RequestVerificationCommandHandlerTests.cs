@@ -2,12 +2,12 @@
 using Ardalis.SharedKernel;
 using FluentAssertions;
 using NSubstitute;
-using Socially.UserManagment.Core.UserAggregate;
-using Socially.UserManagment.Core.UserAggregate.Specifications;
-using Socially.UserManagment.UseCases.Users.RequestVerification;
+using Socially.ContentManagment.Core.UserAggregate;
+using Socially.ContentManagment.Core.UserAggregate.Specifications;
+using Socially.ContentManagment.UseCases.Users.RequestVerification;
 using Xunit;
 
-namespace Socially.UserManagment.UnitTests.UseCases.Users;
+namespace Socially.ContentManagment.UnitTests.UseCases.Users;
 
 public class RequestVerificationCommandHandlerTests
 {

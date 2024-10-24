@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Socially.UserManagment.UseCases.Interfaces;
+using Socially.ContentManagment.UseCases.Interfaces;
 using Supabase;
 using Supabase.Storage.Interfaces;
 
-namespace Socially.UserManagment.Infrastructure.Storage;
+namespace Socially.ContentManagment.Infrastructure.Storage;
 public class SupabaseStorageService : IFileStorageService
 {
   private readonly Client _storageClient;

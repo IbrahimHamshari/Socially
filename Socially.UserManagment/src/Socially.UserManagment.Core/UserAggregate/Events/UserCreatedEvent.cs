@@ -1,8 +1,8 @@
 ﻿using Ardalis.SharedKernel;
 using SharedKernel.Events;
-using Socially.UserManagment.Core.Interfaces;
+using Socially.ContentManagment.Core.Interfaces;
 
-namespace Socially.UserManagment.Core.UserAggregate.Events;
+namespace Socially.ContentManagment.Core.UserAggregate.Events;
 
 public class UserCreatedEvent(User user) : DomainEventBase, IOutboxEvent
 {

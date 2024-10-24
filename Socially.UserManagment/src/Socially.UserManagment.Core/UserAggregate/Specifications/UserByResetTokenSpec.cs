@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace Socially.UserManagment.Core.UserAggregate.Specifications;
+namespace Socially.ContentManagment.Core.UserAggregate.Specifications;
 
 public class UserByResetTokenSpec : Specification<User>, ISingleResultSpecification<User>
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Socially.UserManagment.Core.UserAggregate;
+using Socially.ContentManagment.Core.UserAggregate;
 
-namespace Socially.UserManagment.Infrastructure.Data;
+namespace Socially.ContentManagment.Infrastructure.Data;
 
 public static class SeedData
 {

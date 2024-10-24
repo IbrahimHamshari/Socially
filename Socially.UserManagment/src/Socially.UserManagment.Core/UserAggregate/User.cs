@@ -2,10 +2,10 @@
 using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Socially.UserManagment.Core.UserAggregate.Events;
-using Socially.UserManagment.UseCases.Users.ForgetPassword;
+using Socially.ContentManagment.Core.UserAggregate.Events;
+using Socially.ContentManagment.UseCases.Users.ForgetPassword;
 
-namespace Socially.UserManagment.Core.UserAggregate;
+namespace Socially.ContentManagment.Core.UserAggregate;
 
 public class User : EntityBase<Guid>, IAggregateRoot
 {

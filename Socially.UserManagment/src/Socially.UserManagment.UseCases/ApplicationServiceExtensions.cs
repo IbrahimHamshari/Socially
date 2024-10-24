@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Socially.UserManagment.UseCases.Users.Login;
+using Socially.ContentManagment.UseCases.Users.Login;
 
-namespace Socially.UserManagment.UseCases;
+namespace Socially.ContentManagment.UseCases;
 
 public static class ApplicationServiceExtensions
 {
@@ -11,7 +11,7 @@ public static class ApplicationServiceExtensions
     ILogger logger)
   {
     services.AddScoped<ILoginService, LoginService>();
-    logger.LogInformation("{Project} services registered", nameof(Socially.UserManagment.UseCases));
+    logger.LogInformation("{Project} services registered", nameof(Socially.ContentManagment.UseCases));
     return services;
   }
 }

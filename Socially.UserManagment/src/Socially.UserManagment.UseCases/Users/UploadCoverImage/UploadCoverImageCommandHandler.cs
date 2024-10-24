@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using Ardalis.Result;
 using Ardalis.SharedKernel;
 using System.IO.Compression;
-using Socially.UserManagment.UseCases.Users.Common;
-using Socially.UserManagment.UseCases.Interfaces;
-using Socially.UserManagment.Infrastructure.Constants;
-using Socially.UserManagment.Core.UserAggregate;
-using Socially.UserManagment.Core.UserAggregate.Specifications;
-using Socially.UserManagment.Core.UserAggregate.Errors;
-namespace Socially.UserManagment.UseCases.Users.UploadCoverImage;
+using Socially.ContentManagment.UseCases.Users.Common;
+using Socially.ContentManagment.UseCases.Interfaces;
+using Socially.ContentManagment.Infrastructure.Constants;
+using Socially.ContentManagment.Core.UserAggregate;
+using Socially.ContentManagment.Core.UserAggregate.Specifications;
+using Socially.ContentManagment.Core.UserAggregate.Errors;
+namespace Socially.ContentManagment.UseCases.Users.UploadCoverImage;
 public class UploadCoverImageCommandHandler(IFileStorageService _fileStorage, IRepository<User> _repository) : ICommandHandler<UploadCoverImageCommand, Result<string>>
 {
   public async Task<Result<string>> Handle(UploadCoverImageCommand request, CancellationToken cancellationToken)

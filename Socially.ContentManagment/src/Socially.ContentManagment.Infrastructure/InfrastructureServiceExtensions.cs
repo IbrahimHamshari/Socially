@@ -8,7 +8,7 @@ using Socially.ContentManagment.Core.Interfaces;
 using Socially.ContentManagment.Core.Services;
 using Socially.ContentManagment.Infrastructure.Data;
 using Socially.ContentManagment.Infrastructure.Data.Queries;
-using Socially.ContentManagment.Infrastructure.Email;
+using Socially.ContentManagment.Infrastructure.Messaging;
 using Socially.ContentManagment.UseCases.Contributors.List;
 
 namespace Socially.ContentManagment.Infrastructure;
@@ -21,15 +21,13 @@ public static class InfrastructureServiceExtensions
   {
     string? connectionString = config.GetConnectionString("SqliteConnection");
     Guard.Against.Null(connectionString);
-    services.AddDbContext<AppDbContext>(options =>
-     options.UseSqlite(connectionString));
+    services.AddApplicationDbContext(connectionString);
 
     services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
     services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
     services.AddScoped<IDeleteContributorService, DeleteContributorService>();
-
-    services.Configure<MailserverConfiguration>(config.GetSection("Mailserver"));
+    services.Configure<RabbitMqConfiguration>(config.GetSection("RabbitMqConfiguration"));
 
     logger.LogInformation("{Project} services registered", "Infrastructure");
 

@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
-using Socially.UserManagment.Core.UserAggregate;
+using Socially.ContentManagment.Core.UserAggregate;
 
-namespace Socially.UserManagment.Core.Interfaces;
+namespace Socially.ContentManagment.Core.Interfaces;
 
 public interface ICreateUserService
 {

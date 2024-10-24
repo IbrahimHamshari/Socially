@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Socially.UserManagment.Core.Constants;
+using Socially.ContentManagment.Core.Constants;
 
-namespace Socially.UserManagment.UseCases.Users.Update;
+namespace Socially.ContentManagment.UseCases.Users.Update;
 
 public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
 {

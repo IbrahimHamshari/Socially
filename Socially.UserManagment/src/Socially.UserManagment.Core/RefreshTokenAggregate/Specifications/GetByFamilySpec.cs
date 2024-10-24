@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace Socially.UserManagment.Core.RefreshTokenAggregate.Specifications;
+namespace Socially.ContentManagment.Core.RefreshTokenAggregate.Specifications;
 
 public class GetByFamilySpec : Specification<RefreshToken>
 {

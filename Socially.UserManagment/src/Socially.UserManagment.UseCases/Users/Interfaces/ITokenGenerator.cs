@@ -1,6 +1,6 @@
-﻿using Socially.UserManagment.Core.RefreshTokenAggregate;
+﻿using Socially.ContentManagment.Core.RefreshTokenAggregate;
 
-namespace Socially.UserManagment.UseCases.Users.Interfaces;
+namespace Socially.ContentManagment.UseCases.Users.Interfaces;
 
 public interface ITokenGenerator
 {

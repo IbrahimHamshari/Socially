@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Socially.UserManagment.Infrastructure.Data;
+using Socially.ContentManagment.Infrastructure.Data;
 
 #nullable disable
 
-namespace Socially.UserManagment.Infrastructure.Data.Migrations
+namespace Socially.ContentManagment.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20240926174345_AddingSchemaAndTheOutboxMessages")]

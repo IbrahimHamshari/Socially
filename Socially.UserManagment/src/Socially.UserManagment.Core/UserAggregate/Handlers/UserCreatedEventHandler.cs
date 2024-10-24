@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Socially.UserManagment.Core.Interfaces;
-using Socially.UserManagment.Core.UserAggregate.Events;
+using Socially.ContentManagment.Core.Interfaces;
+using Socially.ContentManagment.Core.UserAggregate.Events;
 
-namespace Socially.UserManagment.UseCases.Users.Handlers;
+namespace Socially.ContentManagment.UseCases.Users.Handlers;
 
 public class UserCreatedEventHandler(IEmailSender _emailService,
   IHttpContextAccessor _httpContextAccessor,

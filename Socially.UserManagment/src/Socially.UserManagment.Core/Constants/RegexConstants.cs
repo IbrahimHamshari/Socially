@@ -1,4 +1,4 @@
-﻿namespace Socially.UserManagment.Core.Constants;
+﻿namespace Socially.ContentManagment.Core.Constants;
 
 public class RegexConstants
 {

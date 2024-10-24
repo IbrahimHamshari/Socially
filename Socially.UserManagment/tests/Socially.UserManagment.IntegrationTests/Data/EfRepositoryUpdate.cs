@@ -2,7 +2,7 @@
 
 using Xunit;
 
-namespace Socially.UserManagment.IntegrationTests.Data;
+namespace Socially.ContentManagment.IntegrationTests.Data;
 public class EfRepositoryUpdate : BaseEfRepoTestFixture
 {
   [Fact]

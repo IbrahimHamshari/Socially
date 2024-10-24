@@ -3,31 +3,30 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
-using Socially.UserManagment.Infrastructure.Data;
-using Socially.UserManagment.Infrastructure.Data.Entites;
+using Socially.ContentManagment.Infrastructure.Data;
+using Socially.ContentManagment.Infrastructure.Data.Entites;
+using Socially.ContentManagment.Infrastructure.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Socially.UserManagment.Infrastructure.BackgroundJobs;
+namespace Socially.ContentManagment.Infrastructure.BackgroundJobs;
 
 [DisallowConcurrentExecution]
 public class ProcessOutboxMessagesJob : IJob
 {
   private readonly AppDbContext _dbContext;
-  private readonly IPublisher _publisher;
-
-  public ProcessOutboxMessagesJob(IMediator publisher, AppDbContext dbContext)
+  private readonly IRabbitMqService _rabbitMqService;
+  public ProcessOutboxMessagesJob(AppDbContext dbContext, IRabbitMqService rabbitMqService)
   {
-    _publisher = publisher;
     _dbContext = dbContext;
+    _rabbitMqService = rabbitMqService;
   }
 
   public async Task Execute(IJobExecutionContext context)
   {
-    Console.WriteLine("xxxxxxxxx");
     List<OutboxMessage> messages = await _dbContext
       .Set<OutboxMessage>()
       .Where(m => m.ProcessedOnUtc == null)
@@ -36,13 +35,28 @@ public class ProcessOutboxMessagesJob : IJob
 
     foreach (OutboxMessage outboxMessage in messages)
     {
-      outboxMessage.ProcessedOnUtc = DateTime.UtcNow;
+      try
+      {
+        var messageContent = JsonConvert.SerializeObject(new
+        {
+          Id = outboxMessage.Id,
+          Type = outboxMessage.Type,
+          Content = outboxMessage.Content,
+          OccuredOnUtc = outboxMessage.OccuredOnUtc
+        });
 
+        _rabbitMqService.PublishMessage(messageContent);
 
+        outboxMessage.ProcessedOnUtc = DateTime.UtcNow;
+        outboxMessage.Error = null; 
+      }
+      catch (Exception ex)
+      {
+        outboxMessage.Error = ex.Message;
+      }
     }
 
-
-    await _dbContext.SaveChangesAsync();
+    await _dbContext.SaveChangesAsync(context.CancellationToken);
 
 
 

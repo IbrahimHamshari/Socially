@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Socially.UserManagment.Infrastructure.Data;
+using Socially.ContentManagment.Infrastructure.Data;
 
-namespace Socially.UserManagment.FunctionalTests;
+namespace Socially.ContentManagment.FunctionalTests;
 public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
 {
   /// <summary>

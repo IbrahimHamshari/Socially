@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 
-namespace Socially.UserManagment.Core.UserAggregate.Errors;
+namespace Socially.ContentManagment.Core.UserAggregate.Errors;
 
 public static class UserErrors
 {

@@ -1,11 +1,11 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
 using Microsoft.Extensions.Logging;
-using Socially.UserManagment.Core.RefreshTokenAggregate;
-using Socially.UserManagment.Core.RefreshTokenAggregate.Specifications;
-using Socially.UserManagment.UseCases.Users.Interfaces;
+using Socially.ContentManagment.Core.RefreshTokenAggregate;
+using Socially.ContentManagment.Core.RefreshTokenAggregate.Specifications;
+using Socially.ContentManagment.UseCases.Users.Interfaces;
 
-namespace Socially.UserManagment.UseCases.Users.Refresh;
+namespace Socially.ContentManagment.UseCases.Users.Refresh;
 
 public class RefreshCommandHandler(IRepository<RefreshToken> _repository,
   ITokenGenerator _tokenGenerator,

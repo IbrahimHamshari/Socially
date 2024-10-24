@@ -8,7 +8,7 @@ using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
 
-namespace Socially.UserManagment.UseCases.Users.Common;
+namespace Socially.ContentManagment.UseCases.Users.Common;
 
 public static class ImageProcessing
 {

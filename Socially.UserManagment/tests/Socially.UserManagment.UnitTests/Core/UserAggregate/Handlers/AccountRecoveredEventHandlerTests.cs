@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 using NSubstitute;
-using Socially.UserManagment.Core.Interfaces;
-using Socially.UserManagment.Core.UserAggregate;
-using Socially.UserManagment.Core.UserAggregate.Events;
-using Socially.UserManagment.UseCases.Users.Handlers;
+using Socially.ContentManagment.Core.Interfaces;
+using Socially.ContentManagment.Core.UserAggregate;
+using Socially.ContentManagment.Core.UserAggregate.Events;
+using Socially.ContentManagment.UseCases.Users.Handlers;
 using Xunit;
 
-namespace Socially.UserManagment.UnitTests.Core.Users.Handlers;
+namespace Socially.ContentManagment.UnitTests.Core.Users.Handlers;
 
 public class RecoverAccountEventHandlerTests
 {

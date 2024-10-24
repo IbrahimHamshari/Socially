@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Socially.UserManagment.UseCases.Users.Verify;
+namespace Socially.ContentManagment.UseCases.Users.Verify;
 
 public class VerifyCommandValidator : AbstractValidator<VerifyCommand>
 {

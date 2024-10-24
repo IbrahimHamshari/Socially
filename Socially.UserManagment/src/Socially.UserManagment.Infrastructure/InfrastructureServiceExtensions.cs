@@ -4,18 +4,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Socially.UserManagment.Core.Interfaces;
-using Socially.UserManagment.Core.Services;
-using Socially.UserManagment.Infrastructure.Data;
-using Socially.UserManagment.Infrastructure.Email;
-using Socially.UserManagment.Infrastructure.Messaging;
-using Socially.UserManagment.Infrastructure.Storage;
-using Socially.UserManagment.Infrastructure.Token;
-using Socially.UserManagment.UseCases.Interfaces;
-using Socially.UserManagment.UseCases.Users.Interfaces;
+using Socially.ContentManagment.Core.Interfaces;
+using Socially.ContentManagment.Core.Services;
+using Socially.ContentManagment.Infrastructure.Data;
+using Socially.ContentManagment.Infrastructure.Email;
+using Socially.ContentManagment.Infrastructure.Messaging;
+using Socially.ContentManagment.Infrastructure.Storage;
+using Socially.ContentManagment.Infrastructure.Token;
+using Socially.ContentManagment.UseCases.Interfaces;
+using Socially.ContentManagment.UseCases.Users.Interfaces;
 using Supabase;
 
-namespace Socially.UserManagment.Infrastructure;
+namespace Socially.ContentManagment.Infrastructure;
 
 public static class InfrastructureServiceExtensions
 {
@@ -37,7 +37,7 @@ public static class InfrastructureServiceExtensions
     services.AddScoped<IEmailSender, MimeKitEmailSender>();
     services.Configure<RabbitMqConfiguration>(config.GetSection("RabbitMqConfiguration"));
     services.AddSingleton<IRabbitMqService, RabbitMqService>();
-    logger.LogInformation("{Project} services registered", nameof(Socially.UserManagment.Infrastructure));
+    logger.LogInformation("{Project} services registered", nameof(Socially.ContentManagment.Infrastructure));
 
 
     services.AddScoped<Supabase.Client>(_ => new Supabase.Client(

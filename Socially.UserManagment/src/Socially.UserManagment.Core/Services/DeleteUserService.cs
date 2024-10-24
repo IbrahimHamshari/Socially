@@ -2,11 +2,11 @@
 using Ardalis.SharedKernel;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Socially.UserManagment.Core.Interfaces;
-using Socially.UserManagment.Core.UserAggregate;
-using Socially.UserManagment.Core.UserAggregate.Events;
+using Socially.ContentManagment.Core.Interfaces;
+using Socially.ContentManagment.Core.UserAggregate;
+using Socially.ContentManagment.Core.UserAggregate.Events;
 
-namespace Socially.UserManagment.Core.Services;
+namespace Socially.ContentManagment.Core.Services;
 
 public class DeleteUserService(IRepository<User> _repository,
   IMediator _mediator,

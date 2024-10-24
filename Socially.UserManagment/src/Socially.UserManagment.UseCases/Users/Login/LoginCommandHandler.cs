@@ -1,11 +1,11 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Socially.UserManagment.Core.UserAggregate;
-using Socially.UserManagment.Core.UserAggregate.Errors;
-using Socially.UserManagment.Core.UserAggregate.Specifications;
-using Socially.UserManagment.UseCases.Users.Common;
+using Socially.ContentManagment.Core.UserAggregate;
+using Socially.ContentManagment.Core.UserAggregate.Errors;
+using Socially.ContentManagment.Core.UserAggregate.Specifications;
+using Socially.ContentManagment.UseCases.Users.Common;
 
-namespace Socially.UserManagment.UseCases.Users.Login;
+namespace Socially.ContentManagment.UseCases.Users.Login;
 
 public class LoginCommandHandler(IRepository<User> _repository, ILoginService _loginService) : ICommandHandler<LoginCommand, Result<Tokens>>
 {

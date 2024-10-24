@@ -1,4 +1,4 @@
-﻿using Socially.UserManagment.Core.Constants;
+﻿using Socially.ContentManagment.Core.Constants;
 
 namespace Ardalis.GuardClauses;
 

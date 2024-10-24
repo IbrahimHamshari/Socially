@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace Socially.UserManagment.Infrastructure.Messaging;
+namespace Socially.ContentManagment.Infrastructure.Messaging;
 
 
 public class RabbitMqConfiguration

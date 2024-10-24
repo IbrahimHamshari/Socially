@@ -1,6 +1,6 @@
 ﻿using Ardalis.SharedKernel;
 
-namespace Socially.UserManagment.Core.UserAggregate.Events;
+namespace Socially.ContentManagment.Core.UserAggregate.Events;
 
 public class AccountRecoveredEvent(User _user) : DomainEventBase
 {

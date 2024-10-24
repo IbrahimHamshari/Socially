@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-namespace Socially.UserManagment.Web.Infrastructure;
+namespace Socially.ContentManagment.Web.Infrastructure;
 
 public class InternalExceptionHandler : IExceptionHandler
 {

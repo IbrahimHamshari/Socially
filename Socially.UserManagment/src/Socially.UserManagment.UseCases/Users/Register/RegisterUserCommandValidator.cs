@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Socially.UserManagment.Core.Constants;
+using Socially.ContentManagment.Core.Constants;
 
-namespace Socially.UserManagment.UseCases.Users.Register;
+namespace Socially.ContentManagment.UseCases.Users.Register;
 public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
 {
   public RegisterUserCommandValidator()
