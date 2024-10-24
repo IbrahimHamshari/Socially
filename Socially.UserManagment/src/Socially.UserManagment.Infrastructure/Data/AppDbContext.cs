@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using SharedKernel.Events;
 using Socially.ContentManagment.Core.RefreshTokenAggregate;
 using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Infrastructure.Data.Entites;
+using Socially.UserManagment.Infrastructure.Data.Entites;
 
 namespace Socially.ContentManagment.Infrastructure.Data;
 

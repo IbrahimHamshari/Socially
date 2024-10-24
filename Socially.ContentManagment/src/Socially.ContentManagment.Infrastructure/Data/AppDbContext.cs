@@ -2,6 +2,7 @@
 using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Socially.ContentManagment.Core.PostAggregate;
+using Socially.ContentManagment.Infrastructure.Data.Entites;
 
 namespace Socially.ContentManagment.Infrastructure.Data;
 public class AppDbContext : DbContext
@@ -19,6 +20,8 @@ public class AppDbContext : DbContext
   public DbSet<Comment> Comments => Set<Comment>();
   public DbSet<Like> Likes => Set<Like>();
   public DbSet<Share> Shares => Set<Share>();
+
+  public DbSet<OutboxMessage> outboxMessages => Set<OutboxMessage>();
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
