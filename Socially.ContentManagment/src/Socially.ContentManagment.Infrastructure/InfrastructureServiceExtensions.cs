@@ -9,7 +9,9 @@ using Socially.ContentManagment.Core.Services;
 using Socially.ContentManagment.Infrastructure.Data;
 using Socially.ContentManagment.Infrastructure.Data.Queries;
 using Socially.ContentManagment.Infrastructure.Messaging;
-using Socially.ContentManagment.UseCases.Contributors.List;
+using Socially.ContentManagment.Infrastructure.Storage;
+using Socially.ContentManagment.UseCases.Interfaces;
+using Supabase;
 
 namespace Socially.ContentManagment.Infrastructure;
 public static class InfrastructureServiceExtensions
@@ -19,18 +21,24 @@ public static class InfrastructureServiceExtensions
     ConfigurationManager config,
     ILogger logger)
   {
-    string? connectionString = config.GetConnectionString("SqliteConnection");
+    string? connectionString = config.GetConnectionString("PostgreSqlConnection");
     Guard.Against.Null(connectionString);
     services.AddApplicationDbContext(connectionString);
 
     services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
-    services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
-    services.AddScoped<IDeleteContributorService, DeleteContributorService>();
     services.Configure<RabbitMqConfiguration>(config.GetSection("RabbitMqConfiguration"));
 
-    logger.LogInformation("{Project} services registered", "Infrastructure");
-
+    logger.LogInformation("{Project} services registered", nameof(Socially.ContentManagment.Infrastructure));
+    services.AddScoped<Supabase.Client>(_ => new Supabase.Client(
+  config.GetSection("SupabaseUrl").Value!,
+  config.GetSection("SupabaseKey").Value,
+  new SupabaseOptions
+  {
+    AutoRefreshToken = true,
+    AutoConnectRealtime = true
+  }));
+    services.AddScoped<IFileStorageService, SupabaseStorageService>();
     return services;
   }
 }

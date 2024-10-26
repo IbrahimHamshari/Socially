@@ -19,9 +19,9 @@ public class Post : EntityBase<Guid>, IAggregateRoot
   public IReadOnlyCollection<Share> Shares => _shares.AsReadOnly();
 
   // Constructor and business logic here
-  public Post(Guid userId, string content, string mediaURL, Privacy privacy)
+  public Post(Guid id, Guid userId, string content, Privacy privacy, string mediaURL = "")
   {
-    Id = Guid.NewGuid();
+    Id = id;
     UserID = userId;
     Content = content;
     MediaURL = mediaURL;
@@ -30,6 +30,21 @@ public class Post : EntityBase<Guid>, IAggregateRoot
     _comments = new List<Comment>();
     _likes = new List<Like>();
     _shares = new List<Share>();
+  }
+
+  public void UpdateContent(string content)
+  {
+    Content = content;
+  }
+
+  public void UpdateMediaURL(string mediaURL) 
+  { 
+    MediaURL = mediaURL;
+  }
+
+  public void UpdatePrivacy(Privacy privacy)
+  {
+    Privacy = privacy;
   }
 
   // Business rules for managing Comments, Likes, and Shares should be here

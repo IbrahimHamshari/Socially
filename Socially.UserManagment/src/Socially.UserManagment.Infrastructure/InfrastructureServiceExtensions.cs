@@ -9,10 +9,10 @@ using Socially.ContentManagment.Core.Services;
 using Socially.ContentManagment.Infrastructure.Data;
 using Socially.ContentManagment.Infrastructure.Email;
 using Socially.ContentManagment.Infrastructure.Messaging;
-using Socially.ContentManagment.Infrastructure.Storage;
 using Socially.ContentManagment.Infrastructure.Token;
 using Socially.ContentManagment.UseCases.Interfaces;
 using Socially.ContentManagment.UseCases.Users.Interfaces;
+using Socially.UserManagment.Infrastructure.Storage;
 using Supabase;
 
 namespace Socially.ContentManagment.Infrastructure;

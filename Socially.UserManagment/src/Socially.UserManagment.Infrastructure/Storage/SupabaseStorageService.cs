@@ -7,7 +7,7 @@ using Socially.ContentManagment.UseCases.Interfaces;
 using Supabase;
 using Supabase.Storage.Interfaces;
 
-namespace Socially.ContentManagment.Infrastructure.Storage;
+namespace Socially.UserManagment.Infrastructure.Storage;
 public class SupabaseStorageService : IFileStorageService
 {
   private readonly Client _storageClient;
