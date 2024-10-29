@@ -54,6 +54,14 @@ public class Post : EntityBase<Guid>, IAggregateRoot
     UpdatedAt = DateTime.UtcNow;
   }
 
+  public void DeleteComment (Guid userId, Guid commentId)
+  {
+    if(_comments.Any(c => c.Id == commentId))
+    {
+      _comments.Remove(_comments.Find(c => c.Id == userId)!);
+    }
+    UpdatedAt = DateTime.UtcNow;
+  }
   public void LikePost(Guid userId)
   {
     if (!_likes.Any(l => l.UserID == userId))
