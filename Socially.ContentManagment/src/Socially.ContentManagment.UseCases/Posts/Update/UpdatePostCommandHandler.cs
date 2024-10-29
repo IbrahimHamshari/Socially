@@ -8,6 +8,7 @@ using Ardalis.SharedKernel;
 using Socially.ContentManagment.Core.PostAggregate;
 using Socially.ContentManagment.Core.PostAggregate.Errors;
 using Socially.ContentManagment.UseCases.Posts.Common.DTOs;
+using Socially.ContentManagment.UseCases.Posts.Utils;
 
 namespace Socially.ContentManagment.UseCases.Posts.Update;
 public class UpdatePostCommandHandler(IRepository<Post> _repository) : ICommandHandler<UpdatePostCommand, Result<PostDto>>
@@ -31,13 +32,7 @@ public class UpdatePostCommandHandler(IRepository<Post> _repository) : ICommandH
     }
     if (updatedPost.Privacy != null)
     {
-      Privacy privacy = Privacy.Public;
-      switch(updatedPost.Privacy)
-      {
-        case 0: privacy = Privacy.Public; break;
-        case 1: privacy = Privacy.Private; break;
-        case 2: privacy = Privacy.Friends; break;
-      }
+      Privacy privacy = PrivacyConversions.IntToPrivacy(updatedPost.Privacy ?? 1);
       post.UpdatePrivacy(privacy);
     }
 

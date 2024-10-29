@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Socially.ContentManagment.Core.Interfaces;
-using Socially.ContentManagment.Core.Services;
 using Socially.ContentManagment.Infrastructure.Data;
 using Socially.ContentManagment.Infrastructure.Data.Queries;
 using Socially.ContentManagment.Infrastructure.Messaging;
@@ -28,7 +26,6 @@ public static class InfrastructureServiceExtensions
     services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
     services.Configure<RabbitMqConfiguration>(config.GetSection("RabbitMqConfiguration"));
-
     logger.LogInformation("{Project} services registered", nameof(Socially.ContentManagment.Infrastructure));
     services.AddScoped<Supabase.Client>(_ => new Supabase.Client(
   config.GetSection("SupabaseUrl").Value!,

@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="FluentValidation" />
     <PackageReference Include="MediatR" />
