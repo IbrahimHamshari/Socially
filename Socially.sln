@@ -44,6 +44,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Socially.ContentManagment.UseCases", "Socially.ContentManagment\src\Socially.ContentManagment.UseCases\Socially.ContentManagment.UseCases.csproj", "{7CA43D38-A91F-45E5-B7F3-DCF018FEA934}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Socially.ContentManagment.Web", "Socially.ContentManagment\src\Socially.ContentManagment.Web\Socially.ContentManagment.Web.csproj", "{3C9AA9EC-80DF-4F25-A5D6-56BDBDE82786}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0D1284FC-2932-4C24-AC98-632AF6A38B2E} = {0D1284FC-2932-4C24-AC98-632AF6A38B2E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Socially.ContentManagment.FunctionalTests", "Socially.ContentManagment\tests\Socially.ContentManagment.FunctionalTests\Socially.ContentManagment.FunctionalTests.csproj", "{5B097DBD-C12A-4991-9242-E0B8889191B0}"
 EndProject

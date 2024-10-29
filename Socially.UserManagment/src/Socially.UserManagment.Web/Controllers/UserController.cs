@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Socially.ContentManagment.Infrastructure.CookieManagment;
-using Socially.ContentManagment.Shared.Config.JWT;
 using Socially.ContentManagment.UseCases.Users.ChangePassword;
 using Socially.ContentManagment.UseCases.Users.ChangePasswordForget;
 using Socially.ContentManagment.UseCases.Users.Common.DTOs;
@@ -18,6 +17,7 @@ using Socially.ContentManagment.UseCases.Users.UploadCoverImage;
 using Socially.ContentManagment.UseCases.Users.UploadProfilePicture;
 using Socially.ContentManagment.UseCases.Users.Verify;
 using Socially.ContentManagment.Web.Extensions;
+using Socially.SharedKernel.Config.JWT;
 
 namespace Socially.ContentManagment.Web.Users;
 

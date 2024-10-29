@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Quartz;
 using Socially.ContentManagment.Infrastructure.Data;
 using Socially.ContentManagment.Infrastructure.Messaging;
+using Socially.UserManagment.Infrastructure.Data.Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
