@@ -20,6 +20,6 @@ public class DeleteLikeCommandHandler(IRepository<Post> _repository) : ICommandH
       return PostErrors.NotFound(post.Id);
     }
     post.LikeComment(request.deleteLikeDto.CommentId);
-
+    return Result.Success();
   }
 }

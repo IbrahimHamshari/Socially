@@ -69,10 +69,19 @@ public class Post : EntityBase<Guid>, IAggregateRoot
 
   public void SharePost(Guid userId, string message)
   {
-    _shares.Add(new Share(Id, userId, message));
+    if (!_shares.Any(s => s.UserID == userId))
+    {
+      _shares.Add(new Share(Id, userId, message));
+    }
     UpdatedAt = DateTime.UtcNow;
   }
 
+  public void RemoveSharedPost(Guid userId)
+  {
+    
+    _shares.Remove(_shares.Find(s => s.UserID == userId)!);
+    UpdatedAt = DateTime.UtcNow;
+  }
   public void UpdateComment(Guid commentId, string newContent)
   {
     var comment = _comments.FirstOrDefault(c => c.Id == commentId);
