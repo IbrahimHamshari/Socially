@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Constants\" />
+    <Folder Include="Posts\Share\" />
   </ItemGroup>
 
 </Project>

@@ -36,8 +36,12 @@ public class Comment : EntityBase<Guid>
     if (!_likes.Any(l => l.UserID == userId))
     {
       _likes.Add(new Like(userId, null, Id));
-      UpdatedAt = DateTime.UtcNow; // Update timestamp when comment is liked
     }
+    else
+    {
+      _likes.Remove(_likes.Find(l => l.UserID == userId)!);
+    }
+      UpdatedAt = DateTime.UtcNow; // Update timestamp when comment is liked
   }
 
   // Update the content of the comment

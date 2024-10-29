@@ -59,8 +59,12 @@ public class Post : EntityBase<Guid>, IAggregateRoot
     if (!_likes.Any(l => l.UserID == userId))
     {
       _likes.Add(new Like(userId, Id));
-      UpdatedAt = DateTime.UtcNow;
     }
+    else
+    {
+      _likes.Remove(_likes.Find(l => l.UserID == userId)!);
+    }
+      UpdatedAt = DateTime.UtcNow;
   }
 
   public void SharePost(Guid userId, string message)
@@ -87,10 +91,7 @@ public class Post : EntityBase<Guid>, IAggregateRoot
     {
       throw new ArgumentException("Comment not found");
     }
-    if (!comment.Likes.Any(l => l.UserID == userId))
-    {
       comment.LikeComment(userId);
-    }
   }
 
   public void UpdateShareMessage(Guid userId, string message)
