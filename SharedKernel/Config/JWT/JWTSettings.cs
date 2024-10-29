@@ -1,4 +1,4 @@
-﻿namespace Socially.ContentManagment.Shared.Config.JWT;
+﻿namespace Socially.SharedKernel.Config.JWT;
 
   public class JWTSettings
   {

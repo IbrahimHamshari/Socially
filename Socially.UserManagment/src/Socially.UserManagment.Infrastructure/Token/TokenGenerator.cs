@@ -7,7 +7,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Socially.ContentManagment.Core.RefreshTokenAggregate;
 using Socially.ContentManagment.Core.RefreshTokenAggregate.Specifications;
-using Socially.ContentManagment.Shared.Config.JWT;
 using Socially.ContentManagment.UseCases.Users.Interfaces;
 
 namespace Socially.ContentManagment.Infrastructure.Token;

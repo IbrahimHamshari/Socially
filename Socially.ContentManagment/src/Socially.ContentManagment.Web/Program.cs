@@ -1,17 +1,13 @@
 ﻿using System.Reflection;
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
-using FastEndpoints;
-using FastEndpoints.Swagger;
 using MediatR;
 using Serilog;
 using Serilog.Extensions.Logging;
-using Socially.ContentManagment.Core.ContributorAggregate;
 using Socially.ContentManagment.Core.Interfaces;
 using Socially.ContentManagment.Infrastructure;
 using Socially.ContentManagment.Infrastructure.Data;
-using Socially.ContentManagment.Infrastructure.Email;
-using Socially.ContentManagment.UseCases.Contributors.Create;
+using Socially.ContentManagment.UseCases.Posts.Create;
 
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
@@ -26,18 +22,31 @@ builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Con
 var microsoftLogger = new SerilogLoggerFactory(logger)
     .CreateLogger<Program>();
 
+//builder.Services.AddQuartz(configure =>
+//{
+//  var jobKey = new JobKey(nameof(ProcessOutboxMessagesJob));
+
+//  configure
+//    .AddJob<ProcessOutboxMessagesJob>(jobKey)
+//    .AddTrigger(
+//      trigger =>
+//        trigger.ForJob(jobKey)
+//          .WithSimpleSchedule(
+//            schedule =>
+//              schedule.WithIntervalInSeconds(10)
+//                .RepeatForever()));
+
+//});
 // Configure Web Behavior
+//builder.Services.AddQuartzHostedService();
+
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
   options.CheckConsentNeeded = context => true;
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-builder.Services.AddFastEndpoints()
-                .SwaggerDocument(o =>
-                {
-                  o.ShortSchemaNames = true;
-                });
+var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JWTSettings>();
 
 ConfigureMediatR();
 
@@ -45,17 +54,9 @@ builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogge
 
 if (builder.Environment.IsDevelopment())
 {
-  // Use a local test email server
-  // See: https://ardalis.com/configuring-a-local-test-email-server/
-  builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
-
   // Otherwise use this:
   //builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
   AddShowAllServicesSupport();
-}
-else
-{
-  builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
 }
 
 var app = builder.Build();
@@ -67,44 +68,41 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-  app.UseDefaultExceptionHandler(); // from FastEndpoints
   app.UseHsts();
 }
 
-app.UseFastEndpoints()
-    .UseSwaggerGen(); // Includes AddFileServer and static files middleware
 
 app.UseHttpsRedirection();
 
-await SeedDatabase(app);
+//await SeedDatabase(app);
 
 app.Run();
 
-static async Task SeedDatabase(WebApplication app)
-{
-  using var scope = app.Services.CreateScope();
-  var services = scope.ServiceProvider;
+//static async Task SeedDatabase(WebApplication app)
+//{
+//  using var scope = app.Services.CreateScope();
+//  var services = scope.ServiceProvider;
 
-  try
-  {
-    var context = services.GetRequiredService<AppDbContext>();
-    //          context.Database.Migrate();
-    context.Database.EnsureCreated();
-    await SeedData.InitializeAsync(context);
-  }
-  catch (Exception ex)
-  {
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
-  }
-}
+//  try
+//  {
+//    var context = services.GetRequiredService<AppDbContext>();
+//    //          context.Database.Migrate();
+//    context.Database.EnsureCreated();
+//    await SeedData.InitializeAsync(context);
+//  }
+//  catch (Exception ex)
+//  {
+//    var logger = services.GetRequiredService<ILogger<Program>>();
+//    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+//  }
+//}
 
 void ConfigureMediatR()
 {
   var mediatRAssemblies = new[]
 {
-  Assembly.GetAssembly(typeof(Contributor)), // Core
-  Assembly.GetAssembly(typeof(CreateContributorCommand)) // UseCases
+  Assembly.GetAssembly(typeof(Post)), // Core
+  Assembly.GetAssembly(typeof(CreatePostCommand)) // UseCases
 };
   builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
   builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
