@@ -1,14 +1,19 @@
 ﻿using System.Reflection;
+using System.Text;
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
+using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Extensions.Logging;
 using Socially.ContentManagment.Core.Interfaces;
 using Socially.ContentManagment.Infrastructure;
 using Socially.ContentManagment.Infrastructure.Data;
 using Socially.ContentManagment.UseCases.Posts.Create;
-
+using Socially.ContentManagment.UseCases.Validation;
+using Socially.SharedKernel.Config.JWT;
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
   .WriteTo.Console()
@@ -40,6 +45,8 @@ var microsoftLogger = new SerilogLoggerFactory(logger)
 // Configure Web Behavior
 //builder.Services.AddQuartzHostedService();
 
+builder.Services.AddSwaggerGen();
+
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
   options.CheckConsentNeeded = context => true;
@@ -48,7 +55,27 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JWTSettings>();
 
+builder.Services.AddAuthentication()
+  .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+  {
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+      ValidateIssuer = true,
+      ValidIssuer = jwtOptions!.Issuer,
+      ValidateAudience = true,
+      ValidAudience = jwtOptions.Audience,
+      ValidateIssuerSigningKey = true,
+      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Secret)),
+    };
+  });
+builder.Services.Configure<JWTSettings>(
+  builder.Configuration.GetSection("Jwt")
+);
+
 ConfigureMediatR();
+
+
 
 builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogger);
 
@@ -58,13 +85,15 @@ if (builder.Environment.IsDevelopment())
   //builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
   AddShowAllServicesSupport();
 }
-
+builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
   app.UseDeveloperExceptionPage();
   app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
 else
 {
@@ -75,6 +104,10 @@ else
 app.UseHttpsRedirection();
 
 //await SeedDatabase(app);
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
 
@@ -104,7 +137,13 @@ void ConfigureMediatR()
   Assembly.GetAssembly(typeof(Post)), // Core
   Assembly.GetAssembly(typeof(CreatePostCommand)) // UseCases
 };
-  builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
+  builder.Services.AddMediatR(cfg =>
+  {
+    cfg.RegisterServicesFromAssemblies(mediatRAssemblies!);
+    cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    }
+  );
+  builder.Services.AddValidatorsFromAssemblyContaining<CreatePostCommand>();
   builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
   builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
 }

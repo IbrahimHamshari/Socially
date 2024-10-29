@@ -16,12 +16,12 @@ using Socially.ContentManagment.Infrastructure.BackgroundJobs;
 using Socially.ContentManagment.Infrastructure.CookieManagment;
 using Socially.ContentManagment.Infrastructure.Data;
 using Socially.ContentManagment.Infrastructure.Email;
-using Socially.ContentManagment.Shared.Config.JWT;
 using Socially.ContentManagment.UseCases;
 using Socially.ContentManagment.UseCases.Users.Register;
 using Socially.ContentManagment.UseCases.Validation;
 using Socially.ContentManagment.Web.Infrastructure;
 using Newtonsoft.Json;
+using Socially.SharedKernel.Config.JWT;
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
   .WriteTo.Console()

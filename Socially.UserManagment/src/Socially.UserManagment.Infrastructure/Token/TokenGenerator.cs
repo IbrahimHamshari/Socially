@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Socially.ContentManagment.Core.RefreshTokenAggregate;
 using Socially.ContentManagment.Core.RefreshTokenAggregate.Specifications;
 using Socially.ContentManagment.UseCases.Users.Interfaces;
+using Socially.SharedKernel.Config.JWT;
 
 namespace Socially.ContentManagment.Infrastructure.Token;
 
