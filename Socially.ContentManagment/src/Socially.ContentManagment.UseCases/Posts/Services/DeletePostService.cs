@@ -3,6 +3,7 @@ using Ardalis.SharedKernel;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Socially.ContentManagment.Core.PostAggregate.Errors;
+using Socially.ContentManagment.Core.PostAggregate.Specifications;
 using Socially.ContentManagment.UseCases.Interfaces;
 
 namespace Socially.ContentManagment.UseCases.Services;
@@ -16,12 +17,13 @@ namespace Socially.ContentManagment.UseCases.Services;
 public class DeletePostService(IRepository<Post> _repository,
   ILogger<DeletePostService> _logger) : IDeletePostService
 {
-  public async Task<Result> DeletePost(Guid postId)
+  public async Task<Result> DeletePost(Guid postId, Guid userId, CancellationToken cancellationToken)
   {
     _logger.LogInformation("Deleting Contributor {contributorId}", postId);
-    Post? aggregateToDelete = await _repository.GetByIdAsync(postId);
+    var spec = new PostByIdAndUserId(postId,userId);
+    var aggregateToDelete = await _repository.SingleOrDefaultAsync(spec,cancellationToken);
     if (aggregateToDelete == null) return PostErrors.NotFound(postId);
-
+    
     await _repository.DeleteAsync(aggregateToDelete);
     return Result.Success();
   }

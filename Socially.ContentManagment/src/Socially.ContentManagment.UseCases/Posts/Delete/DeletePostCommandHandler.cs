@@ -15,6 +15,6 @@ public class DeletePostCommandHandler(IDeletePostService _service) : ICommandHan
 
   public async Task<Result<PostDto>> Handle(DeletePostCommand request, CancellationToken cancellationToken)
   {
-    return await _service.DeletePost(request.id);
+    return await _service.DeletePost(request.Id, request.UserId, cancellationToken);
   }
 }

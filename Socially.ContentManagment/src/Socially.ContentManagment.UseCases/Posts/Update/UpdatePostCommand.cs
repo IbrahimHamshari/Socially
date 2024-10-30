@@ -8,4 +8,4 @@ using Ardalis.SharedKernel;
 using Socially.ContentManagment.UseCases.Posts.Common.DTOs;
 
 namespace Socially.ContentManagment.UseCases.Posts.Update;
-public record UpdatePostCommand(UpdatePostDto updatePostDto) : ICommand<Result<PostDto>>;
+public record UpdatePostCommand(UpdatePostDto updatePostDto, Guid userId) : ICommand<Result<PostDto>>;

@@ -15,6 +15,6 @@ public class CreatePostCommandHandler(ICreatePostService _service) : ICommandHan
   {
     // need to implement the uploading system.
     var mediaURL = "";
-    return await _service.CreatePost(request.PostDTO.Userid, request.PostDTO.Content, request.PostDTO.Privacy, mediaURL);
+    return await _service.CreatePost(request.UserId, request.PostDTO.Content, request.PostDTO.Privacy, mediaURL);
   }
 }

@@ -9,7 +9,6 @@ using Socially.ContentManagment.Core.PostAggregate;
 namespace Socially.ContentManagment.UseCases.Posts.Common.DTOs;
 public class CreatePostDto
 {
-  public required Guid Userid { get; set; }
   public required string Content { get; set; }
 
   public IFormFile? Media { get; set; }

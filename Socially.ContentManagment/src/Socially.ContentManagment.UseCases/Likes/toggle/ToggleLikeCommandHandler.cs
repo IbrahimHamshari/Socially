@@ -9,21 +9,24 @@ using Socially.ContentManagment.Core.PostAggregate.Errors;
 using Socially.ContentManagment.Core.PostAggregate.Specifications;
 
 namespace Socially.ContentManagment.UseCases.Likes.Create;
-public class CreateLikeCommandHandler(IRepository<Post> _repository) : ICommandHandler<CreateLikeCommand, Result>
+public class ToggleLikeCommandHandler(IRepository<Post> _repository) : ICommandHandler<ToggleLikeCommand, Result>
 {
-  public async Task<Result> Handle(CreateLikeCommand request, CancellationToken cancellationToken)
+  public async Task<Result> Handle(ToggleLikeCommand request, CancellationToken cancellationToken)
   {
     var spec = new PostByIdSpec(request.createLikeDto.PostId);
     var post = await _repository.SingleOrDefaultAsync(spec, cancellationToken);
-    if (post != null)
+    if (post == null)
     {
       return PostErrors.NotFound(request.createLikeDto.PostId);
     }
     if (request.createLikeDto.CommentId != null)
     {
-      post.LikeComment(request.createLikeDto.CommentId);
+      post.LikeComment(request.createLikeDto.CommentId.Value, request.userId);
     }
-    post.LikePost();
+    else
+    {
+    post.LikePost(request.userId);
+    }
     return Result.Success();
   }
 }

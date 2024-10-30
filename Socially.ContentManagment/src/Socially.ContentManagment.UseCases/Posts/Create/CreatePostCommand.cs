@@ -10,4 +10,4 @@ using Socially.ContentManagment.UseCases.Posts.Common.DTOs;
 
 namespace Socially.ContentManagment.UseCases.Posts.Create;
 
-  public record CreatePostCommand(CreatePostDto PostDTO) : ICommand<Result<PostDto>>;
+  public record CreatePostCommand(CreatePostDto PostDTO, Guid UserId) : ICommand<Result<PostDto>>;

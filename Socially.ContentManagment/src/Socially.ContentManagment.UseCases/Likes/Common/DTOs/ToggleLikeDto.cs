@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Socially.ContentManagment.UseCases.Likes.Common.DTOs;
-public class CreateLikeDto
+public class ToggleLikeDto
 {
   public Guid PostId { get; set; }
 

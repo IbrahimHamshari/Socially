@@ -8,5 +8,5 @@ using Ardalis.Result;
 namespace Socially.ContentManagment.UseCases.Interfaces;
 public interface IDeletePostService
 {
-  Task<Result> DeletePost(Guid post);
+  Task<Result> DeletePost(Guid post, Guid userId, CancellationToken cancellationToken);
 }
