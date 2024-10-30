@@ -8,4 +8,4 @@ using Ardalis.SharedKernel;
 using Socially.ContentManagment.UseCases.Comments.Common.DTOs;
 
 namespace Socially.ContentManagment.UseCases.Comments.Update;
-public record UpdateCommentCommand(UpdateCommentDto updateCommentDto) : ICommand<Result>;
+public record UpdateCommentCommand(UpdateCommentDto updateCommentDto, Guid userId) : ICommand<Result>;

@@ -8,4 +8,4 @@ using Ardalis.SharedKernel;
 using Socially.ContentManagment.UseCases.Comments.Common.DTOs;
 
 namespace Socially.ContentManagment.UseCases.Comments.Create;
-public record CreateCommentCommand(CreateCommentDto createCommandDto) : ICommand<Result>;
+public record CreateCommentCommand(CreateCommentDto createCommandDto, Guid userId) : ICommand<Result>;

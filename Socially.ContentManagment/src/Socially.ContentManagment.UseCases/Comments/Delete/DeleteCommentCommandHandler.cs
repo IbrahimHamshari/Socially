@@ -19,7 +19,7 @@ public class DeleteCommentCommandHandler(IRepository<Post> _repository) : IComma
     {
       return PostErrors.NotFound(request.deleteCommentDto.Id);
     }
-    post.DeleteComment(,request.deleteCommentDto.Id);
+    post.DeleteComment(request.userId,request.deleteCommentDto.Id);
     return Result.Success();
   }
 }

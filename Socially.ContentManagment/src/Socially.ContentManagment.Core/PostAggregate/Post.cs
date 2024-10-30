@@ -90,9 +90,9 @@ public class Post : EntityBase<Guid>, IAggregateRoot
     _shares.Remove(_shares.Find(s => s.UserID == userId)!);
     UpdatedAt = DateTime.UtcNow;
   }
-  public void UpdateComment(Guid commentId, string newContent)
+  public void UpdateComment(Guid userId, Guid commentId, string newContent)
   {
-    var comment = _comments.FirstOrDefault(c => c.Id == commentId);
+    var comment = _comments.FirstOrDefault(c => c.Id == commentId && c.UserID == userId);
     if (comment == null)
     {
       throw new ArgumentException("Comment not found");

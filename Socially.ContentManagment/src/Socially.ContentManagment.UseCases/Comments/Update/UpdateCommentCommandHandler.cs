@@ -19,7 +19,7 @@ public class UpdateCommentCommandHandler(IRepository<Post> _repository) : IComma
     {
       return PostErrors.NotFound(request.updateCommentDto.Id);
     }
-    post.UpdateComment(request.updateCommentDto.Id, request.updateCommentDto.Content);
+    post.UpdateComment(request.userId, request.updateCommentDto.Id, request.updateCommentDto.Content);
 
     return Result.Success();
 

@@ -9,4 +9,4 @@ using Ardalis.SharedKernel;
 using Socially.ContentManagment.UseCases.Comments.Common.DTOs;
 
 namespace Socially.ContentManagment.UseCases.Comments.Delete;
-public record DeleteCommentCommand(DeleteCommentDto deleteCommentDto) : ICommand<Result>;
+public record DeleteCommentCommand(DeleteCommentDto deleteCommentDto, Guid userId) : ICommand<Result>;

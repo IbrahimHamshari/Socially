@@ -19,7 +19,7 @@ public class CreateCommentCommandHandler(IRepository<Post> _repository) : IComma
     {
       return PostErrors.NotFound(request.createCommandDto.PostId);
     }
-    post.AddComment(,request.createCommandDto.Content);
+    post.AddComment(request.userId,request.createCommandDto.Content);
 
     return Result.Success();
   }
