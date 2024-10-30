@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 namespace Socially.ContentManagment.UseCases.Constants;
 public static class BucketStorageConstants
 {
-  public const string POSTBUCKET = "Bucket";
+  public const string POSTMEDIABUCKET = "POSTMEDIABUCKET";
 }
