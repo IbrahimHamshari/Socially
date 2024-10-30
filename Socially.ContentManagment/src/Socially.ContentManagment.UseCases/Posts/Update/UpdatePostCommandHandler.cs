@@ -9,11 +9,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Socially.ContentManagment.Core.PostAggregate;
 using Socially.ContentManagment.Core.PostAggregate.Errors;
 using Socially.ContentManagment.Core.PostAggregate.Specifications;
+using Socially.ContentManagment.UseCases.Interfaces;
 using Socially.ContentManagment.UseCases.Posts.Common.DTOs;
+using Socially.ContentManagment.UseCases.Posts.Services;
 using Socially.ContentManagment.UseCases.Posts.Utils;
 
 namespace Socially.ContentManagment.UseCases.Posts.Update;
-public class UpdatePostCommandHandler(IRepository<Post> _repository) : ICommandHandler<UpdatePostCommand, Result<PostDto>>
+public class UpdatePostCommandHandler(IRepository<Post> _repository,
+  IMediaUploadService _mediaService) : ICommandHandler<UpdatePostCommand, Result<PostDto>>
 {
   public async Task<Result<PostDto>> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
   {
@@ -32,7 +35,8 @@ public class UpdatePostCommandHandler(IRepository<Post> _repository) : ICommandH
     }
     if (updatedPost.Media != null)
     {
-      post.UpdateMediaURL(updatedPost.MediaURL);
+      var mediaURL = await _mediaService.UploadMediaAsync(updatedPost.Media, post.MediaURL);
+      post.UpdateMediaURL(mediaURL);
     }
     if (updatedPost.Privacy != null)
     {

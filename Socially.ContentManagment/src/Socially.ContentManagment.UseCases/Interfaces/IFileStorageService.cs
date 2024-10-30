@@ -10,4 +10,7 @@ public interface IFileStorageService
   Task<string> UploadFileAsync(Stream fileStream, string fileName, string bucketName);
   Task DeleteFileAsync(string fileName, string bucketName);
 
+  Task DeleteFileByUrlAsync(string fileUrl, string bucketName);
+
+
 }

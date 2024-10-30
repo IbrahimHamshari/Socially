@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Socially.ContentManagment.UseCases.Interfaces;
 using Supabase;
 using Supabase.Storage.Interfaces;
@@ -31,5 +32,15 @@ public class SupabaseStorageService : IFileStorageService
   {
     var storage = _storageClient.Storage.From(bucketName);
     await storage.Remove(new List<string> { fileName });
+  }
+
+  public async Task DeleteFileByUrlAsync(string fileUrl, string bucketName)
+  {
+    // Extract the file name from the URL
+    var uri = new Uri(fileUrl);
+    var fileName = HttpUtility.UrlDecode(uri.Segments.Last());
+
+    // Delete the file using the extracted file name
+    await DeleteFileAsync(fileName, bucketName);
   }
 }
