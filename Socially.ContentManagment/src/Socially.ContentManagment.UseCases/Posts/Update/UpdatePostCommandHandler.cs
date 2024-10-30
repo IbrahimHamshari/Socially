@@ -30,7 +30,7 @@ public class UpdatePostCommandHandler(IRepository<Post> _repository) : ICommandH
     {
       post.UpdateContent(updatedPost.Content);
     }
-    if (updatedPost.MediaURL != null)
+    if (updatedPost.Media != null)
     {
       post.UpdateMediaURL(updatedPost.MediaURL);
     }
