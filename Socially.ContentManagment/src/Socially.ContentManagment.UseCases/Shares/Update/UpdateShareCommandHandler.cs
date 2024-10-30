@@ -19,7 +19,7 @@ public class UpdateShareCommandHandler(IRepository<Post> _repository) : ICommand
     {
       return PostErrors.NotFound(request.sharePostDto.PostId);
     }
-    post.UpdateShareMessage(, request.sharePostDto.Message);
+    post.UpdateShareMessage(request.userId, request.sharePostDto.Message);
     return Result.Success();
   }
 }

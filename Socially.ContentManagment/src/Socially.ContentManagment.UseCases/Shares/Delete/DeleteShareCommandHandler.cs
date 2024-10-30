@@ -19,7 +19,7 @@ public class DeleteShareCommandHandler(IRepository<Post> _repository) : ICommand
     {
       return PostErrors.NotFound(request.sharePostDto.PostId);
     }
-    post.RemoveSharedPost();
+    post.RemoveSharedPost(request.userId);
 
     return Result.Success();
 

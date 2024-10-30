@@ -8,4 +8,4 @@ using Ardalis.SharedKernel;
 using Socially.ContentManagment.UseCases.Shares.Common.DTOs;
 
 namespace Socially.ContentManagment.UseCases.Shares.Delete;
-public record DeleteShareCommand(SharePostDto sharePostDto) : ICommand<Result>;
+public record DeleteShareCommand(SharePostDto sharePostDto, Guid userId) : ICommand<Result>;

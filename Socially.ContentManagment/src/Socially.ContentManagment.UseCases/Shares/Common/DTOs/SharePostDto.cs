@@ -9,5 +9,5 @@ public class SharePostDto
 {
   public Guid PostId { get; set; }
 
-  public Guid Message {  get; set; }
+  public required string Message {  get; set; }
 }

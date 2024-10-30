@@ -9,4 +9,4 @@ using Ardalis.SharedKernel;
 using Socially.ContentManagment.UseCases.Shares.Common.DTOs;
 
 namespace Socially.ContentManagment.UseCases.Shares.Create;
-public record SharePostCommand(SharePostDto sharePostDto) : ICommand<Result>;
+public record SharePostCommand(SharePostDto sharePostDto, Guid userId) : ICommand<Result>;

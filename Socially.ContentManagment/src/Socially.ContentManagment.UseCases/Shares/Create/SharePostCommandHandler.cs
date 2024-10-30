@@ -15,11 +15,11 @@ public class SharePostCommandHandler(IRepository<Post> _repository) : ICommandHa
   {
     var spec = new PostByIdSpec(request.sharePostDto.PostId);
     var post = await _repository.SingleOrDefaultAsync(spec, cancellationToken);
-    if(post != null)
+    if(post == null)
     {
       return PostErrors.NotFound(request.sharePostDto.PostId);
     }
-    post.SharePost(, request.sharePostDto.Message);
+    post.SharePost(request.userId, request.sharePostDto.Message);
     return Result.Success();
   }
 }
