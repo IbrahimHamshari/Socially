@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace Socially.ContentManagment.Core.UserAggregate.Specifications;
+namespace Socially.UserManagment.Core.UserAggregate.Specifications;
 
 public class UserByIdSpec : Specification<User>, ISingleResultSpecification<User>
 {

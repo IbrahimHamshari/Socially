@@ -1,8 +1,8 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Socially.ContentManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate;
 
-namespace Socially.ContentManagment.UseCases.Users.Register;
+namespace Socially.UserManagment.UseCases.Users.Register;
 
 public class RegisterUserCommandHandler(IRepository<User> _repository) : ICommandHandler<RegisterUserCommand, Result<Guid>>
 {

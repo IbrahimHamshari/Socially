@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Socially.ContentManagment.UseCases.Users.Common.DTOs;
+using Socially.UserManagment.UseCases.Users.Common.DTOs;
 
-namespace Socially.ContentManagment.UseCases.Users.Register;
+namespace Socially.UserManagment.UseCases.Users.Register;
 public record RegisterUserCommand(UserRegistrationDto User) : ICommand<Result<Guid>>;

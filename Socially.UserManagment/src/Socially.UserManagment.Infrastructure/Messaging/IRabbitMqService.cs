@@ -1,4 +1,4 @@
-﻿namespace Socially.ContentManagment.Infrastructure.Messaging;
+﻿namespace Socially.UserManagment.Infrastructure.Messaging;
 
 public interface IRabbitMqService : IDisposable
 {

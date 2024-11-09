@@ -2,14 +2,14 @@
 using Ardalis.SharedKernel;
 using FluentAssertions;
 using NSubstitute;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Core.UserAggregate.Specifications;
-using Socially.ContentManagment.UseCases.Users.Common;
-using Socially.ContentManagment.UseCases.Users.Common.DTOs;
-using Socially.ContentManagment.UseCases.Users.Login;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Specifications;
+using Socially.UserManagment.UseCases.Users.Common;
+using Socially.UserManagment.UseCases.Users.Common.DTOs;
+using Socially.UserManagment.UseCases.Users.Login;
 using Xunit;
 
-namespace Socially.ContentManagment.UnitTests.UseCases.Users;
+namespace Socially.UserManagment.UnitTests.UseCases.Users;
 
 public class LoginCommandHandlerTests
 {

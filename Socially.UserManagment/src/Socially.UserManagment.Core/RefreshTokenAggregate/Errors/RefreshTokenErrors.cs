@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 
-namespace Socially.ContentManagment.Core.RefreshTokenAggregate.Errors;
+namespace Socially.UserManagment.Core.RefreshTokenAggregate.Errors;
 
 public static class RefreshTokenErrors
 {

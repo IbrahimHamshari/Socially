@@ -7,7 +7,7 @@ using System.Windows.Input;
 using Ardalis.Result;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Http;
-using Socially.ContentManagment.UseCases.Users.Common.DTOs;
+using Socially.UserManagment.UseCases.Users.Common.DTOs;
 
-namespace Socially.ContentManagment.UseCases.Users.UploadCoverImage;
+namespace Socially.UserManagment.UseCases.Users.UploadCoverImage;
 public record UploadCoverImageCommand(IFormFile File, Guid Id) : ICommand<Result<string>>;

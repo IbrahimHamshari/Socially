@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Socially.ContentManagment.Core.Constants;
-using Socially.ContentManagment.UseCases.Users.ChangePasswordForget;
+using Socially.UserManagment.Core.Constants;
+using Socially.UserManagment.UseCases.Users.ChangePasswordForget;
 
-namespace Socially.ContentManagment.UseCases.Users.ChangeForgetPassword;
+namespace Socially.UserManagment.UseCases.Users.ChangeForgetPassword;
 
 public class ChangeForgetPasswordCommandValidator : AbstractValidator<ChangeForgetPasswordCommand>
 {

@@ -1,4 +1,4 @@
-﻿namespace Socially.ContentManagment.Infrastructure.Data.Config;
+﻿namespace Socially.UserManagment.Infrastructure.Data.Config;
 
 public static class DataSchemaConstants
 {

@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 
-namespace Socially.UserManagment.Web.Extensions;
+namespace Socially.ContentManagment.Web.Extensions;
 
 public static class ResultExtensions
 {

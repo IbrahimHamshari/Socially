@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Socially.ContentManagment.Infrastructure.Data;
+namespace Socially.UserManagment.Infrastructure.Data;
 
 public static class AppDbContextExtensions
 {

@@ -13,13 +13,13 @@ public class DeleteCommentCommandHandler(IRepository<Post> _repository) : IComma
 {
   public async Task<Result> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
   {
-    var spec = new PostByIdSpec(request.deleteCommentDto.Id);
+    var spec = new PostByIdSpec(request.commentId);
     var post = await _repository.SingleOrDefaultAsync(spec);
     if (post == null)
     {
-      return PostErrors.NotFound(request.deleteCommentDto.Id);
+      return PostErrors.NotFound(request.commentId);
     }
-    post.DeleteComment(request.userId,request.deleteCommentDto.Id);
+    post.DeleteComment(request.userId,request.commentId);
     return Result.Success();
   }
 }

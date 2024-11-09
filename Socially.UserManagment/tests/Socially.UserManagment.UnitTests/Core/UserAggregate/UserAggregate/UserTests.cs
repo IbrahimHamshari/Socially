@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Core.UserAggregate.Events;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Events;
 using Xunit;
 
-namespace Socially.ContentManagment.UnitTests.Core.Users.UserAggregate;
+namespace Socially.UserManagment.UnitTests.Core.Users.UserAggregate;
 
 public class UserTests
 {

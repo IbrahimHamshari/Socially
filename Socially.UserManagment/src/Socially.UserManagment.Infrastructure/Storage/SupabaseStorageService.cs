@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Socially.ContentManagment.UseCases.Interfaces;
+using Socially.UserManagment.UseCases.Interfaces;
 using Supabase;
 using Supabase.Storage.Interfaces;
 

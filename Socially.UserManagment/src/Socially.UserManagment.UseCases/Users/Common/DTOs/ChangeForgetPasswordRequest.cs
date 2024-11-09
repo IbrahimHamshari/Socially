@@ -1,4 +1,4 @@
-﻿namespace Socially.ContentManagment.UseCases.Users.Common.DTOs;
+﻿namespace Socially.UserManagment.UseCases.Users.Common.DTOs;
 
 public class ChangeForgetPasswordRequest
 {

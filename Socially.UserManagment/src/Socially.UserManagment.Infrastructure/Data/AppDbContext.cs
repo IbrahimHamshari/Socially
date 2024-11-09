@@ -3,11 +3,11 @@ using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SharedKernel.Events;
-using Socially.ContentManagment.Core.RefreshTokenAggregate;
-using Socially.ContentManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.RefreshTokenAggregate;
+using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.Infrastructure.Data.Entites;
 
-namespace Socially.ContentManagment.Infrastructure.Data;
+namespace Socially.UserManagment.Infrastructure.Data;
 
 public class AppDbContext : DbContext
 {

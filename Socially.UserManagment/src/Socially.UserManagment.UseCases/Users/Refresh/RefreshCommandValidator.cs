@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Socially.ContentManagment.UseCases.Users.Refresh;
+namespace Socially.UserManagment.UseCases.Users.Refresh;
 
 public class RefreshCommandValidator : AbstractValidator<RefreshCommand>
 {

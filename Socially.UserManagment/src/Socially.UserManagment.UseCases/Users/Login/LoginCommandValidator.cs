@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Socially.ContentManagment.Core.Constants;
+using Socially.UserManagment.Core.Constants;
 
-namespace Socially.ContentManagment.UseCases.Users.Login;
+namespace Socially.UserManagment.UseCases.Users.Login;
 
 public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {

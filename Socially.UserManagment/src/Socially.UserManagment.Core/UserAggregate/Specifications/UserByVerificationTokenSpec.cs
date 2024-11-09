@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace Socially.ContentManagment.Core.UserAggregate.Specifications;
+namespace Socially.UserManagment.Core.UserAggregate.Specifications;
 
 public class UserByVerificationTokenSpec : Specification<User>, ISingleResultSpecification<User>
 {

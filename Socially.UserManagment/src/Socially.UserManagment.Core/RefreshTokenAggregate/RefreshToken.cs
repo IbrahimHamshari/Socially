@@ -1,7 +1,7 @@
 ﻿using Ardalis.SharedKernel;
-using Socially.ContentManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate;
 
-namespace Socially.ContentManagment.Core.RefreshTokenAggregate;
+namespace Socially.UserManagment.Core.RefreshTokenAggregate;
 
 public class RefreshToken(Guid userId, string token, DateTimeOffset expiration, Guid? parentTokenId, string family) : EntityBase<Guid>, IAggregateRoot
 {

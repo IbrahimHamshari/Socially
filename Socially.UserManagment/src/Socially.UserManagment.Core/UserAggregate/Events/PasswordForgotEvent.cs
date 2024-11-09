@@ -1,7 +1,7 @@
 ﻿using Ardalis.SharedKernel;
-using Socially.ContentManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate;
 
-namespace Socially.ContentManagment.UseCases.Users.ForgetPassword;
+namespace Socially.UserManagment.UseCases.Users.ForgetPassword;
 
 public class PasswordForgotEvent(User _user) : DomainEventBase
 {

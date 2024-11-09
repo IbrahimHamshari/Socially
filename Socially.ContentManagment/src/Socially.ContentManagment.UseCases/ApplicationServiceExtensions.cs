@@ -17,7 +17,7 @@ public static class ApplicationServiceExtensions
   {
     services.AddScoped(typeof(IDeletePostService), typeof(DeletePostService));
     services.AddScoped(typeof(ICreatePostService), typeof(CreatePostService));
-    services.AddScoped(typeof(IMediaUpload), typeof(MediaUpload));
+    services.AddScoped(typeof(IMediaUploadService), typeof(MediaUploadService));
     return services;
   }
 }

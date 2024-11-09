@@ -3,7 +3,7 @@ using RabbitMQ.Client;
 using System;
 using System.Text;
 
-namespace Socially.ContentManagment.Infrastructure.Messaging;
+namespace Socially.UserManagment.Infrastructure.Messaging;
 
 public class RabbitMqService : IRabbitMqService
 {

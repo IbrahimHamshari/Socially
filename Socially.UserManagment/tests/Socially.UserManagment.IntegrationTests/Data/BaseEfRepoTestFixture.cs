@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 
-using Socially.ContentManagment.Infrastructure.Data;
+using Socially.UserManagment.Infrastructure.Data;
 
-namespace Socially.ContentManagment.IntegrationTests.Data;
+namespace Socially.UserManagment.IntegrationTests.Data;
 public abstract class BaseEfRepoTestFixture
 {
   protected AppDbContext _dbContext;

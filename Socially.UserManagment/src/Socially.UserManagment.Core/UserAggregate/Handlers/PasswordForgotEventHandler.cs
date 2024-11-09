@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Socially.ContentManagment.Core.Interfaces;
-using Socially.ContentManagment.UseCases.Users.ForgetPassword;
+using Socially.UserManagment.Core.Interfaces;
+using Socially.UserManagment.UseCases.Users.ForgetPassword;
 
-namespace Socially.ContentManagment.UseCases.Users.Handlers;
+namespace Socially.UserManagment.UseCases.Users.Handlers;
 
 public class PasswordForgotEventHandler(IEmailSender _emailSender,
   IHttpContextAccessor _httpContextAccessor,

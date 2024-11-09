@@ -1,8 +1,8 @@
 ﻿using Ardalis.Result;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.UseCases.Users.Common;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.UseCases.Users.Common;
 
-namespace Socially.ContentManagment.UseCases.Users.Login;
+namespace Socially.UserManagment.UseCases.Users.Login;
 
 public interface ILoginService
 {

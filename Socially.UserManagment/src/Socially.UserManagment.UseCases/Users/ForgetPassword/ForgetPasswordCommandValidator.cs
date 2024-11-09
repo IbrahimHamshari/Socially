@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Socially.ContentManagment.Core.Constants;
+using Socially.UserManagment.Core.Constants;
 
-namespace Socially.ContentManagment.UseCases.Users.ForgetPassword;
+namespace Socially.UserManagment.UseCases.Users.ForgetPassword;
 
 public class ForgetPasswordCommandValidator : AbstractValidator<ForgetPasswordCommand>
 {

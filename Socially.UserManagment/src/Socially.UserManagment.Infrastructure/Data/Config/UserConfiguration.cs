@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Socially.ContentManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate;
 
-namespace Socially.ContentManagment.Infrastructure.Data.Config;
+namespace Socially.UserManagment.Infrastructure.Data.Config;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {

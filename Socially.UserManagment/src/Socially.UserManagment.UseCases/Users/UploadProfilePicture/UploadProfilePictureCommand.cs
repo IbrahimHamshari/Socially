@@ -8,5 +8,5 @@ using Ardalis.Result;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Http;
 
-namespace Socially.ContentManagment.UseCases.Users.UploadProfilePicture;
+namespace Socially.UserManagment.UseCases.Users.UploadProfilePicture;
 public record UploadProfilePictureCommand(IFormFile File, Guid Id) : ICommand<Result<string>>;

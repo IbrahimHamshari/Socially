@@ -1,10 +1,10 @@
 ﻿using Ardalis.Result;
 using Microsoft.Extensions.Logging;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.UseCases.Users.Common;
-using Socially.ContentManagment.UseCases.Users.Interfaces;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.UseCases.Users.Common;
+using Socially.UserManagment.UseCases.Users.Interfaces;
 
-namespace Socially.ContentManagment.UseCases.Users.Login;
+namespace Socially.UserManagment.UseCases.Users.Login;
 
 public class LoginService(
   ITokenGenerator TokenGenerator,

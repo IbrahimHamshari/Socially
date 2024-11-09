@@ -2,12 +2,12 @@
 using Ardalis.SharedKernel;
 using FluentAssertions;
 using NSubstitute;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Core.UserAggregate.Specifications;
-using Socially.ContentManagment.UseCases.Users.Get;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Specifications;
+using Socially.UserManagment.UseCases.Users.Get;
 using Xunit;
 
-namespace Socially.ContentManagment.UnitTests.UseCases.Users;
+namespace Socially.UserManagment.UnitTests.UseCases.Users;
 
 public class GetUserQueryHandlerTests
 {

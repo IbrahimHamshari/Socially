@@ -3,8 +3,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
-using Socially.ContentManagment.Infrastructure.Data;
-using Socially.ContentManagment.Infrastructure.Messaging;
+using Socially.UserManagment.Infrastructure.Data;
+using Socially.UserManagment.Infrastructure.Messaging;
 using Socially.UserManagment.Infrastructure.Data.Entites;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Socially.ContentManagment.Infrastructure.BackgroundJobs;
+namespace Socially.UserManagment.Infrastructure.BackgroundJobs;
 
 [DisallowConcurrentExecution]
 public class ProcessOutboxMessagesJob : IJob

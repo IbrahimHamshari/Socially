@@ -1,6 +1,6 @@
 ﻿using Ardalis.SharedKernel;
 
-namespace Socially.ContentManagment.Core.UserAggregate.Events;
+namespace Socially.UserManagment.Core.UserAggregate.Events;
 
 public class UserChangedPasswordEvent(User user) : DomainEventBase
 {

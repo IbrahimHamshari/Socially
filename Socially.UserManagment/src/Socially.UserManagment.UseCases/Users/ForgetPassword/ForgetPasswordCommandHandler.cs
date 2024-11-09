@@ -1,10 +1,10 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Core.UserAggregate.Errors;
-using Socially.ContentManagment.Core.UserAggregate.Specifications;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Errors;
+using Socially.UserManagment.Core.UserAggregate.Specifications;
 
-namespace Socially.ContentManagment.UseCases.Users.ForgetPassword;
+namespace Socially.UserManagment.UseCases.Users.ForgetPassword;
 
 public class ForgetPasswordCommandHandler(
   IRepository<User> _repository) : ICommandHandler<ForgetPasswordCommand, Result>

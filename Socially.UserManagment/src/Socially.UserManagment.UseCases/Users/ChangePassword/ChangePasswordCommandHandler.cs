@@ -1,11 +1,11 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
 using Microsoft.Extensions.Logging;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Core.UserAggregate.Errors;
-using Socially.ContentManagment.Core.UserAggregate.Specifications;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Errors;
+using Socially.UserManagment.Core.UserAggregate.Specifications;
 
-namespace Socially.ContentManagment.UseCases.Users.ChangePassword;
+namespace Socially.UserManagment.UseCases.Users.ChangePassword;
 
 public class ChangePasswordCommandHandler(IRepository<User> _repository,
   ILogger<ChangePasswordCommandHandler> _logger) : ICommandHandler<ChangePasswordCommand, Result>

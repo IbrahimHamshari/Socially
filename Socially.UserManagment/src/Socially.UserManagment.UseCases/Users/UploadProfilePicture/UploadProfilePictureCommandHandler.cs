@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Core.UserAggregate.Errors;
-using Socially.ContentManagment.Core.UserAggregate.Specifications;
-using Socially.ContentManagment.Infrastructure.Constants;
-using Socially.ContentManagment.UseCases.Interfaces;
-using Socially.ContentManagment.UseCases.Users.Common;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Errors;
+using Socially.UserManagment.Core.UserAggregate.Specifications;
+using Socially.UserManagment.Infrastructure.Constants;
+using Socially.UserManagment.UseCases.Interfaces;
+using Socially.UserManagment.UseCases.Users.Common;
 
-namespace Socially.ContentManagment.UseCases.Users.UploadProfilePicture;
+namespace Socially.UserManagment.UseCases.Users.UploadProfilePicture;
 public class UploadProfilePictureCommandHandler(IFileStorageService _fileStorage, IRepository<User> _repository) : ICommandHandler<UploadProfilePictureCommand, Result<string>>
 {
   public async Task<Result<string>> Handle(UploadProfilePictureCommand request, CancellationToken cancellationToken)

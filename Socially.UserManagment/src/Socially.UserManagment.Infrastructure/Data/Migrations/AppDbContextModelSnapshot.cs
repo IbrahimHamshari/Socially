@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Socially.ContentManagment.Infrastructure.Data;
+using Socially.UserManagment.Infrastructure.Data;
 
 #nullable disable
 
-namespace Socially.ContentManagment.Infrastructure.Data.Migrations
+namespace Socially.UserManagment.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

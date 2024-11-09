@@ -1,11 +1,11 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Core.UserAggregate.Errors;
-using Socially.ContentManagment.Core.UserAggregate.Specifications;
-using Socially.ContentManagment.UseCases.Users.Common.DTOs;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Errors;
+using Socially.UserManagment.Core.UserAggregate.Specifications;
+using Socially.UserManagment.UseCases.Users.Common.DTOs;
 
-namespace Socially.ContentManagment.UseCases.Users.Get;
+namespace Socially.UserManagment.UseCases.Users.Get;
 
 public class GetUserQueryHandler(IReadRepository<User> _repository) : IQueryHandler<GetUserQuery, Result<UserDto>>
 {

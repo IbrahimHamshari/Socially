@@ -2,11 +2,11 @@
 using Ardalis.SharedKernel;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Socially.ContentManagment.Core.Interfaces;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Core.UserAggregate.Events;
+using Socially.UserManagment.Core.Interfaces;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Events;
 
-namespace Socially.ContentManagment.Core.Services;
+namespace Socially.UserManagment.Core.Services;
 
 public class CreateUserService(IRepository<User> _repository,
   IMediator _mediator,

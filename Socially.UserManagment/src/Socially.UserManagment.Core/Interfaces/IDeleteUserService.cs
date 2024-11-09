@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 
-namespace Socially.ContentManagment.Core.Interfaces;
+namespace Socially.UserManagment.Core.Interfaces;
 
 public interface IDeleteUserService
 {

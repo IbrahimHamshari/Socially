@@ -1,13 +1,13 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Core.UserAggregate.Errors;
-using Socially.ContentManagment.Core.UserAggregate.Specifications;
-using Socially.ContentManagment.UseCases.Users.ChangePasswordForget;
-using Socially.ContentManagment.UseCases.Users.Common;
-using Socially.ContentManagment.UseCases.Users.Login;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Errors;
+using Socially.UserManagment.Core.UserAggregate.Specifications;
+using Socially.UserManagment.UseCases.Users.ChangePasswordForget;
+using Socially.UserManagment.UseCases.Users.Common;
+using Socially.UserManagment.UseCases.Users.Login;
 
-namespace Socially.ContentManagment.UseCases.Users.ChangeForgetPassword;
+namespace Socially.UserManagment.UseCases.Users.ChangeForgetPassword;
 
 public class ChangeForgetPasswordCommandHandler(IRepository<User> _repository,
   ILoginService _loginService) : ICommandHandler<ChangeForgetPasswordCommand, Result<Tokens>>

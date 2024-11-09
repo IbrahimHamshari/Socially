@@ -1,9 +1,9 @@
 ﻿using Ardalis.HttpClientTestExtensions;
-using Socially.ContentManagment.Infrastructure.Data;
-using Socially.ContentManagment.Web.Contributors;
+using Socially.UserManagment.Infrastructure.Data;
+using Socially.UserManagment.Web.Contributors;
 using Xunit;
 
-namespace Socially.ContentManagment.FunctionalTests.ApiEndpoints;
+namespace Socially.UserManagment.FunctionalTests.ApiEndpoints;
 [Collection("Sequential")]
 public class ContributorGetById(CustomWebApplicationFactory<Program> factory) : IClassFixture<CustomWebApplicationFactory<Program>>
 {

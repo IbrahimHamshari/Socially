@@ -2,12 +2,12 @@
 using Ardalis.SharedKernel;
 using FluentAssertions;
 using NSubstitute;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.UseCases.Users.Common.DTOs;
-using Socially.ContentManagment.UseCases.Users.Register;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.UseCases.Users.Common.DTOs;
+using Socially.UserManagment.UseCases.Users.Register;
 using Xunit;
 
-namespace Socially.ContentManagment.UnitTests.UseCases.Users;
+namespace Socially.UserManagment.UnitTests.UseCases.Users;
 
 public class RegisterUserCommandHandlerTests
 {

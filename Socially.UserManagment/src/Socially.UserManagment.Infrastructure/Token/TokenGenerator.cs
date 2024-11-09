@@ -5,12 +5,12 @@ using System.Text;
 using Ardalis.SharedKernel;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Socially.ContentManagment.Core.RefreshTokenAggregate;
-using Socially.ContentManagment.Core.RefreshTokenAggregate.Specifications;
-using Socially.ContentManagment.UseCases.Users.Interfaces;
+using Socially.UserManagment.Core.RefreshTokenAggregate;
+using Socially.UserManagment.Core.RefreshTokenAggregate.Specifications;
+using Socially.UserManagment.UseCases.Users.Interfaces;
 using Socially.SharedKernel.Config.JWT;
 
-namespace Socially.ContentManagment.Infrastructure.Token;
+namespace Socially.UserManagment.Infrastructure.Token;
 
 public class TokenGenerator : ITokenGenerator
 {

@@ -1,7 +1,7 @@
 ﻿
 using Xunit;
 
-namespace Socially.ContentManagment.IntegrationTests.Data;
+namespace Socially.UserManagment.IntegrationTests.Data;
 public class EfRepositoryDelete : BaseEfRepoTestFixture
 {
   [Fact]

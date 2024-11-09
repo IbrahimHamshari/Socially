@@ -1,8 +1,8 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using Socially.ContentManagment.UseCases.Users.Common;
-using Socially.ContentManagment.UseCases.Users.Common.DTOs;
+using Socially.UserManagment.UseCases.Users.Common;
+using Socially.UserManagment.UseCases.Users.Common.DTOs;
 
-namespace Socially.ContentManagment.UseCases.Users.Login;
+namespace Socially.UserManagment.UseCases.Users.Login;
 
 public record LoginCommand(UserLoginDto User) : ICommand<Result<Tokens>>;

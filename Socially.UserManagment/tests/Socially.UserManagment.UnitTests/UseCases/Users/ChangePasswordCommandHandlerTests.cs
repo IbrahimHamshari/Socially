@@ -3,13 +3,13 @@ using Ardalis.SharedKernel;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Core.UserAggregate.Specifications;
-using Socially.ContentManagment.UseCases.Users.ChangePassword;
-using Socially.ContentManagment.UseCases.Users.Common.DTOs;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Specifications;
+using Socially.UserManagment.UseCases.Users.ChangePassword;
+using Socially.UserManagment.UseCases.Users.Common.DTOs;
 using Xunit;
 
-namespace Socially.ContentManagment.UnitTests.UseCases.Users;
+namespace Socially.UserManagment.UnitTests.UseCases.Users;
 
 public class ChangePasswordCommandHandlerTests
 {

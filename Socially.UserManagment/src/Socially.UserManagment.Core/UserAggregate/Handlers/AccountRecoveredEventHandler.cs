@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using Socially.ContentManagment.Core.Interfaces;
-using Socially.ContentManagment.Core.UserAggregate.Events;
+using Socially.UserManagment.Core.Interfaces;
+using Socially.UserManagment.Core.UserAggregate.Events;
 
-namespace Socially.ContentManagment.UseCases.Users.Handlers;
+namespace Socially.UserManagment.UseCases.Users.Handlers;
 
 public class RecoverAccountEventHandler(
   IEmailSender _emailSender,

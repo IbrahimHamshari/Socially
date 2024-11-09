@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using Socially.ContentManagment.Core.Interfaces;
+using Socially.UserManagment.Core.Interfaces;
 
-namespace Socially.ContentManagment.Infrastructure.Email;
+namespace Socially.UserManagment.Infrastructure.Email;
 
 public class MimeKitEmailSender : IEmailSender
 {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
-using Socially.ContentManagment.UseCases.Users.Common.DTOs;
+using Socially.UserManagment.UseCases.Users.Common.DTOs;
 
-namespace Socially.ContentManagment.UseCases.Users.UploadCoverImage;
+namespace Socially.UserManagment.UseCases.Users.UploadCoverImage;
 public class UploadCoverImageCommandValidator : AbstractValidator<UploadCoverImageCommand>
 {
   private const long MaxAllowedInitialSize = 5 * 1024 * 1024;

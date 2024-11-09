@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using Socially.ContentManagment.Core.Interfaces;
+using Socially.UserManagment.Core.Interfaces;
 
-namespace Socially.ContentManagment.Infrastructure.Email;
+namespace Socially.UserManagment.Infrastructure.Email;
 
 public class FakeEmailSender(ILogger<FakeEmailSender> _logger,
   MailserverConfiguration _mailServerConfiguration) : IEmailSender

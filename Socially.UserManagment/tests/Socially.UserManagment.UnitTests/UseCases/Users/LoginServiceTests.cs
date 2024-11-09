@@ -2,13 +2,13 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
-using Socially.ContentManagment.Core.RefreshTokenAggregate;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.UseCases.Users.Interfaces;
-using Socially.ContentManagment.UseCases.Users.Login;
+using Socially.UserManagment.Core.RefreshTokenAggregate;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.UseCases.Users.Interfaces;
+using Socially.UserManagment.UseCases.Users.Login;
 using Xunit;
 
-namespace Socially.ContentManagment.UnitTests.UseCases.Users;
+namespace Socially.UserManagment.UnitTests.UseCases.Users;
 
 public class LoginServiceTests
 {

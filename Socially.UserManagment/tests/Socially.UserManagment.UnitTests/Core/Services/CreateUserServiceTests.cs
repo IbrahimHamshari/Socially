@@ -3,12 +3,12 @@ using FluentAssertions;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
-using Socially.ContentManagment.Core.Services;
-using Socially.ContentManagment.Core.UserAggregate;
-using Socially.ContentManagment.Core.UserAggregate.Events;
+using Socially.UserManagment.Core.Services;
+using Socially.UserManagment.Core.UserAggregate;
+using Socially.UserManagment.Core.UserAggregate.Events;
 using Xunit;
 
-namespace Socially.ContentManagment.UnitTests.Core.Services;
+namespace Socially.UserManagment.UnitTests.Core.Services;
 
 public class CreateUserServiceTests
 {

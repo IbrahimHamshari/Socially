@@ -1,4 +1,4 @@
-﻿namespace Socially.ContentManagment.Infrastructure.Email;
+﻿namespace Socially.UserManagment.Infrastructure.Email;
 
 public class MailserverConfiguration()
 {
