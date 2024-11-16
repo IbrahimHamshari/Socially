@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Extensions.Logging;
-using Socially.ContentManagment.Core.Interfaces;
 using Socially.ContentManagment.Infrastructure;
 using Socially.ContentManagment.Infrastructure.Data;
+using Socially.ContentManagment.UseCases;
 using Socially.ContentManagment.UseCases.Posts.Create;
 using Socially.ContentManagment.UseCases.Validation;
 using Socially.SharedKernel.Config.JWT;
+using Socially.UserManagment.Web.Infrastructure;
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
   .WriteTo.Console()
@@ -45,16 +46,10 @@ var microsoftLogger = new SerilogLoggerFactory(logger)
 // Configure Web Behavior
 //builder.Services.AddQuartzHostedService();
 
-builder.Services.AddSwaggerGen();
 
-builder.Services.Configure<CookiePolicyOptions>(options =>
-{
-  options.CheckConsentNeeded = context => true;
-  options.MinimumSameSitePolicy = SameSiteMode.None;
-});
 
 var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JWTSettings>();
-
+builder.Services.AddControllers();
 builder.Services.AddAuthentication()
   .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
   {
@@ -73,18 +68,23 @@ builder.Services.Configure<JWTSettings>(
   builder.Configuration.GetSection("Jwt")
 );
 
+builder.Services.AddSwaggerGen();
+
+
 ConfigureMediatR();
 
 
 
 builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogger);
-
+builder.Services.addApplicationServices(microsoftLogger);
 if (builder.Environment.IsDevelopment())
 {
-  // Otherwise use this:
-  //builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
-  AddShowAllServicesSupport();
+   AddShowAllServicesSupport();
 }
+
+builder.Services.AddExceptionHandler<InternalExceptionHandler>();
+builder.Services.AddExceptionHandler<ArgumentValidationExceptionHandler>();
+
 builder.Services.AddProblemDetails();
 var app = builder.Build();
 
@@ -106,6 +106,8 @@ app.UseHttpsRedirection();
 //await SeedDatabase(app);
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseExceptionHandler();
 
 app.MapControllers();
 

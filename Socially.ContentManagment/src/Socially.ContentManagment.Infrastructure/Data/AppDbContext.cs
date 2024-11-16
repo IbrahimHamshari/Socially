@@ -21,7 +21,9 @@ public class AppDbContext : DbContext
   public DbSet<Like> Likes => Set<Like>();
   public DbSet<Share> Shares => Set<Share>();
 
-  public DbSet<OutboxMessage> outboxMessages => Set<OutboxMessage>();
+  public DbSet<InboxMessage> InboxMessages => Set<InboxMessage>();
+
+  public DbSet<User> Users => Set<User>();
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

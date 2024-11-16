@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Quartz;
+using Socially.ContentManagment.Core.PostAggregate;
 using Socially.ContentManagment.Infrastructure.Data;
 using Socially.ContentManagment.Infrastructure.Data.Entites;
 using Socially.ContentManagment.Infrastructure.Messaging;
@@ -35,24 +38,24 @@ public class ProcessRabbitMqMessagesJob : IJob
     try
     {
       // Save the message to the outbox table
-      var outboxMessage = new OutboxMessage
+      var inboxMessage = new InboxMessage
       {
         Id = Guid.NewGuid(),
-        Type = "UserInformation", // Customize the type if needed
+        Type = "CreatedUserEvent", // Customize the type if needed
         Content = message,
         OccuredOnUtc = DateTime.UtcNow,
         ProcessedOnUtc = null,
         Error = null
       };
 
-      _dbContext.outboxMessages.Add(outboxMessage);
+      _dbContext.InboxMessages.Add(inboxMessage);
       await _dbContext.SaveChangesAsync();
 
       // Process the message
-      await ProcessMessageAsync(outboxMessage);
+      await ProcessMessageAsync(inboxMessage);
 
       // Mark as processed
-      outboxMessage.ProcessedOnUtc = DateTime.UtcNow;
+      inboxMessage.ProcessedOnUtc = DateTime.UtcNow;
       await _dbContext.SaveChangesAsync();
     }
     catch (Exception ex)
@@ -62,10 +65,15 @@ public class ProcessRabbitMqMessagesJob : IJob
     }
   }
 
-  private Task ProcessMessageAsync(OutboxMessage message)
+  private async Task ProcessMessageAsync(InboxMessage message)
   {
-    // Implement your business logic for processing the message here
-    Console.WriteLine($"Processing message: {message.Type}, Content: {message.Content}");
-    return Task.CompletedTask;
+    var user = JsonConvert.DeserializeObject<User>(message.Content);
+    if(user == null)
+    {
+      throw new ValidationException("The Content of the message is not suitable for JSON.");
+    }
+    _dbContext.Users.Add(user);
+    await _dbContext.SaveChangesAsync();
+    return;
   }
 }

@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Socially.ContentManagment.Infrastructure.Data;
-using Socially.ContentManagment.Infrastructure.Data.Queries;
 using Socially.ContentManagment.Infrastructure.Messaging;
 using Socially.ContentManagment.Infrastructure.Storage;
 using Socially.ContentManagment.UseCases.Interfaces;

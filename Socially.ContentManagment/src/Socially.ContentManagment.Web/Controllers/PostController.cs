@@ -41,7 +41,7 @@ public class PostController : ControllerBase
     }
     return BadRequest(result.ToProblemDetails());
   }
-  [HttpGet]
+  [HttpGet("user")]
   public async Task<ActionResult<PostDto[]>> GetPosts(Guid id)
   {
     var query = new GetPostsQuery(id);
@@ -53,8 +53,8 @@ public class PostController : ControllerBase
     return BadRequest(result.ToProblemDetails());
 
   }
-  [HttpDelete]
   [Authorize]
+  [HttpDelete]
   public async Task<ActionResult> Delete(Guid id) 
   {
     var userId = Guid.Parse(User.Identity?.Name!);
@@ -67,8 +67,8 @@ public class PostController : ControllerBase
     return BadRequest(result.ToProblemDetails());
   }
 
-  [HttpPost]
   [Authorize]
+  [HttpPost]
   public async Task<ActionResult<PostDto>> CreatePost(CreatePostDto createPostDto)
   {
     var userId = Guid.Parse(User.Identity?.Name!);
@@ -81,8 +81,8 @@ public class PostController : ControllerBase
     return BadRequest(result.ToProblemDetails());
   }
 
-  [HttpPatch]
   [Authorize]
+  [HttpPatch]
   public async Task<ActionResult<PostDto>> UpdatePost(UpdatePostDto updatePostDto)
   {
     var userId = Guid.Parse(User.Identity?.Name!);
@@ -95,8 +95,8 @@ public class PostController : ControllerBase
     return BadRequest(result.ToProblemDetails());
   }
 
-  [HttpPost]
   [Authorize]
+  [HttpPost("like")]
   public async Task<ActionResult> LikePost(ToggleLikeDto toggleLikeDto)
   {
     var userId = Guid.Parse(User.Identity?.Name!);
@@ -109,8 +109,8 @@ public class PostController : ControllerBase
     return BadRequest(result.ToProblemDetails());
   }
 
-  [HttpPost]
   [Authorize]
+  [HttpPost("share")]
   public async Task<ActionResult<SharePostDto>> SharePost(SharePostDto sharePostDto)
   {
     var userId = Guid.Parse(User.Identity?.Name!);
@@ -122,8 +122,8 @@ public class PostController : ControllerBase
     }
     return BadRequest(result.ToProblemDetails());
   }
-  [HttpPost]
   [Authorize]
+  [HttpPost("comment")]
   public async Task<ActionResult> Comment(CreateCommentDto createCommentDto)
   {
     var userId = Guid.Parse(User.Identity?.Name!);
@@ -135,8 +135,8 @@ public class PostController : ControllerBase
     }
     return BadRequest(result.ToProblemDetails());
   }
-  [HttpPatch]
   [Authorize]
+  [HttpPatch("comment")]
   public async Task<ActionResult> UpdateComment (UpdateCommentDto updateCommentDto)
   {
     var userId = Guid.Parse(User.Identity?.Name!);
@@ -149,8 +149,8 @@ public class PostController : ControllerBase
     return BadRequest(result.ToProblemDetails());
   }
 
-  [HttpDelete]
   [Authorize]
+  [HttpDelete("comment")]
   public async Task<ActionResult> DeleteComment(Guid id)
   {
     var userId = Guid.Parse(User.Identity?.Name!);

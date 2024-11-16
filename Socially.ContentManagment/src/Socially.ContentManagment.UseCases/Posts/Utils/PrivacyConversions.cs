@@ -13,9 +13,9 @@ public static class PrivacyConversions
     Privacy pr = Privacy.Public;
     switch (privacy)
     {
-      case 0: privacy = Privacy.Public; break;
-      case 1: privacy = Privacy.Private; break;
-      case 2: privacy = Privacy.Friends; break;
+      case 1: pr = Privacy.Public; break;
+      case 2: pr = Privacy.Friends; break;
+      case 3: pr = Privacy.Private; break;
     }
     return pr;
   }

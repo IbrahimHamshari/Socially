@@ -4,6 +4,7 @@ using Socially.ContentManagment.Core.PostAggregate;
 public class Post : EntityBase<Guid>, IAggregateRoot
 {
   public Guid UserID { get; private set; }
+
   public string Content { get; private set; }
   public string MediaURL { get; private set; }
   public DateTime CreatedAt { get; private set; }
@@ -31,7 +32,6 @@ public class Post : EntityBase<Guid>, IAggregateRoot
     _likes = new List<Like>();
     _shares = new List<Share>();
   }
-
   public void UpdateContent(string content)
   {
     Content = content;
@@ -113,7 +113,7 @@ public class Post : EntityBase<Guid>, IAggregateRoot
 
   public void UpdateShareMessage(Guid userId, string message)
   {
-    var share = _shares.FirstOrDefault(s => (s.UserID== userId && s.PostID == Id));
+    var share = _shares.FirstOrDefault(s => (s.UserID== userId));
     if (share == null)
     {
       throw new ArgumentException("Share Not Fonud");

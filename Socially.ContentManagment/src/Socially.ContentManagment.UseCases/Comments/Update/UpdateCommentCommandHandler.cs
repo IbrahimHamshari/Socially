@@ -7,6 +7,7 @@ using Ardalis.Result;
 using Ardalis.SharedKernel;
 using Socially.ContentManagment.Core.PostAggregate.Errors;
 using Socially.ContentManagment.Core.PostAggregate.Specifications;
+using Socially.ContentManagment.UseCases.Comments.Common.DTOs;
 
 namespace Socially.ContentManagment.UseCases.Comments.Update;
 public class UpdateCommentCommandHandler(IRepository<Post> _repository) : ICommandHandler<UpdateCommentCommand, Result>
@@ -19,8 +20,14 @@ public class UpdateCommentCommandHandler(IRepository<Post> _repository) : IComma
     {
       return PostErrors.NotFound(request.updateCommentDto.Id);
     }
+    try
+    {
     post.UpdateComment(request.userId, request.updateCommentDto.Id, request.updateCommentDto.Content);
-
+    }
+    catch(ArgumentException)
+    {
+      return CommentErrors.NotFound(request.userId);
+    }
     return Result.Success();
 
   }

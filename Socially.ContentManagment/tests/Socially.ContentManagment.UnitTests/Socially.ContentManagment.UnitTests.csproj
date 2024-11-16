@@ -6,13 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Core\Services\ToDoItemSearchService_GetAllIncompleteItems.cs" />
-    <Compile Remove="Core\Services\ToDoItemSearchService_GetNextIncompleteItem.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentAssertions" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Moq" />
     <PackageReference Include="NSubstitute" />
     <PackageReference Include="xunit.runner.visualstudio">
       <PrivateAssets>all</PrivateAssets>
@@ -33,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\Services\" />
+    <Folder Include="Core\" />
   </ItemGroup>
 
   <ItemGroup>

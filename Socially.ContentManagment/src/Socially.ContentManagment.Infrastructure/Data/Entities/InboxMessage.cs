@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Socially.ContentManagment.Infrastructure.Data.Entites;
-public class OutboxMessage
+public class InboxMessage
 {
   public Guid Id { get; set; }
   public string Type { get; set; } = string.Empty;
