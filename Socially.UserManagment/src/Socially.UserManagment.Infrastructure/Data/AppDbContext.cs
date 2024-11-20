@@ -40,13 +40,13 @@ public class AppDbContext : DbContext
     .Where(e => e.DomainEvents.Any())
     .ToArray();
 
-
+   
     var outboxMessages = new List<OutboxMessage>();
     foreach (var entity in entitiesWithEvents)
     {
       foreach (var domainEvent in entity.DomainEvents)
       {
-
+        var originalType = entity.GetType();
         if (domainEvent is not IOutboxEvent)
         {
           continue;
@@ -55,8 +55,8 @@ public class AppDbContext : DbContext
         {
           Id = Guid.NewGuid(),
           OccuredOnUtc = DateTime.UtcNow,
-          Type = domainEvent.GetType().FullName!,
-          Content = JsonConvert.SerializeObject(domainEvent, new JsonSerializerSettings
+          Type = originalType.Name!,
+          Content = JsonConvert.SerializeObject(Convert.ChangeType(entity, originalType), new JsonSerializerSettings
           {
             TypeNameHandling = TypeNameHandling.All,
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore

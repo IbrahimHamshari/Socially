@@ -6,11 +6,8 @@ services:
     build:
       context: .
       dockerfile: Socially.UserManagment/src/Socially.UserManagment.Web/Dockerfile
-    ports:
-     - "5050:8080"
-     - "5051:8081" 
-    environment:
-    - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - rabbitmq
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq
@@ -18,3 +15,16 @@ services:
       - "5672:5672"   # RabbitMQ port for communication
       - "15672:15672" # RabbitMQ management UI port
     restart: always   # Ensure RabbitMQ restarts if it fails  
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+  socially.contentmanagment.web:
+    image: ${DOCKER_REGISTRY-}sociallycontentmanagmentweb
+    build:
+      context: .
+      dockerfile: Socially.ContentManagment/src/Socially.ContentManagment.Web/Dockerfile
+    depends_on: 
+      - rabbitmq
+        
+        
+

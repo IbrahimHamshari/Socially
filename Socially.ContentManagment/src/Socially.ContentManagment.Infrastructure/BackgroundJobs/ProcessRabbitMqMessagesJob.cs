@@ -41,7 +41,7 @@ public class ProcessRabbitMqMessagesJob : IJob
       var inboxMessage = new InboxMessage
       {
         Id = Guid.NewGuid(),
-        Type = "CreatedUserEvent", // Customize the type if needed
+        Type = "User", // Customize the type if needed
         Content = message,
         OccuredOnUtc = DateTime.UtcNow,
         ProcessedOnUtc = null,

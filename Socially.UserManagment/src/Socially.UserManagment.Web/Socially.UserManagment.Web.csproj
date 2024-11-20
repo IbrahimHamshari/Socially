@@ -7,6 +7,9 @@
     <WebProjectMode>true</WebProjectMode>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <UserSecretsId>8d876b3e-4c65-4abe-918c-c0922a33d203</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>

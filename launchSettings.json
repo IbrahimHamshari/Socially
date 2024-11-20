@@ -5,7 +5,8 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "socially.usermanagment.web": "StartDebugging",
-        "rabbitmq": "StartWithoutDebugging"
+        "rabbitmq": "StartWithoutDebugging",
+        "socially.contentmanagment.web": "StartDebugging"
       }
     }
   }

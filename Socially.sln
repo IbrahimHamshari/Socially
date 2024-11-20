@@ -76,7 +76,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Socially.UserManagment.Shared", "Socially.UserManagment\src\Socially.UserManagment.Shared\Socially.UserManagment.Shared.csproj", "{CC0E4569-BB99-4250-AB18-A87B9B46A246}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5B5CB018-58AC-4024-84E4-A804E32BFB41}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{11BD7601-5252-4AD7-8E11-C6845BC74E92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -204,10 +204,10 @@ Global
 		{CC0E4569-BB99-4250-AB18-A87B9B46A246}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC0E4569-BB99-4250-AB18-A87B9B46A246}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC0E4569-BB99-4250-AB18-A87B9B46A246}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B5CB018-58AC-4024-84E4-A804E32BFB41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B5CB018-58AC-4024-84E4-A804E32BFB41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B5CB018-58AC-4024-84E4-A804E32BFB41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B5CB018-58AC-4024-84E4-A804E32BFB41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11BD7601-5252-4AD7-8E11-C6845BC74E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11BD7601-5252-4AD7-8E11-C6845BC74E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11BD7601-5252-4AD7-8E11-C6845BC74E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11BD7601-5252-4AD7-8E11-C6845BC74E92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

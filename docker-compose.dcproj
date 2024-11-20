@@ -4,8 +4,8 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>5b5cb018-58ac-4024-84e4-a804e32bfb41</ProjectGuid>
-    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <ProjectGuid>11bd7601-5252-4ad7-8e11-c6845bc74e92</ProjectGuid>
+    <DockerLaunchAction>None</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>socially.usermanagment.web</DockerServiceName>
   </PropertyGroup>
