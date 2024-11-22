@@ -10,6 +10,6 @@ public class PostsByUserIdSpec: Specification<Post>
 {
   public PostsByUserIdSpec(Guid userId)
   {
-    Query.Where(p => p.UserID == userId);
+    Query.Where(p => p.UserId == userId);
   }
 }

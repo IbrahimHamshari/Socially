@@ -24,6 +24,7 @@ public static class InfrastructureServiceExtensions
 
     services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+    services.AddScoped(typeof(IRabbitMqConsumerService), typeof(RabbitMqConsumerService));
     services.Configure<RabbitMqConfiguration>(config.GetSection("RabbitMqConfiguration"));
     logger.LogInformation("{Project} services registered", nameof(Socially.ContentManagment.Infrastructure));
     services.AddScoped<Supabase.Client>(_ => new Supabase.Client(

@@ -40,6 +40,8 @@
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
     <PackageVersion Include="Quartz" Version="3.13.0" />
+    <PackageVersion Include="Quartz.Extensions.DependencyInjection" Version="3.13.0" />
+    <PackageVersion Include="Quartz.Extensions.Hosting" Version="3.13.0" />
     <PackageVersion Include="RabbitMQ.Client" Version="6.8.1" />
     <PackageVersion Include="ReportGenerator" Version="5.3.9" />
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.2" />

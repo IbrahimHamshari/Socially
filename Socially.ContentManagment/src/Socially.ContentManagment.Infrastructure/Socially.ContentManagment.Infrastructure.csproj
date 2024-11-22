@@ -18,12 +18,15 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\..\..\SharedKernel\SharedKernel.csproj" />
     <ProjectReference Include="..\Socially.ContentManagment.Core\Socially.ContentManagment.Core.csproj" />
     <ProjectReference Include="..\Socially.ContentManagment.UseCases\Socially.ContentManagment.UseCases.csproj" />
   </ItemGroup>
   
   <ItemGroup>
+    <Folder Include="Data\Entities\" />
     <Folder Include="Data\Migrations\" />
     <Folder Include="Data\Queries\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>

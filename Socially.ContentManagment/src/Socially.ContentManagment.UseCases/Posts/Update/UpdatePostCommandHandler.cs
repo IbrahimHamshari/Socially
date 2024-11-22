@@ -45,7 +45,7 @@ public class UpdatePostCommandHandler(IRepository<Post> _repository,
     }
 
     await _repository.SaveChangesAsync();
-    return Result.Success(new PostDto {Id = post.Id, Content = post.Content, MediaURL = post.MediaURL, Privacy = post.Privacy, UserId = post.UserID });
+    return Result.Success(new PostDto {Id = post.Id, Content = post.Content, MediaURL = post.MediaURL, Privacy = post.Privacy, UserId = post.UserId });
 
   }
 }

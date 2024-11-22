@@ -7,8 +7,8 @@ namespace Socially.ContentManagment.Core.PostAggregate;
 
 public class Share : EntityBase<int>
 {
-  public Guid PostID { get; private set; }
-  public Guid UserID { get; private set; }
+  public Guid PostId { get; private set; }
+  public Guid UserId { get; private set; }
   public string Message { get; private set; }
   public DateTime SharedAt { get; private set; }
   public DateTime UpdatedAt { get; private set; }
@@ -16,8 +16,8 @@ public class Share : EntityBase<int>
   // Constructor for creating a share
   public Share(Guid postId, Guid userId, string message)
   {
-    PostID = Guard.Against.Default(postId, nameof(postId));
-    UserID = Guard.Against.Default(userId, nameof(userId));
+    PostId = Guard.Against.Default(postId, nameof(postId));
+    UserId = Guard.Against.Default(userId, nameof(userId));
     Message = Guard.Against.InvalidContentFormat(message, nameof(message));
     SharedAt = DateTime.UtcNow;
     UpdatedAt = DateTime.UtcNow;

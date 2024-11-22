@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
+using SharedKernel.Messages;
 using Socially.ContentManagment.Core.PostAggregate;
-using Socially.ContentManagment.Infrastructure.Data.Entites;
 
 namespace Socially.ContentManagment.Infrastructure.Data;
 public class AppDbContext : DbContext
@@ -30,6 +30,8 @@ public class AppDbContext : DbContext
     modelBuilder.HasDefaultSchema("cm");
     base.OnModelCreating(modelBuilder);
     modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+
   }
 
   public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

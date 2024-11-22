@@ -3,35 +3,36 @@ using Socially.ContentManagment.Core.PostAggregate;
 
 public class Post : EntityBase<Guid>, IAggregateRoot
 {
-  public Guid UserID { get; private set; }
+  public Guid UserId { get; private set; }
 
-  public string Content { get; private set; }
+  public string Content { get; private set; } 
   public string MediaURL { get; private set; }
-  public DateTime CreatedAt { get; private set; }
-  public DateTime UpdatedAt { get; private set; }
+  public DateTime CreatedAt { get; private set; } 
+  public DateTime UpdatedAt { get; private set; } 
   public Privacy Privacy { get; private set; }
 
-  private List<Comment> _comments;
-  private List<Like> _likes;
-  private List<Share> _shares;
+  protected List<Comment> _comments;
+  protected List<Like> _likes;
+  protected List<Share> _shares;
 
   public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();
   public IReadOnlyCollection<Like> Likes => _likes.AsReadOnly();
   public IReadOnlyCollection<Share> Shares => _shares.AsReadOnly();
 
-  // Constructor and business logic here
   public Post(Guid id, Guid userId, string content, Privacy privacy, string mediaURL = "")
   {
     Id = id;
-    UserID = userId;
+    UserId = userId;
     Content = content;
     MediaURL = mediaURL;
     CreatedAt = DateTime.UtcNow;
+    UpdatedAt = DateTime.UtcNow;
     Privacy = privacy;
     _comments = new List<Comment>();
     _likes = new List<Like>();
     _shares = new List<Share>();
   }
+
   public void UpdateContent(string content)
   {
     Content = content;
@@ -47,7 +48,6 @@ public class Post : EntityBase<Guid>, IAggregateRoot
     Privacy = privacy;
   }
 
-  // Business rules for managing Comments, Likes, and Shares should be here
   public void AddComment(Guid userId, string content)
   {
     _comments.Add(new Comment(Guid.NewGuid(), Id, userId, content));
@@ -77,7 +77,7 @@ public class Post : EntityBase<Guid>, IAggregateRoot
 
   public void SharePost(Guid userId, string message)
   {
-    if (!_shares.Any(s => s.UserID == userId))
+    if (!_shares.Any(s => s.UserId == userId))
     {
       _shares.Add(new Share(Id, userId, message));
     }
@@ -87,12 +87,12 @@ public class Post : EntityBase<Guid>, IAggregateRoot
   public void RemoveSharedPost(Guid userId)
   {
     
-    _shares.Remove(_shares.Find(s => s.UserID == userId)!);
+    _shares.Remove(_shares.Find(s => s.UserId == userId)!);
     UpdatedAt = DateTime.UtcNow;
   }
   public void UpdateComment(Guid userId, Guid commentId, string newContent)
   {
-    var comment = _comments.FirstOrDefault(c => c.Id == commentId && c.UserID == userId);
+    var comment = _comments.FirstOrDefault(c => c.Id == commentId && c.UserId == userId);
     if (comment == null)
     {
       throw new ArgumentException("Comment not found");
@@ -113,7 +113,7 @@ public class Post : EntityBase<Guid>, IAggregateRoot
 
   public void UpdateShareMessage(Guid userId, string message)
   {
-    var share = _shares.FirstOrDefault(s => (s.UserID== userId));
+    var share = _shares.FirstOrDefault(s => (s.UserId== userId));
     if (share == null)
     {
       throw new ArgumentException("Share Not Fonud");

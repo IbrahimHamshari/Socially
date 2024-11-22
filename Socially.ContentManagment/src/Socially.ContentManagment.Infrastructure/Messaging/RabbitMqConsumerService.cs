@@ -1,4 +1,5 @@
-﻿using RabbitMQ.Client;
+﻿using Microsoft.Extensions.Options;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,28 +12,36 @@ public class RabbitMqConsumerService : IRabbitMqConsumerService
   private readonly IModel _channel;
   private readonly RabbitMqConfiguration _config;
 
-  public RabbitMqConsumerService(RabbitMqConfiguration config)
+  public RabbitMqConsumerService(IOptions<RabbitMqConfiguration> config)
   {
-    _config = config;
+    _config = config.Value;
 
-    var factory = new ConnectionFactory()
+    if(_config.Enabled)
     {
-      HostName = _config.Hostname,
-      Port = _config.Port,
-      UserName = _config.UserName,
-      Password = _config.Password,
-      VirtualHost = _config.VirtualHost
-    };
+      var factory = new ConnectionFactory()
+      {
+        HostName = _config.Hostname,
+        Port = _config.Port,
+        UserName = _config.UserName,
+        Password = _config.Password,
+        VirtualHost = _config.VirtualHost
+      };
 
-    _connection = factory.CreateConnection();
-    _channel = _connection.CreateModel();
+      _connection = factory.CreateConnection();
+      _channel = _connection.CreateModel();
 
-    // Declare the queue if it doesn't exist
-    _channel.QueueDeclare(queue: _config.QueueName,
-                          durable: true,
-                          exclusive: false,
-                          autoDelete: false,
-                          arguments: null);
+      // Declare the queue if it doesn't exist
+      _channel.QueueDeclare(queue: _config.QueueName,
+                            durable: true,
+                            exclusive: false,
+                            autoDelete: false,
+                            arguments: null);
+    }
+    else
+    {
+      throw new InvalidOperationException("RabbitMQ is disabled in configuration.");
+    }
+
   }
 
   public async Task<string> ConsumeMessageAsync()

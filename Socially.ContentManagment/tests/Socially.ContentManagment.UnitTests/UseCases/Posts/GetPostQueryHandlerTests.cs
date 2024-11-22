@@ -42,7 +42,7 @@ public class GetPostQueryHandlerTests
     Assert.Equal(existingPost.Content, result.Value.Content);
     Assert.Equal(existingPost.MediaURL, result.Value.MediaURL);
     Assert.Equal(existingPost.Privacy, result.Value.Privacy);
-    Assert.Equal(existingPost.UserID, result.Value.UserId);
+    Assert.Equal(existingPost.UserId, result.Value.UserId);
 
     // Verify correct repository method was called
     mockRepository.Verify(r => r.SingleOrDefaultAsync(It.IsAny<ISingleResultSpecification<Post>>(), It.IsAny<CancellationToken>()), Times.Once);

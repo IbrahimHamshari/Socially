@@ -1,10 +1,12 @@
 ﻿using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Quartz;
+using SharedKernel.Messages;
 using Socially.ContentManagment.Core.PostAggregate;
 using Socially.ContentManagment.Infrastructure.Data;
-using Socially.ContentManagment.Infrastructure.Data.Entites;
 using Socially.ContentManagment.Infrastructure.Messaging;
 using System;
 using System.Collections.Generic;
@@ -13,36 +15,45 @@ using System.Threading.Tasks;
 namespace Socially.ContentManagment.Infrastructure.BackgroundJobs;
 
 [DisallowConcurrentExecution]
-public class ProcessRabbitMqMessagesJob : IJob
+public class ProcessRabbitMQMessagesJob : IJob
 {
   private readonly AppDbContext _dbContext;
   private readonly IRabbitMqConsumerService _rabbitMqConsumerService;
+  private readonly ILogger<ProcessRabbitMQMessagesJob> _logger;
 
-  public ProcessRabbitMqMessagesJob(AppDbContext dbContext, IRabbitMqConsumerService rabbitMqConsumerService)
+  public ProcessRabbitMQMessagesJob(AppDbContext dbContext, IRabbitMqConsumerService rabbitMqConsumerService, ILogger<ProcessRabbitMQMessagesJob> logger)
   {
     _dbContext = dbContext;
     _rabbitMqConsumerService = rabbitMqConsumerService;
+    _logger = logger;
   }
 
   public async Task Execute(IJobExecutionContext context)
   {
     // Consume a message from RabbitMQ
     var message = await _rabbitMqConsumerService.ConsumeMessageAsync();
-
     if (string.IsNullOrEmpty(message))
     {
+
       Console.WriteLine("No message received.");
+      return;
+    }
+    var InboxMessage = JsonConvert.DeserializeObject<OutboxMessage>(message);
+
+    if (InboxMessage == null)
+    {
+      _logger.LogError("This rabbitmq Message Is not parsable ${message}",message);
       return;
     }
 
     try
     {
-      // Save the message to the outbox table
+      // Save the message to the inbox table
       var inboxMessage = new InboxMessage
       {
         Id = Guid.NewGuid(),
-        Type = "User", // Customize the type if needed
-        Content = message,
+        Type = InboxMessage.Type, 
+        Content = InboxMessage.Content,
         OccuredOnUtc = DateTime.UtcNow,
         ProcessedOnUtc = null,
         Error = null
@@ -51,29 +62,12 @@ public class ProcessRabbitMqMessagesJob : IJob
       _dbContext.InboxMessages.Add(inboxMessage);
       await _dbContext.SaveChangesAsync();
 
-      // Process the message
-      await ProcessMessageAsync(inboxMessage);
-
-      // Mark as processed
-      inboxMessage.ProcessedOnUtc = DateTime.UtcNow;
-      await _dbContext.SaveChangesAsync();
     }
     catch (Exception ex)
     {
       // Handle any errors and update the error field
-      Console.WriteLine($"Error processing message: {ex.Message}");
+      Console.WriteLine($"Error Creating Inbox Message: {ex.Message}");
     }
   }
 
-  private async Task ProcessMessageAsync(InboxMessage message)
-  {
-    var user = JsonConvert.DeserializeObject<User>(message.Content);
-    if(user == null)
-    {
-      throw new ValidationException("The Content of the message is not suitable for JSON.");
-    }
-    _dbContext.Users.Add(user);
-    await _dbContext.SaveChangesAsync();
-    return;
-  }
 }

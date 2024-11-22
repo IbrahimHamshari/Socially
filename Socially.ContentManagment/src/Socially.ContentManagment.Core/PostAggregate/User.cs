@@ -15,7 +15,13 @@ public class User : EntityBase<Guid>
 
   public string? ProfilePictureURL { get; private set; }
 
-  private User() {}
+  public User(Guid id, string firstName, string lastName, string? profilePictureURL) 
+  {
+    Id = id;
+    FirstName = firstName;
+    LastName = lastName;
+    ProfilePictureURL = profilePictureURL;
+  }
 
 
 }

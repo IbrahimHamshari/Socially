@@ -8,6 +8,9 @@ services:
       dockerfile: Socially.UserManagment/src/Socially.UserManagment.Web/Dockerfile
     depends_on:
       - rabbitmq
+    ports:
+      - "5555:8080"
+      - "5556:8081"
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq
@@ -25,6 +28,10 @@ services:
       dockerfile: Socially.ContentManagment/src/Socially.ContentManagment.Web/Dockerfile
     depends_on: 
       - rabbitmq
+      - socially.usermanagment.web
+    ports:
+        - "5557:8080"
+        - "5558:8081" 
         
         
 

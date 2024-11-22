@@ -10,6 +10,6 @@ public class PostByIdAndUserId : Specification<Post>, ISingleResultSpecification
 {
   public PostByIdAndUserId(Guid postId, Guid userId)
   {
-    Query.Where(p=> p.UserID == userId && p.Id == postId);
+    Query.Where(p=> p.UserId == userId && p.Id == postId);
   }
 }

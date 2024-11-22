@@ -36,6 +36,7 @@ public static class InfrastructureServiceExtensions
     services.Configure<MailserverConfiguration>(config.GetSection("MailserverConfiguration"));
     services.AddScoped<IEmailSender, MimeKitEmailSender>();
     services.Configure<RabbitMqConfiguration>(config.GetSection("RabbitMqConfiguration"));
+   
     services.AddSingleton<IRabbitMqService, RabbitMqService>();
     logger.LogInformation("{Project} services registered", nameof(Socially.UserManagment.Infrastructure));
 

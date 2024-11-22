@@ -9,8 +9,8 @@ namespace Socially.ContentManagment.Core.PostAggregate;
 
 public class Comment : EntityBase<Guid>
 {
-  public Guid PostID { get; private set; }
-  public Guid UserID { get; private set; }
+  public Guid PostId { get; private set; }
+  public Guid UserId { get; private set; }
   public string Content { get; private set; }
   public DateTime CreatedAt { get; private set; }
   public DateTime UpdatedAt { get; private set; }
@@ -22,8 +22,8 @@ public class Comment : EntityBase<Guid>
   public Comment(Guid id, Guid postId, Guid userId, string content)
   {
     Id = Guard.Against.Default(id, nameof(id));
-    PostID = Guard.Against.Default(postId, nameof(postId));
-    UserID = Guard.Against.Default(userId, nameof(userId));
+    PostId = Guard.Against.Default(postId, nameof(postId));
+    UserId = Guard.Against.Default(userId, nameof(userId));
     Content = Guard.Against.InvalidContentFormat(content, nameof(content));
     CreatedAt = DateTime.UtcNow;
     UpdatedAt = DateTime.UtcNow;

@@ -16,6 +16,6 @@ public class GetPostsQueryHandler(IReadRepository<Post> _repository) : IQueryHan
     var id = request.userId;
     var spec = new PostsByUserIdSpec(id);
     var posts = await _repository.ListAsync(spec, cancellationToken);
-    return Result.Success(posts.Select(post => new PostDto { Id=post.Id, Content= post.Content, MediaURL = post.MediaURL, Privacy = post.Privacy, UserId = post.UserID}).ToArray());
+    return Result.Success(posts.Select(post => new PostDto { Id=post.Id, Content= post.Content, MediaURL = post.MediaURL, Privacy = post.Privacy, UserId = post.UserId}).ToArray());
   }
 }

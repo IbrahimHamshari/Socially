@@ -5,12 +5,12 @@ using Newtonsoft.Json;
 using Quartz;
 using Socially.UserManagment.Infrastructure.Data;
 using Socially.UserManagment.Infrastructure.Messaging;
-using Socially.UserManagment.Infrastructure.Data.Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharedKernel.Messages;
 
 namespace Socially.UserManagment.Infrastructure.BackgroundJobs;
 

@@ -22,6 +22,6 @@ public class GetPostQueryHandler(IReadRepository<Post> _repository) : IQueryHand
     {
       return PostErrors.NotFound(request.id);
     }
-    return Result.Success(new PostDto { Id = post.Id, Content = post.Content, Privacy = post.Privacy, MediaURL = post.MediaURL, UserId= post.UserID});
+    return Result.Success(new PostDto { Id = post.Id, Content = post.Content, Privacy = post.Privacy, MediaURL = post.MediaURL, UserId= post.UserId});
   }
 }

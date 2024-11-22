@@ -19,7 +19,7 @@ public  class CreatePostService(IRepository<Post> _repository) : ICreatePostServ
     Privacy pr = PrivacyConversions.IntToPrivacy(privacy);
     Post newPost = new Post ( Guid.NewGuid(), userId, content, pr, mediaURL);
     await _repository.AddAsync(newPost);
-    return Result.Created(new PostDto { Id = newPost.Id, Content = newPost.Content, Privacy = newPost.Privacy, UserId = newPost.UserID, MediaURL = newPost.MediaURL});
+    return Result.Created(new PostDto { Id = newPost.Id, Content = newPost.Content, Privacy = newPost.Privacy, UserId = newPost.UserId, MediaURL = newPost.MediaURL});
     
   }
 }

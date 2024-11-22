@@ -6,9 +6,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Quartz;
 using Serilog;
 using Serilog.Extensions.Logging;
 using Socially.ContentManagment.Infrastructure;
+using Socially.ContentManagment.Infrastructure.BackgroundJobs;
 using Socially.ContentManagment.Infrastructure.Data;
 using Socially.ContentManagment.UseCases;
 using Socially.ContentManagment.UseCases.Posts.Create;
@@ -28,23 +30,33 @@ builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Con
 var microsoftLogger = new SerilogLoggerFactory(logger)
     .CreateLogger<Program>();
 
-//builder.Services.AddQuartz(configure =>
-//{
-//  var jobKey = new JobKey(nameof(ProcessOutboxMessagesJob));
+builder.Services.AddQuartz(configure =>
+{
+  var jobKey = new JobKey(nameof(ProcessRabbitMQMessagesJob));
 
-//  configure
-//    .AddJob<ProcessOutboxMessagesJob>(jobKey)
-//    .AddTrigger(
-//      trigger =>
-//        trigger.ForJob(jobKey)
-//          .WithSimpleSchedule(
-//            schedule =>
-//              schedule.WithIntervalInSeconds(10)
-//                .RepeatForever()));
+  configure
+    .AddJob<ProcessRabbitMQMessagesJob>(jobKey)
+    .AddTrigger(
+      trigger =>
+        trigger.ForJob(jobKey)
+          .WithSimpleSchedule(
+            schedule =>
+              schedule.WithIntervalInSeconds(10)
+                .RepeatForever()));
 
-//});
-// Configure Web Behavior
-//builder.Services.AddQuartzHostedService();
+  var inboxJobKey = new JobKey(nameof(ProcessInboxMessagesJob));
+
+  configure
+    .AddJob<ProcessInboxMessagesJob>(inboxJobKey)
+    .AddTrigger(
+      trigger =>
+        trigger.ForJob(inboxJobKey)
+          .WithSimpleSchedule(
+            schedule =>
+              schedule.WithIntervalInSeconds(10)
+                .RepeatForever()));
+});
+builder.Services.AddQuartzHostedService();
 
 
 
@@ -79,7 +91,7 @@ builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogge
 builder.Services.addApplicationServices(microsoftLogger);
 if (builder.Environment.IsDevelopment())
 {
-   AddShowAllServicesSupport();
+  AddShowAllServicesSupport();
 }
 
 builder.Services.AddExceptionHandler<InternalExceptionHandler>();
@@ -143,7 +155,7 @@ void ConfigureMediatR()
   {
     cfg.RegisterServicesFromAssemblies(mediatRAssemblies!);
     cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
-    }
+  }
   );
   builder.Services.AddValidatorsFromAssemblyContaining<CreatePostCommand>();
   builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
