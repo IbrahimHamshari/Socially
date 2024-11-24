@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿// TO DO: When the user Update his first/last name it will send a message to the content managment.
+
+using System.Reflection;
 using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -32,6 +34,7 @@ public class AppDbContext : DbContext
     modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
   }
 
+  
   public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
   {
     var entitiesWithEvents = ChangeTracker.Entries<EntityBase<Guid>>()

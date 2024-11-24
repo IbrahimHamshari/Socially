@@ -33,7 +33,14 @@ public class MediaUploadService(IFileStorageService _fileStorage) : IMediaUpload
     {
       // Compress and upload image
       using var compressedImageStream = await CompressImageAsync(media.OpenReadStream());
+      try
+      {
       mediaURL = await _fileStorage.UploadFileAsync(compressedImageStream, Guid.NewGuid().ToString("N"), BucketStorageConstants.POSTMEDIABUCKET);
+      }
+      catch(Exception ex)
+      {
+        Console.WriteLine(ex.Message);
+      }
     }
     else if (media.ContentType.StartsWith("video"))
     {
