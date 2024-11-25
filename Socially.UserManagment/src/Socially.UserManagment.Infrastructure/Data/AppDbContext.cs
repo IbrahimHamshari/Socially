@@ -27,6 +27,7 @@ public class AppDbContext : DbContext
 
   public DbSet<OutboxMessage> outboxMessages => Set<OutboxMessage>();
 
+  public DbSet<UserConnection> userConnections => Set<UserConnection>();
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
     modelBuilder.HasDefaultSchema("um");

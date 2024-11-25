@@ -32,6 +32,10 @@ public class User : EntityBase<Guid>, IAggregateRoot
 
   public DateTimeOffset? ResetTokenGeneratedAt { get; private set; }
 
+
+  private readonly List<UserConnection> _connections = new List<UserConnection>();
+
+  public IReadOnlyCollection<UserConnection> Connections => _connections.AsReadOnly();
   public User(Guid id, string username, string email, string passwordHash, string firstName, string lastName, bool gender)
   {
     Id = Guard.Against.Default(id, nameof(id));
@@ -246,4 +250,31 @@ public class User : EntityBase<Guid>, IAggregateRoot
     var userForgotEvent = new PasswordForgotEvent(this);
     RegisterDomainEvent(userForgotEvent);
   }
+
+  // Add a connection
+  public void AddConnection(User otherUser)
+  {
+    Guard.Against.Null(otherUser, nameof(otherUser));
+    if (_connections.Any(c => c.FollowedId == otherUser.Id))
+    {
+      throw new InvalidOperationException("Connection already exists.");
+    }
+
+    var connection = new UserConnection(this.Id, otherUser.Id);
+    _connections.Add(connection);
+  }
+
+  // Remove a connection
+  public void RemoveConnection(User otherUser)
+  {
+    Guard.Against.Null(otherUser, nameof(otherUser));
+    var connection = _connections.FirstOrDefault(c => c.FollowedId == otherUser.Id);
+    if (connection == null)
+    {
+      throw new InvalidOperationException("Connection does not exist.");
+    }
+
+    _connections.Remove(connection);
+  }
+
 }
