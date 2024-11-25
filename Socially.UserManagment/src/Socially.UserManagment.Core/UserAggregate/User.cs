@@ -251,30 +251,18 @@ public class User : EntityBase<Guid>, IAggregateRoot
     RegisterDomainEvent(userForgotEvent);
   }
 
-  // Add a connection
-  public void AddConnection(User otherUser)
+  public void TriggerConnection(User otherUser)
   {
     Guard.Against.Null(otherUser, nameof(otherUser));
     if (_connections.Any(c => c.FollowedId == otherUser.Id))
     {
-      throw new InvalidOperationException("Connection already exists.");
+      _connections.Remove(_connections.Find(c =>  c.FollowedId == otherUser.Id)!);
+      return;
     }
 
     var connection = new UserConnection(this.Id, otherUser.Id);
     _connections.Add(connection);
   }
 
-  // Remove a connection
-  public void RemoveConnection(User otherUser)
-  {
-    Guard.Against.Null(otherUser, nameof(otherUser));
-    var connection = _connections.FirstOrDefault(c => c.FollowedId == otherUser.Id);
-    if (connection == null)
-    {
-      throw new InvalidOperationException("Connection does not exist.");
-    }
-
-    _connections.Remove(connection);
-  }
 
 }

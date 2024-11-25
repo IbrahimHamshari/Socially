@@ -18,6 +18,7 @@ using Socially.UserManagment.UseCases.Users.UploadProfilePicture;
 using Socially.UserManagment.UseCases.Users.Verify;
 using Socially.UserManagment.Web.Extensions;
 using Socially.SharedKernel.Config.JWT;
+using Socially.UserManagment.UseCases.Users.FollowUser;
 
 namespace Socially.UserManagment.Web.Users;
 
@@ -182,6 +183,19 @@ public class UserController : ControllerBase
     if (result.IsSuccess)
     {
       return Ok(result.Value);
+    }
+    return BadRequest(result.ToProblemDetails());
+  }
+  [HttpPost("follow")]
+  [Authorize]
+  public async Task<IActionResult> TriggerFollow(Guid followedId)
+  {
+    var followerId = Guid.Parse(User.Identity!.Name!);
+    var command = new TriggerFollowUserCommand(followerId, followedId);
+    var result = await _mediator.Send(command);
+    if (result.IsSuccess)
+    {
+      return Ok();
     }
     return BadRequest(result.ToProblemDetails());
   }

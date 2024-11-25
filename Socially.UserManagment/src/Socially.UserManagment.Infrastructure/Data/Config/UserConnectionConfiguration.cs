@@ -22,6 +22,6 @@ public class UserConnectionConfiguration : IEntityTypeConfiguration<UserConnecti
       .HasForeignKey(uc => uc.FollowedId)
       .OnDelete(DeleteBehavior.Cascade);
 
-    builder.HasIndex(uc => new {uc.FollowerId, uc.FollowedId}).IsUnique()
+    builder.HasIndex(uc => new { uc.FollowerId, uc.FollowedId }).IsUnique();
   }
 }
