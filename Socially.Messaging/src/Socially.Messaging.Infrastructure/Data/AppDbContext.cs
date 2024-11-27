@@ -1,7 +1,11 @@
 ﻿using System.Reflection;
 using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using SharedKernel.Events;
+using SharedKernel.Messages;
 using Socially.Messaging.Core.ContributorAggregate;
+using Socially.Messaging.Core.MessageAggregate;
 
 namespace Socially.Messaging.Infrastructure.Data;
 public class AppDbContext : DbContext
@@ -15,7 +19,9 @@ public class AppDbContext : DbContext
     _dispatcher = dispatcher;
   }
 
-  public DbSet<Contributor> Contributors => Set<Contributor>();
+  public DbSet<Message> Messages => Set<Message>();
+  public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
+  public DbSet<InboxMessage> InboxMessages => Set<InboxMessage>();
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
@@ -36,6 +42,40 @@ public class AppDbContext : DbContext
         .Where(e => e.DomainEvents.Any())
         .ToArray();
 
+    if (result > 0)
+    {
+
+
+      var outboxMessages = new List<OutboxMessage>();
+      foreach (var entity in entitiesWithEvents)
+      {
+        foreach (var domainEvent in entity.DomainEvents)
+        {
+          var originalType = entity.GetType();
+          if (domainEvent is not IOutboxEvent)
+          {
+            continue;
+          }
+          var outboxMessage = new OutboxMessage
+          {
+            Id = Guid.NewGuid(),
+            OccuredOnUtc = DateTime.UtcNow,
+            Type = domainEvent.GetType().FullName!,
+            Content = JsonConvert.SerializeObject(Convert.ChangeType(entity, originalType), new JsonSerializerSettings
+            {
+              TypeNameHandling = TypeNameHandling.All,
+              ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            }),  // Assuming JSON serialization
+          };
+          outboxMessages.Add(outboxMessage);
+        }
+
+
+      }
+
+      await Set<OutboxMessage>().AddRangeAsync(outboxMessages, cancellationToken);
+      await base.SaveChangesAsync(cancellationToken);
+    }
     await _dispatcher.DispatchAndClearEvents(entitiesWithEvents);
 
     return result;

@@ -10,10 +10,16 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" />
     <PackageReference Include="Microsoft.Extensions.Logging" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\Socially.Messaging.Core\Socially.Messaging.Core.csproj" />
     <ProjectReference Include="..\Socially.Messaging.UseCases\Socially.Messaging.UseCases.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+    <Folder Include="Data\Queries\" />
   </ItemGroup>
 </Project>

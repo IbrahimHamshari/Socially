@@ -1,17 +1,22 @@
 ﻿using System.Reflection;
+using System.Text;
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
-using FastEndpoints;
-using FastEndpoints.Swagger;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Serilog;
 using Serilog.Extensions.Logging;
 using Socially.Messaging.Core.ContributorAggregate;
 using Socially.Messaging.Core.Interfaces;
+using Socially.Messaging.Core.MessageAggregate;
 using Socially.Messaging.Infrastructure;
 using Socially.Messaging.Infrastructure.Data;
 using Socially.Messaging.Infrastructure.Email;
-using Socially.Messaging.UseCases.Contributors.Create;
+using Socially.Messaging.Web.Infrastructure;
+using Socially.SharedKernel.Config.JWT;
+
 
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
@@ -27,36 +32,53 @@ var microsoftLogger = new SerilogLoggerFactory(logger)
     .CreateLogger<Program>();
 
 // Configure Web Behavior
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+  options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+});
+
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
   options.CheckConsentNeeded = context => true;
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
-
-builder.Services.AddFastEndpoints()
-                .SwaggerDocument(o =>
-                {
-                  o.ShortSchemaNames = true;
-                });
+builder.Services.AddSwaggerGen();
 
 ConfigureMediatR();
 
-builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogger);
+var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JWTSettings>();
+
+builder.Services.AddAuthentication()
+  .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+  {
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+      ValidateIssuer = true,
+      ValidIssuer = jwtOptions!.Issuer,
+      ValidateAudience = true,
+      ValidAudience = jwtOptions.Audience,
+      ValidateIssuerSigningKey = true,
+      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Secret)),
+    };
+  });
+builder.Services.Configure<JWTSettings>(
+  builder.Configuration.GetSection("Jwt")
+);
+builder.Services.AddHttpContextAccessor();
 
 if (builder.Environment.IsDevelopment())
 {
-  // Use a local test email server
-  // See: https://ardalis.com/configuring-a-local-test-email-server/
-  builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
-
-  // Otherwise use this:
-  //builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
   AddShowAllServicesSupport();
+
 }
-else
-{
-  builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
-}
+builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogger);
+
+builder.Services.AddExceptionHandler<InternalExceptionHandler>();
+builder.Services.AddExceptionHandler<ArgumentValidationExceptionHandler>();
+
+builder.Services.AddProblemDetails();
+
 
 var app = builder.Build();
 
@@ -64,46 +86,54 @@ if (app.Environment.IsDevelopment())
 {
   app.UseDeveloperExceptionPage();
   app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
+
+  app.UseSwagger();
+  app.UseSwaggerUI();
+
 }
 else
 {
-  app.UseDefaultExceptionHandler(); // from FastEndpoints
   app.UseHsts();
 }
 
-app.UseFastEndpoints()
-    .UseSwaggerGen(); // Includes AddFileServer and static files middleware
 
 app.UseHttpsRedirection();
 
-await SeedDatabase(app);
+//await SeedDatabase(app);
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseExceptionHandler();
+
+app.MapControllers();
 
 app.Run();
 
-static async Task SeedDatabase(WebApplication app)
-{
-  using var scope = app.Services.CreateScope();
-  var services = scope.ServiceProvider;
+//static async Task SeedDatabase(WebApplication app)
+//{
+//  using var scope = app.Services.CreateScope();
+//  var services = scope.ServiceProvider;
 
-  try
-  {
-    var context = services.GetRequiredService<AppDbContext>();
-    //          context.Database.Migrate();
-    context.Database.EnsureCreated();
-    await SeedData.InitializeAsync(context);
-  }
-  catch (Exception ex)
-  {
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
-  }
-}
+//  try
+//  {
+//    var context = services.GetRequiredService<AppDbContext>();
+//    //          context.Database.Migrate();
+//    context.Database.EnsureCreated();
+//    await SeedData.InitializeAsync(context);
+//  }
+//  catch (Exception ex)
+//  {
+//    var logger = services.GetRequiredService<ILogger<Program>>();
+//    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+//  }
+//}
 
 void ConfigureMediatR()
 {
   var mediatRAssemblies = new[]
 {
-  Assembly.GetAssembly(typeof(Contributor)), // Core
+  Assembly.GetAssembly(typeof(Message)), // Core
   Assembly.GetAssembly(typeof(CreateContributorCommand)) // UseCases
 };
   builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
