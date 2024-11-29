@@ -6,14 +6,13 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Quartz;
 using Serilog;
 using Serilog.Extensions.Logging;
-using Socially.Messaging.Core.ContributorAggregate;
-using Socially.Messaging.Core.Interfaces;
 using Socially.Messaging.Core.MessageAggregate;
 using Socially.Messaging.Infrastructure;
+using Socially.Messaging.Infrastructure.BackgroundJobs;
 using Socially.Messaging.Infrastructure.Data;
-using Socially.Messaging.Infrastructure.Email;
 using Socially.Messaging.UseCases.Messages.Send;
 using Socially.Messaging.Web.Infrastructure;
 using Socially.SharedKernel.Config.JWT;
@@ -31,6 +30,38 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 var microsoftLogger = new SerilogLoggerFactory(logger)
     .CreateLogger<Program>();
+
+
+builder.Services.AddQuartz(configure =>
+{
+  var jobKey = new JobKey(nameof(ProcessRabbitMQMessagesJob));
+
+  configure
+    .AddJob<ProcessRabbitMQMessagesJob>(jobKey)
+    .AddTrigger(
+      trigger =>
+        trigger.ForJob(jobKey)
+          .WithSimpleSchedule(
+            schedule =>
+              schedule.WithIntervalInSeconds(10)
+                .RepeatForever()));
+
+  var inboxJobKey = new JobKey(nameof(ProcessInboxMessagesJob));
+
+  configure
+    .AddJob<ProcessInboxMessagesJob>(inboxJobKey)
+    .AddTrigger(
+      trigger =>
+        trigger.ForJob(inboxJobKey)
+          .WithSimpleSchedule(
+            schedule =>
+              schedule.WithIntervalInSeconds(10)
+                .RepeatForever()));
+});
+builder.Services.AddQuartzHostedService();
+
+
+
 
 // Configure Web Behavior
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
@@ -50,6 +81,7 @@ builder.Services.AddSignalR();
 
 
 var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JWTSettings>();
+builder.Services.AddControllers();
 
 builder.Services.AddAuthentication()
   .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
@@ -72,6 +104,8 @@ builder.Services.AddHttpContextAccessor();
 
 if (builder.Environment.IsDevelopment())
 {
+  builder.Services.AddSwaggerGen();
+
   AddShowAllServicesSupport();
 
 }

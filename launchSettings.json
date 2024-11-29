@@ -6,7 +6,8 @@
       "serviceActions": {
         "socially.usermanagment.web": "StartDebugging",
         "rabbitmq": "StartWithoutDebugging",
-        "socially.contentmanagment.web": "StartDebugging"
+        "socially.contentmanagment.web": "StartDebugging",
+        "socially.messaging.web": "StartDebugging"
       }
     }
   }

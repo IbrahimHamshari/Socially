@@ -33,7 +33,7 @@ public class MessagesController : ControllerBase
 
   [HttpGet("conversation")]
   [Authorize]
-  public async Task<IActionResult> GetChatHistory(Guid userId2)
+  public async Task<IActionResult> GetChatHistory([FromBody] Guid userId2)
   {
     var id = Guid.Parse(User.Identity!.Name!);
     var query = new ReadMessageQuery(id, userId2);

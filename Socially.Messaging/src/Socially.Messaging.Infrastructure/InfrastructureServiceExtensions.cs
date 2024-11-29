@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Socially.Messaging.Core.Interfaces;
-using Socially.Messaging.Core.Services;
 using Socially.Messaging.Infrastructure.Data;
-using Socially.Messaging.Infrastructure.Email;
+using Socially.Messaging.Infrastructure.Interfaces;
+using Socially.Messaging.Infrastructure.Messaging;
+using Socially.Messaging.Infrastructure.Messaging.Services;
 
 namespace Socially.Messaging.Infrastructure;
 public static class InfrastructureServiceExtensions
@@ -23,7 +23,9 @@ public static class InfrastructureServiceExtensions
 
     services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
-    services.AddScoped<IDeleteContributorService, DeleteContributorService>();
+    services.AddScoped(typeof(IRabbitMqConsumerService), typeof(RabbitMqConsumerService));
+    services.Configure<RabbitMqConfiguration>(config.GetSection("RabbitMqConfiguration"));
+    services.AddScoped(typeof(INotificationService), typeof(SignalRNotificationService));
     logger.LogInformation("{Project} services registered", "Infrastructure");
 
     return services;

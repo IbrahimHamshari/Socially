@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Socially.Messaging.Core.ContributorAggregate;
 
 namespace Socially.Messaging.Infrastructure.Data;
 //public static class SeedData

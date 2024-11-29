@@ -80,7 +80,6 @@ builder.Services.Configure<JWTSettings>(
   builder.Configuration.GetSection("Jwt")
 );
 
-builder.Services.AddSwaggerGen();
 
 
 ConfigureMediatR();
@@ -91,6 +90,8 @@ builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogge
 builder.Services.addApplicationServices(microsoftLogger);
 if (builder.Environment.IsDevelopment())
 {
+  builder.Services.AddSwaggerGen();
+
   AddShowAllServicesSupport();
 }
 

@@ -21,6 +21,7 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
+
   socially.contentmanagment.web:
     image: ${DOCKER_REGISTRY-}sociallycontentmanagmentweb
     build:
@@ -35,3 +36,16 @@ services:
         
         
 
+
+  socially.messaging.web:
+    image: ${DOCKER_REGISTRY-}sociallymessagingweb
+    build:
+      context: .
+      dockerfile: Socially.Messaging/src/Socially.Messaging.Web/Dockerfile
+    depends_on: 
+      - rabbitmq
+      - socially.usermanagment.web
+      - socially.contentmanagment.web
+    ports:
+        - "5559:8080"
+        - "5560:8081" 

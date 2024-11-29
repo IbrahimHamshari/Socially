@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SharedKernel.Events;
 using SharedKernel.Messages;
-using Socially.Messaging.Core.ContributorAggregate;
 using Socially.Messaging.Core.MessageAggregate;
 
 namespace Socially.Messaging.Infrastructure.Data;
@@ -23,6 +22,7 @@ public class AppDbContext : DbContext
   public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
   public DbSet<InboxMessage> InboxMessages => Set<InboxMessage>();
 
+  public DbSet<User> Users => Set<User>();
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
     base.OnModelCreating(modelBuilder);

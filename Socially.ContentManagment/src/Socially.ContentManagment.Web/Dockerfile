@@ -11,8 +11,8 @@ ARG BUILD_CONFIGURATION=Debug
 WORKDIR /src
 
 # Copy the Directory.Packages.props file for centralized package management
-COPY ["Socially.UserManagment/Directory.Packages.props", "Socially.UserManagment/"]
-COPY ["Socially.UserManagment/Directory.Build.props", "Socially.UserManagment/"]
+COPY ["Socially.ContentManagment/Directory.Packages.props", "Socially.ContentManagment/"]
+COPY ["Socially.ContentManagment/Directory.Build.props", "Socially.ContentManagment/"]
 
 COPY ["Socially.ContentManagment/src/Socially.ContentManagment.Web/Socially.ContentManagment.Web.csproj", "Socially.ContentManagment/src/Socially.ContentManagment.Web/"]
 COPY ["SharedKernel/SharedKernel.csproj", "SharedKernel/"]
