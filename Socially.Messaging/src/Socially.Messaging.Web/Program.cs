@@ -14,6 +14,7 @@ using Socially.Messaging.Core.MessageAggregate;
 using Socially.Messaging.Infrastructure;
 using Socially.Messaging.Infrastructure.Data;
 using Socially.Messaging.Infrastructure.Email;
+using Socially.Messaging.UseCases.Messages.Send;
 using Socially.Messaging.Web.Infrastructure;
 using Socially.SharedKernel.Config.JWT;
 
@@ -45,6 +46,8 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 builder.Services.AddSwaggerGen();
 
 ConfigureMediatR();
+builder.Services.AddSignalR();
+
 
 var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JWTSettings>();
 
@@ -134,7 +137,7 @@ void ConfigureMediatR()
   var mediatRAssemblies = new[]
 {
   Assembly.GetAssembly(typeof(Message)), // Core
-  Assembly.GetAssembly(typeof(CreateContributorCommand)) // UseCases
+  Assembly.GetAssembly(typeof(SendMessageCommand)) // UseCases
 };
   builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
   builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));

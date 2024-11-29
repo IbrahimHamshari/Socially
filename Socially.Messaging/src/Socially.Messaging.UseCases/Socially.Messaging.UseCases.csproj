@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Socially.Messaging.Core\Socially.Messaging.Core.csproj" />
+    <ProjectReference Include="..\Socially.Messaging.Infrastructure\Socially.Messaging.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
