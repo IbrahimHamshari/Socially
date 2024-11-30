@@ -86,7 +86,7 @@ public class MarkMessageAsReadCommandHandlerTests
     // Assert
     Assert.NotNull(result);
     Assert.Equal(ResultStatus.NotFound, result.Status);
-    Assert.Contains(messageId.ToString(), result.Errors.First());
+    Assert.Contains(MessageErrors.NotFound(messageId).Errors.First(), result.Errors.First());
 
     mockRepository.Verify(repo =>
         repo.SingleOrDefaultAsync(It.IsAny<MessageById>(), It.IsAny<CancellationToken>()),

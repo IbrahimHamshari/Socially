@@ -99,13 +99,12 @@ public class SendMessageCommandHandlerTests
         .Setup(repo => repo.AddAsync(It.IsAny<Message>(), It.IsAny<CancellationToken>()))
         .ThrowsAsync(new Exception("Database error"));
 
-    // Act
-    var result = await handler.Handle(command, CancellationToken.None);
+    // Act & Assert
+    var exception = await Assert.ThrowsAsync<Exception>(async () =>
+        await handler.Handle(command, CancellationToken.None)
+    );
 
-    // Assert
-    Assert.NotNull(result);
-    Assert.Equal(ResultStatus.Error, result.Status);
-    Assert.Contains("Database error", result.Errors.First());
+    Assert.Equal("Database error", exception.Message);
 
     mockRepository.Verify(repo => repo.AddAsync(It.IsAny<Message>(), It.IsAny<CancellationToken>()), Times.Once);
     mockNotificationService.Verify(service => service.NotifyUserAsync(It.IsAny<Guid>(), It.IsAny<MessageDto>()), Times.Never);
@@ -148,13 +147,12 @@ public class SendMessageCommandHandlerTests
         .Setup(service => service.NotifyUserAsync(receiverId, It.IsAny<MessageDto>()))
         .ThrowsAsync(new Exception("Notification error"));
 
-    // Act
-    var result = await handler.Handle(command, CancellationToken.None);
+    // Act & Assert
+    var exception = await Assert.ThrowsAsync<Exception>(async () =>
+        await handler.Handle(command, CancellationToken.None)
+    );
 
-    // Assert
-    Assert.NotNull(result);
-    Assert.Equal(ResultStatus.Error, result.Status);
-    Assert.Contains("Notification error", result.Errors.First());
+    Assert.Equal("Notification error", exception.Message);
 
     mockRepository.Verify(repo => repo.AddAsync(It.IsAny<Message>(), It.IsAny<CancellationToken>()), Times.Once);
     mockNotificationService.Verify(service => service.NotifyUserAsync(receiverId, It.IsAny<MessageDto>()), Times.Once);

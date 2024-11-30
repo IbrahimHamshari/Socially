@@ -13,6 +13,7 @@ using Socially.Messaging.Core.MessageAggregate;
 using Socially.Messaging.Infrastructure;
 using Socially.Messaging.Infrastructure.BackgroundJobs;
 using Socially.Messaging.Infrastructure.Data;
+using Socially.Messaging.Infrastructure.Messaging;
 using Socially.Messaging.UseCases.Messages.Send;
 using Socially.Messaging.Web.Infrastructure;
 using Socially.SharedKernel.Config.JWT;
@@ -142,6 +143,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseExceptionHandler();
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.MapControllers();
 

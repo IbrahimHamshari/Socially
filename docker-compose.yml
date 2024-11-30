@@ -33,8 +33,6 @@ services:
     ports:
         - "5557:8080"
         - "5558:8081" 
-        
-        
 
 
   socially.messaging.web:

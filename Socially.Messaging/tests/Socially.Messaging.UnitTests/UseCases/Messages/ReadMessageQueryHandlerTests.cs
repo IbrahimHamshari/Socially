@@ -95,13 +95,12 @@ public class ReadMessageQueryHandlerTests
         .Setup(repo => repo.ListAsync(It.IsAny<MessageBySenderNReceiver>(), It.IsAny<CancellationToken>()))
         .ThrowsAsync(new Exception("Database error"));
 
-    // Act
-    var result = await handler.Handle(query, CancellationToken.None);
+    // Act & Assert
+    var exception = await Assert.ThrowsAsync<Exception>(async () =>
+        await handler.Handle(query, CancellationToken.None)
+    );
 
-    // Assert
-    Assert.NotNull(result);
-    Assert.Equal(ResultStatus.Error, result.Status);
-    Assert.Contains("Database error", result.Errors.First());
+    Assert.Equal("Database error", exception.Message);
 
     mockRepository.Verify(repo => repo.ListAsync(It.IsAny<MessageBySenderNReceiver>(), It.IsAny<CancellationToken>()), Times.Once);
   }
