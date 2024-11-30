@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Socially.UserManagment.Infrastructure.CookieManagment;
 using Socially.UserManagment.UseCases.Users.ChangePassword;
 using Socially.UserManagment.UseCases.Users.ChangePasswordForget;
 using Socially.UserManagment.UseCases.Users.Common.DTOs;
@@ -19,6 +18,8 @@ using Socially.UserManagment.UseCases.Users.Verify;
 using Socially.UserManagment.Web.Extensions;
 using Socially.SharedKernel.Config.JWT;
 using Socially.UserManagment.UseCases.Users.FollowUser;
+using Socially.UserManagment.UseCases.Users.Refresh;
+using SharedKernel.CookieManagment;
 
 namespace Socially.UserManagment.Web.Users;
 
@@ -198,5 +199,23 @@ public class UserController : ControllerBase
       return Ok();
     }
     return BadRequest(result.ToProblemDetails());
+  }
+
+  [HttpGet("refresh")]
+  public async Task<IActionResult> RefreshToken(string URL)
+  {
+    var refreshToken = _cookieService.GetCookie("RefreshToken");
+    if(refreshToken == null)
+    {
+      return Unauthorized();
+    }
+    var refreshCommand = new RefreshCommand(refreshToken);
+    var result = await _mediator.Send(refreshCommand);
+    if(result.IsSuccess)
+    {
+      _cookieService.SetCookie("RefreshToken", result.Value[1], _jwtSettings.CurrentValue.RefreshTokenExpiryDays);
+      return Ok(result.Value[0]);
+    }
+    return Unauthorized();
   }
 }

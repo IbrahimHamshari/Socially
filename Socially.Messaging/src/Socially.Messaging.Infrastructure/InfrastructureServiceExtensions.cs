@@ -1,5 +1,6 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,9 @@ public static class InfrastructureServiceExtensions
   public static IServiceCollection AddInfrastructureServices(
     this IServiceCollection services,
     ConfigurationManager config,
-    ILogger logger)
+    ILogger logger,
+    bool isDevelopment = true
+    )
   {
     string? connectionString = config.GetConnectionString("PostgreSqlConnection");
     Guard.Against.Null(connectionString);
@@ -23,8 +26,11 @@ public static class InfrastructureServiceExtensions
 
     services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+    if(isDevelopment)
+    {
     services.AddScoped(typeof(IRabbitMqConsumerService), typeof(RabbitMqConsumerService));
     services.Configure<RabbitMqConfiguration>(config.GetSection("RabbitMqConfiguration"));
+    }
     services.AddScoped(typeof(INotificationService), typeof(SignalRNotificationService));
     logger.LogInformation("{Project} services registered", "Infrastructure");
 

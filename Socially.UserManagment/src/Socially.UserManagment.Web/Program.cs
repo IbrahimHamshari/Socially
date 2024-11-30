@@ -13,7 +13,6 @@ using Socially.UserManagment.Core.Interfaces;
 using Socially.UserManagment.Core.UserAggregate;
 using Socially.UserManagment.Infrastructure;
 using Socially.UserManagment.Infrastructure.BackgroundJobs;
-using Socially.UserManagment.Infrastructure.CookieManagment;
 using Socially.UserManagment.Infrastructure.Data;
 using Socially.UserManagment.Infrastructure.Email;
 using Socially.UserManagment.UseCases;
@@ -22,6 +21,7 @@ using Socially.UserManagment.UseCases.Validation;
 using Socially.UserManagment.Web.Infrastructure;
 using Newtonsoft.Json;
 using Socially.SharedKernel.Config.JWT;
+using SharedKernel.CookieManagment;
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
   .WriteTo.Console()

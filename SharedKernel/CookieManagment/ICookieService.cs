@@ -1,4 +1,4 @@
-﻿namespace Socially.UserManagment.Infrastructure.CookieManagment;
+﻿namespace SharedKernel.CookieManagment;
 
 public interface ICookieService
 {

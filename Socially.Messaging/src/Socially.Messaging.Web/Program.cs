@@ -4,11 +4,13 @@ using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Quartz;
 using Serilog;
 using Serilog.Extensions.Logging;
+using SharedKernel.Middleware;
 using Socially.Messaging.Core.MessageAggregate;
 using Socially.Messaging.Infrastructure;
 using Socially.Messaging.Infrastructure.BackgroundJobs;
@@ -31,38 +33,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 var microsoftLogger = new SerilogLoggerFactory(logger)
     .CreateLogger<Program>();
-
-
-builder.Services.AddQuartz(configure =>
-{
-  var jobKey = new JobKey(nameof(ProcessRabbitMQMessagesJob));
-
-  configure
-    .AddJob<ProcessRabbitMQMessagesJob>(jobKey)
-    .AddTrigger(
-      trigger =>
-        trigger.ForJob(jobKey)
-          .WithSimpleSchedule(
-            schedule =>
-              schedule.WithIntervalInSeconds(10)
-                .RepeatForever()));
-
-  var inboxJobKey = new JobKey(nameof(ProcessInboxMessagesJob));
-
-  configure
-    .AddJob<ProcessInboxMessagesJob>(inboxJobKey)
-    .AddTrigger(
-      trigger =>
-        trigger.ForJob(inboxJobKey)
-          .WithSimpleSchedule(
-            schedule =>
-              schedule.WithIntervalInSeconds(10)
-                .RepeatForever()));
-});
-builder.Services.AddQuartzHostedService();
-
-
-
 
 // Configure Web Behavior
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
@@ -97,7 +67,23 @@ builder.Services.AddAuthentication()
       ValidateIssuerSigningKey = true,
       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Secret)),
     };
+    options.Events = new JwtBearerEvents
+    {
+      OnMessageReceived = context =>
+      {
+        var accessToken = context.Request.Query["access_token"];
+        var path = context.HttpContext.Request.Path;
+        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hub/chat"))
+        {
+          // Assign the token to the context for authentication
+          context.Token = accessToken;
+        }
+          return Task.CompletedTask;
+      }
+    };
   });
+
+
 builder.Services.Configure<JWTSettings>(
   builder.Configuration.GetSection("Jwt")
 );
@@ -105,10 +91,42 @@ builder.Services.AddHttpContextAccessor();
 
 if (builder.Environment.IsDevelopment())
 {
+
   builder.Services.AddSwaggerGen();
 
   AddShowAllServicesSupport();
 
+}
+else
+{
+
+  builder.Services.AddQuartz(configure =>
+  {
+    var jobKey = new JobKey(nameof(ProcessRabbitMQMessagesJob));
+
+    configure
+      .AddJob<ProcessRabbitMQMessagesJob>(jobKey)
+      .AddTrigger(
+        trigger =>
+          trigger.ForJob(jobKey)
+            .WithSimpleSchedule(
+              schedule =>
+                schedule.WithIntervalInSeconds(10)
+                  .RepeatForever()));
+
+    var inboxJobKey = new JobKey(nameof(ProcessInboxMessagesJob));
+
+    configure
+      .AddJob<ProcessInboxMessagesJob>(inboxJobKey)
+      .AddTrigger(
+        trigger =>
+          trigger.ForJob(inboxJobKey)
+            .WithSimpleSchedule(
+              schedule =>
+                schedule.WithIntervalInSeconds(10)
+                  .RepeatForever()));
+  });
+  builder.Services.AddQuartzHostedService();
 }
 builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogger);
 
@@ -139,12 +157,15 @@ app.UseHttpsRedirection();
 
 //await SeedDatabase(app);
 
+app.UseRefresh();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.UseExceptionHandler();
 
-app.MapHub<ChatHub>("/chatHub");
+app.MapHub<ChatHub>("/api/chatHub").RequireAuthorization();
 
 app.MapControllers();
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Socially.UserManagment.Infrastructure.CookieManagment;
+namespace SharedKernel.CookieManagment;
 
 public class CookieService : ICookieService
 {

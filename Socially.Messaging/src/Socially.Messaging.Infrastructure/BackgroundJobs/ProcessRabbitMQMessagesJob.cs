@@ -7,7 +7,7 @@ using Quartz;
 using SharedKernel.Messages;
 using Socially.Messaging.Core.MessageAggregate;
 using Socially.Messaging.Infrastructure.Data;
-using Socially.Messaging.Infrastructure.Messaging;
+using Socially.Messaging.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

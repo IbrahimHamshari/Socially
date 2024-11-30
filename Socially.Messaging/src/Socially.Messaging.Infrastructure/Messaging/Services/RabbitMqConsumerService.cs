@@ -1,10 +1,11 @@
 ﻿using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Socially.Messaging.Infrastructure.Interfaces;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Socially.Messaging.Infrastructure.Messaging;
+namespace Socially.Messaging.Infrastructure.Messaging.Services;
 
 public class RabbitMqConsumerService : IRabbitMqConsumerService
 {
