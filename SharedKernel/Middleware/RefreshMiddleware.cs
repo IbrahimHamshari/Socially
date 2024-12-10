@@ -30,17 +30,45 @@ public class RefreshMiddleware
 
             if (authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
             {
-                var _cookieService = new CookieService(new HttpContextAccessor
+                var token = authHeader.Substring("Bearer ".Length).Trim();
+
+                try
                 {
-                    HttpContext = context
-                });
-                var refreshToken = _cookieService.GetCookie("RefreshToken");
-                if(refreshToken != null)
-                {
-                    context.Response.Redirect(URLConstants.REFRESHURL, true);
-                    return;
-                    
+                    var handler = new JwtSecurityTokenHandler();
+                    var jwtToken = handler.ReadJwtToken(token); // Parse the token without validating it
+
+                    // Extract the 'exp' claim
+                    var expClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Exp)?.Value;
+
+                    if (expClaim != null && long.TryParse(expClaim, out var expUnix))
+                    {
+                        var expirationTime = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
+
+                        Console.WriteLine($"Token expires at: {expirationTime}");
+
+                        if (expirationTime < DateTime.UtcNow)
+                        {
+                            var _cookieService = new CookieService(new HttpContextAccessor
+                            {
+                                HttpContext = context
+                            });
+                            var refreshToken = _cookieService.GetCookie("RefreshToken");
+                            if (refreshToken != null)
+                            {
+                                context.Response.Redirect(URLConstants.REFRESHURL, true);
+                                return;
+
+                            }
+                        }
+                    }
+
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to decode token: {ex.Message}");
+
+                }
+
 
             }
         }

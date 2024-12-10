@@ -11,5 +11,9 @@ namespace Socially.Messaging.Infrastructure.Messaging;
 [Authorize]
 public class ChatHub : Hub
 {
-
+  public override async Task OnConnectedAsync()
+  {
+    await Clients.Client(Context.ConnectionId).SendAsync(Context.UserIdentifier ?? "nothing");
+    await base.OnConnectedAsync();
+  }
 }

@@ -59,7 +59,7 @@ public class UserController : ControllerBase
     if (result.IsSuccess)
     {
       _cookieService.SetCookie("RefreshToken", result.Value.RefreshToken, _jwtSettings.CurrentValue.RefreshTokenExpiryDays);
-      return Ok(result.Value.AccessToken);
+      return Ok(new { accessKey = result.Value.AccessToken });
     }
     return BadRequest(result.ToProblemDetails());
   }
@@ -202,7 +202,7 @@ public class UserController : ControllerBase
   }
 
   [HttpGet("refresh")]
-  public async Task<IActionResult> RefreshToken(string URL)
+  public async Task<IActionResult> RefreshToken()
   {
     var refreshToken = _cookieService.GetCookie("RefreshToken");
     if(refreshToken == null)
@@ -214,7 +214,7 @@ public class UserController : ControllerBase
     if(result.IsSuccess)
     {
       _cookieService.SetCookie("RefreshToken", result.Value[1], _jwtSettings.CurrentValue.RefreshTokenExpiryDays);
-      return Ok(result.Value[0]);
+      return Ok(new {accessKey = result.Value[0] });
     }
     return Unauthorized();
   }

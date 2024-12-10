@@ -1,6 +1,4 @@
-﻿// TO DO: When the user Update his first/last name it will send a message to the content managment.
-
-using System.Reflection;
+﻿using System.Reflection;
 using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;

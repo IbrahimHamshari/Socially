@@ -155,6 +155,7 @@ public class User : EntityBase<Guid>, IAggregateRoot
     UpdatePassword(newPassword);
 
     var recoverAccountEvent = new AccountRecoveredEvent(this);
+    RegisterDomainEvent(recoverAccountEvent);
     ResetPasswordToken = null;
   }
 
@@ -183,12 +184,18 @@ public class User : EntityBase<Guid>, IAggregateRoot
   {
     FirstName = Guard.Against.InvalidFormat(newFirstName, nameof(newFirstName), "^[a-zA-Z0-9\\u0600-\\u06FF]{2,16}$");
     UpdatedAt = DateTimeOffset.UtcNow;
+    var updateEvent = new UserUpdatedEvent(this);
+    RegisterDomainEvent(updateEvent);
+
   }
 
   public void UpdateLastName(string newLastName)
   {
     LastName = Guard.Against.InvalidFormat(newLastName, nameof(newLastName), "^[a-zA-Z0-9\\u0600-\\u06FF]{2,16}$");
     UpdatedAt = DateTimeOffset.UtcNow;
+    var updateEvent = new UserUpdatedEvent(this);
+    RegisterDomainEvent(updateEvent);
+
   }
 
   public void UpdateBio(string newBio)
@@ -201,6 +208,9 @@ public class User : EntityBase<Guid>, IAggregateRoot
   {
     ProfilePictureURL = newProfilePictureURL;
     UpdatedAt = DateTimeOffset.UtcNow;
+    var updateEvent = new UserUpdatedEvent(this);
+    RegisterDomainEvent(updateEvent);
+
   }
 
   public void UpdateCoverPhotoURL(string newCoverPhotoURL)

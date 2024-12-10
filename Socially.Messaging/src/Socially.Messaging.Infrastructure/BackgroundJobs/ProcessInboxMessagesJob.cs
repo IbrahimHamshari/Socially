@@ -54,10 +54,21 @@ public class ProcessInboxMessagesJob : IJob
     {
       throw new ValidationException("The Content of the message is not suitable for JSON.");
     }
+    if(message.Type == "UserUpdateEvent")
+    {
+      var currentUser = _dbContext.Users.Where( u => u.Id == user.Id).ExecuteUpdate(setters =>
+        setters.SetProperty(u => u.FirstName, user.FirstName)
+               .SetProperty(u => u.LastName, user.LastName)
+      );
+    }
+    else
+    {
     _dbContext.Users.Add(user);
+    }
     message.ProcessedOnUtc = DateTime.UtcNow;
     await _dbContext.SaveChangesAsync();
 
     return;
   }
+
 }

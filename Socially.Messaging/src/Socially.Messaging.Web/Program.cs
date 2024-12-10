@@ -71,11 +71,12 @@ builder.Services.AddAuthentication()
     {
       OnMessageReceived = context =>
       {
-        var accessToken = context.Request.Query["access_token"];
+        string? accessBearer = context.Request.Headers.Authorization;
+        if (string.IsNullOrEmpty(accessBearer)) return Task.CompletedTask;
+        var accessToken = accessBearer.Substring("Bearer ".Length).Trim();
         var path = context.HttpContext.Request.Path;
         if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hub/chat"))
         {
-          // Assign the token to the context for authentication
           context.Token = accessToken;
         }
           return Task.CompletedTask;
@@ -165,7 +166,7 @@ app.UseAuthorization();
 
 app.UseExceptionHandler();
 
-app.MapHub<ChatHub>("/api/chatHub").RequireAuthorization();
+app.MapHub<ChatHub>("/hub/chat").RequireAuthorization();
 
 app.MapControllers();
 

@@ -1,6 +1,7 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,7 @@ public static class InfrastructureServiceExtensions
     services.AddScoped(typeof(IRabbitMqConsumerService), typeof(RabbitMqConsumerService));
     services.Configure<RabbitMqConfiguration>(config.GetSection("RabbitMqConfiguration"));
     }
+    services.AddSingleton(typeof(IUserIdProvider), typeof(UniqueNameUserIdProvider));
     services.AddScoped(typeof(INotificationService), typeof(SignalRNotificationService));
     logger.LogInformation("{Project} services registered", "Infrastructure");
 
